@@ -1,0 +1,9 @@
+rule_id,priority,rule,applies_to
+A11Y-001,critical,Body text contrast >= 4.5:1 and large text >= 3:1,all
+A11Y-002,critical,Focus indicator must be visible and not rely on color alone,all
+A11Y-003,critical,Every control needs accessible name and keyboard operation,all
+A11Y-004,critical,Do not use color as the only status signal,all
+A11Y-005,high,Provide reduced-motion behavior,all animated styles
+A11Y-006,high,Provide opaque fallback where transparency harms reading,glass liquid aurora
+A11Y-007,high,Preserve semantic DOM order in responsive grids,bento
+A11Y-008,high,Add explicit boundary and focus treatment for soft-shadow controls,neumorphism claymorphism

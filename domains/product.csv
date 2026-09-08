@@ -1,0 +1,13 @@
+product_type,primary_style,supporting_style,avoid,reason
+saas_dashboard,flat-design,bento-ui,neumorphism,high density needs clear hierarchy and fast scanning
+enterprise_erp,material-design,flat-design,glassmorphism,forms and tables need stable surfaces
+hvac_iot_dashboard,material-design,bento-ui,full-screen-neumorphism,operators need clear states and rapid interaction
+thermostat_control,neumorphism,material-design,aurora-ui,physical-control metaphor can aid affordance but states need explicit semantics
+premium_ai_landing,glassmorphism,aurora-ui,neumorphism,layered premium visual with controlled blur
+mobile_media_app,material-design,liquid-glass,skeuomorphism-everywhere,systematic controls and contextual surfaces
+education_app,claymorphism,flat-design,overly-dark-glass,playful but readable learning surfaces
+portfolio,neobrutalism,bento-ui,unbounded-effects,expressive modular storytelling
+marketing_homepage,aurora-ui,bento-ui,heavy-textured-skeuo,ambient visual emphasis with readable content
+developer_tool,neobrutalism,flat-design,low-contrast-neumorphism,bold states and efficient scanning
+smart_home_app,neumorphism,liquid-glass,low-contrast-only,physical controls plus contextual navigation
+admin_table,flat-design,material-design,glassmorphism,stable opaque surfaces and dense information

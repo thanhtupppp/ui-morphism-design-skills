@@ -1,0 +1,11 @@
+style,default_motion,reduced_motion,avoid
+skeuomorphism,press and release with short transform,instant state change,heavy texture animation
+flat-design,opacity and transform for feedback,opacity-only or instant,animating layout dimensions
+neumorphism,short shadow/transform press,explicit border/state change,large shadow interpolation
+material-design,spatial transitions and state layers,fade or instant,unbounded motion
+glassmorphism,subtle opacity/blur transition,opaque surface transition,continuous full-screen blur
+claymorphism,soft scale/transform feedback,instant or opacity,large bouncing loops
+liquid-glass,contextual morph with restraint,stable solid material,continuous reflection
+aurora-ui,slow ambient background shift,static gradient,fast hue cycling
+bento-ui,card reveal and reorder sparingly,static order,layout jumps
+neobrutalism,press translate with hard shadow,instant press state,shaking or looping motion

@@ -1,0 +1,11 @@
+id,name,keywords,best_for,avoid,effects,accessibility_risk,performance_risk
+skeuomorphism,Skeuomorphism,"physical,texture,realistic,affordance","device controls,media,legacy familiarity","dense enterprise UI,excessive texture","texture,material lighting,bevel","texture can reduce text clarity","large images and layered effects"
+flat-design,Flat Design,"minimal,clear,2d,clean","SaaS,CRUD,dashboards,utility apps","weak hierarchy,ambiguous states","color,spacing,typography,icon","state may rely on color","low"
+neumorphism,Neumorphism,"soft,raised,embossed,soft-ui","thermostat,smart-home,small widgets","complex forms,tables,data-dense screens","dual shadows,low-relief surface","low contrast and unclear boundaries","multiple shadows"
+material-design,Material Design,"system,elevation,components,motion","cross-platform apps,design systems","blind framework defaults","surface,elevation,motion,tokens","must configure contrast and focus","usually low"
+glassmorphism,Glassmorphism,"frosted,transparent,blur,layered","hero cards,overlays,navigation","long text,data tables,forms on busy backgrounds","alpha surface,backdrop blur,tint,border","background affects contrast","backdrop blur can be expensive"
+claymorphism,Claymorphism,"soft,playful,3d,pastel","education,onboarding,gamification","dense professional workflows","large radius,thick shadow,highlight","soft controls need explicit focus","shadows and illustration layers"
+liquid-glass,Liquid Glass / Liquid UI,"fluid,translucent,dynamic,material","contextual controls,navigation,premium product UI","full-page wallpaper,critical text","dynamic translucency,reflection,depth","content visibility and focus","continuous effects and blur"
+aurora-ui,Aurora UI,"gradient,glow,ambient,premium","AI landing pages,marketing,hero","dense apps,body copy backgrounds","multi-gradient,blur,glow","gradient can reduce contrast","large gradients and animation"
+bento-ui,Bento UI,"modular,grid,cards,compartmentalized","overview pages,portfolios,dashboards","unstructured card soup","grid,card hierarchy,variable spans","reading order and responsive stacking","many cards and images"
+neobrutalism,Neobrutalism,"bold,raw,hard-shadow,high-contrast","campaigns,dev tools,creative brands","quiet enterprise UI,small dense text","solid border,offset shadow,bright color","harsh contrast and focus ambiguity","usually low"

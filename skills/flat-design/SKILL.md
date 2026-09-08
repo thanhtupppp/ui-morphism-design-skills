@@ -1,17 +1,16 @@
----
-name: flat-design
-description: UI tối giản, hierarchy rõ, phù hợp nghiệp vụ và dashboard.
----
 # Flat Design
 
-## Dùng khi
-- SaaS, admin, POS, quản lý bảo trì, dashboard IoT/HVAC.
+## Intent
+Create a clear, efficient interface using color, typography, spacing, iconography, and layout instead of physical effects.
 
-## Quy tắc
-- Dùng typography, spacing, semantic color và border tinh tế để tạo hierarchy.
-- Có đủ hover, active, focus-visible, disabled, error.
-- Một primary action cho mỗi vùng.
+## Rules
+- Use a small semantic color palette and strong type scale.
+- Create hierarchy with spacing, grouping, alignment, and surface color.
+- Define explicit hover, focus, pressed, selected, disabled, loading, error, and success states.
+- Use stable, opaque surfaces for data tables and forms.
+- Start mobile-first and keep semantic HTML.
 
-## Checklist
-- [ ] Table, form, empty state rõ ràng
-- [ ] Token hóa hệ màu semantic
+## Avoid
+- Low-contrast gray-on-gray surfaces.
+- Removing all borders and states in the name of minimalism.
+- Using color alone for status.

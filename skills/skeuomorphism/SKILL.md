@@ -1,18 +1,17 @@
----
-name: skeuomorphism
-description: Mô phỏng vật liệu hoặc cơ chế vật lý để tạo affordance quen thuộc.
----
 # Skeuomorphism
 
-## Dùng khi
-- Mixer âm thanh, thermostat, panel máy móc, game.
+## Intent
+Use recognizable physical metaphors to make controls understandable through material, texture, depth, and affordance.
 
-## Quy tắc
-- Chỉ mô phỏng chi tiết hỗ trợ thao tác: knob, switch, gauge, slider.
-- Tách trạng thái semantic khỏi texture; bật/tắt cần label, icon hoặc giá trị.
-- Không dùng cho CRUD, bảng dữ liệu dày đặc hoặc form phức tạp.
+## Rules
+- Use one material language per surface and one consistent light direction.
+- Keep text surfaces calm; use texture only when it supports material recognition.
+- Buttons may use bevel and pressed states but must retain visible focus.
+- Controls must expose labels, values, and state text.
+- Use for hero controls, media tools, or device simulations, not every card.
+- Provide a flat fallback with solid surface, border, and shadow.
 
-## Checklist
-- [ ] Control vẫn nhận biết khi không có texture
-- [ ] Asset tối ưu và có fallback
-- [ ] Không tạo affordance giả
+## Avoid
+- Fake hardware metaphors for ordinary data tables.
+- Decorative texture behind long text.
+- Shadow-only disabled, focus, or selected states.

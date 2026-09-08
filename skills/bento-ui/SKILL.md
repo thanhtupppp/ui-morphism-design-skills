@@ -1,23 +1,17 @@
----
-name: bento-ui
-description: Card grid modular, hierarchy rõ và responsive.
----
 # Bento UI
 
-## Dùng khi
-- Homepage, dashboard tổng quan, portfolio, analytics, feature discovery.
+## Intent
+Organize content into modular cards with deliberate spans, grouping, rhythm, and responsive composition.
 
-## Quy tắc
-- Mỗi card trả lời một câu hỏi hoặc action chính.
-- Card lớn chỉ dành cho nội dung ưu tiên.
-- Mobile-first: một cột trước, tăng span ở breakpoint lớn.
+## Rules
+- Assign each card one clear job and priority.
+- Use a consistent grid, gap, radius, and internal padding.
+- Give high-priority cards larger spans; do not make every card equal.
+- Define mobile stacking order from task priority.
+- Preserve semantic headings and logical DOM order.
+- Test zoom, localization, keyboard order, and narrow screens.
 
-```css
-.bento { display:grid; gap:var(--space-4); grid-template-columns:repeat(12,minmax(0,1fr)); }
-.bento > * { grid-column:span 4; }
-@media (max-width:768px) { .bento { grid-template-columns:1fr; } .bento > * { grid-column:auto; } }
-```
-
-## Checklist
-- [ ] DOM order hợp lý trên mobile
-- [ ] Không cắt text khi localization
+## Avoid
+- Card soup with no hierarchy.
+- Fixed-height cards for variable content.
+- Decorative grids that hide primary actions.

@@ -1,0 +1,8 @@
+component,preferred_styles,required_states,notes
+button,flat-design material-design neobrutalism,"default hover focus active disabled loading","press feedback must not remove focus"
+form,flat-design material-design,"default focus error success disabled","persistent labels and associated errors"
+card,bento-ui glassmorphism claymorphism,"default hover focus loading empty error","one clear job per card"
+data-table,flat-design material-design,"loading empty error selected focus","avoid transparent or low-relief surfaces"
+modal,material-design glassmorphism,"open close focus-trap loading error","restore focus and use stable backdrop"
+thermostat,neumorphism material-design,"default pressed focus disabled warning","show value and state text"
+hero,aurora-ui glassmorphism bento-ui,"loading error reduced-motion","keep content readable without effects"

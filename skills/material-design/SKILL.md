@@ -1,17 +1,15 @@
----
-name: material-design
-description: System surface, elevation, color role, component state và motion nhất quán.
----
 # Material Design
 
-## Dùng khi
-- Android, cross-platform app, design system lớn.
+## Intent
+Use a systematic language of surfaces, elevation, components, motion, adaptive layout, and tokens.
 
-## Quy tắc
-- Khởi đầu bằng color roles, type scale, spacing, elevation scale và component API.
-- Elevation diễn tả quan hệ layer, không phải decoration.
-- Bọc thư viện UI qua component nội bộ để kiểm soát API.
+## Rules
+- Define color roles, typography roles, shape scale, elevation levels, and state layers.
+- Treat elevation as spatial meaning, not decoration.
+- Use motion to explain state, hierarchy, and spatial continuity.
+- Prefer reusable patterns for navigation, forms, dialogs, menus, tables, and feedback.
+- Configure contrast, focus, target size, labels, errors, and keyboard order.
 
-## Checklist
-- [ ] Surface/elevation có quy ước
-- [ ] Motion hỗ trợ reduced motion
+## Avoid
+- Applying framework defaults without checking product context.
+- Treating elevation or motion as a substitute for hierarchy.

@@ -1,13 +1,32 @@
-# Design brief UI morphism
+# UI Morphism Design Brief
 
-- Sản phẩm và luồng chính:
-- Người dùng, thiết bị, môi trường:
-- Stack frontend:
-- Mục tiêu thương hiệu/cảm xúc:
-- Mật độ dữ liệu và action quan trọng:
-- Style chủ đạo và lý do:
-- Accent style (nếu có):
-- Yêu cầu accessibility:
-- Ngân sách hiệu năng:
-- Component cần xây dựng:
-- Tiêu chí nghiệm thu:
+## Product
+- Name:
+- Product type:
+- Primary user:
+- Primary tasks:
+
+## Context
+- Device:
+- Environment:
+- Data density: low / medium / high
+- Interaction density: low / medium / high
+- Brand personality:
+
+## Constraints
+- Stack:
+- Browser/platform support:
+- Accessibility requirements:
+- Performance budget:
+- Dark mode:
+- Localization:
+
+## Requested output
+- Primary style:
+- Supporting style:
+- Tokens:
+- Component map:
+- Responsive rules:
+- Motion rules:
+- Accessibility audit:
+- Anti-patterns:

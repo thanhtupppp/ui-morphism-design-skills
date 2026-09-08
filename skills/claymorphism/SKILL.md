@@ -1,17 +1,16 @@
----
-name: claymorphism
-description: Component bo tròn, mềm, phồng như đất sét cho sản phẩm thân thiện.
----
 # Claymorphism
 
-## Dùng khi
-- Onboarding, EdTech, wellness, gamification, portfolio.
+## Intent
+Use soft, inflated, rounded forms to communicate friendliness, playfulness, and approachability.
 
-## Quy tắc
-- Radius lớn, palette giới hạn, shadow mềm và inner highlight nhẹ.
-- Surface phụ nên phẳng hơn để tránh rối.
-- CTA, error và destructive action vẫn phải rõ semantic.
+## Rules
+- Use generous radius, friendly colors, soft highlights, and thick contact shadows.
+- Keep typography crisp and restrained.
+- Suitable for onboarding, education, empty states, and gamification.
+- Pair with Flat Design for content-heavy sections.
+- Controls still need labels, focus, pressed, disabled, and validation states.
 
-## Checklist
-- [ ] CTA có text/contrast tốt
-- [ ] Shadow không gây nhòe
+## Avoid
+- Inflated cards for every item in a dense list.
+- Tiny text inside soft shapes.
+- Low-contrast pastel combinations.

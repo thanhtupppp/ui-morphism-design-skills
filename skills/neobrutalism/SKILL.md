@@ -1,21 +1,17 @@
----
-name: neobrutalism
-description: Border dày, shadow cứng, màu tương phản và typography táo bạo.
----
 # Neobrutalism
 
-## Dùng khi
-- Portfolio, cộng đồng, game, campaign, dev tool có brand mạnh.
+## Intent
+Use bold color blocks, hard borders, offset shadows, and direct typography for an expressive visual language.
 
-## Quy tắc
-- Palette giới hạn; border/shadow có quy ước cố định.
-- Body text giữ trung tính, dễ đọc.
-- Không dùng cho luồng nhạy cảm nếu giảm độ tin cậy.
+## Rules
+- Use solid borders and unblurred offset shadows as intentional depth cues.
+- Use a restrained high-contrast palette.
+- Use type weight and scale for hierarchy.
+- Buttons may shift on press using transform while preserving focus and target size.
+- Provide a focus ring distinguishable from the thick component border.
+- Ensure offset shadows do not cause overflow.
 
-```css
-.card { background:#fef08a; border:3px solid #111827; box-shadow:6px 6px 0 #111827; }
-```
-
-## Checklist
-- [ ] Contrast text nhỏ đạt yêu cầu
-- [ ] Focus ring phân biệt border
+## Avoid
+- Aggressive combinations that reduce readability.
+- Fake buttons without keyboard or pressed states.
+- Permanent motion or oversized typography that breaks localization.

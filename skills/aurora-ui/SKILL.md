@@ -1,17 +1,16 @@
----
-name: aurora-ui
-description: Gradient chuyển động, blur và glow như cực quang cho background/accent.
----
 # Aurora UI
 
-## Dùng khi
-- Landing page AI/devtool, auth screen, campaign, hero section.
+## Intent
+Use ambient multi-color gradients and glow to establish mood, focus, and premium visual identity.
 
-## Quy tắc
-- Aurora là accent/background, không phải container dữ liệu chính.
-- Đặt content trên surface có contrast ổn định.
-- Hạn chế animation liên tục trên mobile.
+## Rules
+- Keep aurora gradients behind content, not inside every component.
+- Use calm neutral content surfaces for reading and interaction.
+- Reserve semantic colors for success, warning, and error.
+- Best for hero, background, CTA emphasis, and selected highlights.
+- Disable or simplify movement for reduced motion.
 
-## Checklist
-- [ ] Nội dung đọc được khi tắt effect
-- [ ] Glow không thay thế focus/error
+## Avoid
+- Animated backgrounds behind long text.
+- Using glow as a status indicator.
+- Neon surfaces overpowering the primary action.

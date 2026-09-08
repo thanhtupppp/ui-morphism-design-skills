@@ -1,31 +1,41 @@
----
-name: ui-morphism-design-router
-description: Chọn và áp dụng phong cách UI morphism phù hợp với mục tiêu sản phẩm, accessibility và hiệu năng.
----
+# UI Morphism Design Skill
 
-# UI Morphism Design Router
+## Mission
 
-## Chọn nhanh
+Select and apply a UI morphism style to a real frontend without sacrificing clarity, accessibility, responsive behavior, performance, or maintainability.
 
-| Bối cảnh | Style ưu tiên |
-|---|---|
-| SaaS, ERP, dashboard IoT/HVAC | Flat hoặc Material + Bento |
-| Landing page công nghệ/premium | Glass hoặc Aurora |
-| Widget điều khiển đơn lẻ | Neumorphism hoặc Clay |
-| Android/cross-platform quy mô lớn | Material Design |
-| Portfolio, cộng đồng, brand táo bạo | Neobrutalism |
-| UI mô phỏng thiết bị/vật lý | Skeuomorphism có giới hạn |
+## Required input
 
-## Quy trình
+- Product type and primary user.
+- Primary tasks and interaction density.
+- Data density: low, medium, or high.
+- Device and environment.
+- Brand personality and content tone.
+- Frontend stack and browser support.
+- Accessibility, performance, localization, and dark-mode constraints.
 
-1. Chọn một style chủ đạo và tối đa một accent style.
-2. Đọc `skills/<style>/SKILL.md` trước khi code.
-3. Khai báo design token; không hard-code shadow, blur hoặc radius rải rác.
-4. Xây đủ default, hover, active, focus-visible, disabled, loading và error.
-5. Test responsive, contrast, keyboard navigation, reduced motion và hiệu năng.
+## Decision workflow
 
-## Done
+1. Parse the brief and identify product, audience, context, density, device, and constraints.
+2. Query `domains/product.csv` for candidate styles.
+3. Apply `domains/reasoning.csv` from highest priority to lowest priority.
+4. Select exactly one primary style and at most one supporting style.
+5. Read the selected style's `SKILL.md` and implementation notes.
+6. Generate semantic design tokens and map them to component states.
+7. Build mobile-first and preserve semantic DOM order.
+8. Audit accessibility, performance, responsive behavior, and anti-patterns.
 
-- Không dùng riêng màu để biểu đạt state.
-- Focus ring rõ trên mọi background.
-- Blur/motion có fallback và không làm giảm UX trên thiết bị yếu.
+## Hard rules
+
+- Visual style must never be the only carrier of meaning.
+- Text and essential controls need a stable surface when transparency or gradients reduce contrast.
+- Every interactive control needs visible keyboard focus and a non-hover interaction state.
+- Support `prefers-reduced-motion`.
+- Provide fallbacks for blur, gradient, shadow, and unsupported CSS features.
+- Do not use heavy blur over large areas without a performance test.
+- Keep CSS effects in tokens and utility classes.
+- Preserve semantic HTML, accessible names, labels, error association, and logical focus order.
+
+## Output contract
+
+Return primary style and rationale, supporting style and boundaries, risks, token table, component/state plan, responsive and motion behavior, implementation plan, and audit checklist.

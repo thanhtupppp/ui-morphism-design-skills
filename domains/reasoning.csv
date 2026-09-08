@@ -1,0 +1,14 @@
+priority,condition,then,why
+100,data_density=high,prefer flat-design or material-design,stable surfaces and scanability
+100,critical_workflow=true,avoid full-screen glassmorphism and aurora-ui,critical content needs predictable contrast
+95,device=field-tablet,prefer flat-design or material-design,glare and touch conditions favor clarity
+95,performance_budget=low,disable heavy blur and continuous animation,effects compete with interaction budget
+95,motion_sensitive=true,require reduced-motion path,accessibility and comfort
+90,product_type=dashboard,use bento-ui only as layout,avoid treating bento as a complete visual material
+90,background=visually-rich,require opaque fallback surface,background movement can reduce contrast
+85,component=form-control,require explicit border label and focus even in neumorphism,shadow alone is not an accessible boundary
+85,brand_personality=bold and audience=gen-z,consider neobrutalism,visual tone matches expressive audience
+80,product_type=landing and mood=premium,consider glassmorphism plus aurora-ui,visual layering supports marketing context
+80,product_type=smart-control,consider neumorphism plus material interaction rules,physical metaphor with explicit digital feedback
+75,platform=ios-or-apple-ecosystem,consider liquid-glass with fallback,platform material should remain contextual and functional
+70,no_match=true,use flat-design plus material interaction rules,safe general fallback

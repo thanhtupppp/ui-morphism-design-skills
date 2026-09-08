@@ -1,21 +1,17 @@
----
-name: glassmorphism
-description: Surface kính mờ bằng transparency, border sáng và backdrop blur.
----
 # Glassmorphism
 
-## Dùng khi
-- Landing page, modal, overlay, player, dashboard có nền giàu màu.
+## Intent
+Create layered frosted surfaces that reveal but soften the content behind them.
 
-## Quy tắc
-- Blur chỉ nằm trong card/modal, không phủ toàn viewport.
-- Tăng opacity hoặc dùng opaque fallback khi nền sau làm khó đọc.
-- Không lồng nhiều backdrop-filter.
+## Rules
+- Use translucent tint, subtle border, controlled blur, and depth through overlap.
+- Keep important text on a stable surface and add a scrim when needed.
+- Use one or two glass levels, not competing translucencies.
+- Good for hero cards, floating navigation, modal surfaces, and contextual panels.
+- Provide an opaque fallback surface.
+- Bound `backdrop-filter` to small surfaces and test on mobile hardware.
 
-```css
-.glass { background:rgb(255 255 255 / .14); border:1px solid rgb(255 255 255 / .28); backdrop-filter:blur(16px); }
-```
-
-## Checklist
-- [ ] Có fallback `@supports`
-- [ ] Test FPS mobile
+## Avoid
+- Full-screen blur as the default page background.
+- Low-contrast text over busy imagery.
+- Glass for long reading, data tables, or complex forms.

@@ -1,18 +1,15 @@
-# UI Morphism Design Skills
+# UI Morphism Design Intelligence
 
-Bộ skill tái sử dụng để chọn và triển khai phong cách UI frontend, có xét accessibility, hiệu năng và khả năng bảo trì.
+This repository is a reusable frontend design skill for selecting and implementing UI morphism styles in production products.
 
-## Phong cách
+## Supported styles
 
-- Skeuomorphism
-- Flat Design
-- Neumorphism
-- Material Design
-- Glassmorphism
-- Claymorphism
-- Liquid Glass / Liquid UI
-- Aurora UI
-- Bento UI
-- Neobrutalism
+Skeuomorphism, Flat Design, Neumorphism, Material Design, Glassmorphism, Claymorphism, Liquid Glass / Liquid UI, Aurora UI, Bento UI, and Neobrutalism.
 
-Đọc `SKILL.md` để chọn style, sau đó đọc skill tương ứng trong `skills/`.
+## Agent usage
+
+1. Read `SKILL.md`.
+2. Describe product, users, context, density, device, brand personality, stack, and constraints.
+3. Choose exactly one primary style and at most one supporting style.
+4. Read the selected style file under `skills/`.
+5. Generate tokens, plan components, implement, and run the production checklist.

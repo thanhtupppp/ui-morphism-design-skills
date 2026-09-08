@@ -1,18 +1,31 @@
+# Design Tokens Starter
+
+```css
 :root {
-  --color-bg: #f4f7fb;
+  --color-bg: #f7f8fa;
   --color-surface: #ffffff;
-  --color-text: #172033;
-  --color-muted: #667085;
+  --color-text: #18202a;
+  --color-text-muted: #5d6875;
+  --color-border: #d7dde5;
   --color-primary: #2563eb;
-  --color-on-primary: #ffffff;
-  --radius-sm: .5rem;
-  --radius-md: .875rem;
+  --radius-md: 0.75rem;
   --radius-lg: 1.25rem;
-  --space-2: .5rem;
-  --space-4: 1rem;
-  --shadow-sm: 0 1px 2px rgb(16 24 40 / .08);
-  --shadow-md: 0 8px 24px rgb(16 24 40 / .12);
-  --focus-ring: 0 0 0 3px rgb(37 99 235 / .38);
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.08);
+  --shadow-md: 0 8px 24px rgb(15 23 42 / 0.12);
+  --focus-ring: 0 0 0 3px rgb(37 99 235 / 0.45);
+  --blur-surface: 16px;
+  --motion-fast: 140ms;
+  --motion-base: 220ms;
 }
-:focus-visible { outline: none; box-shadow: var(--focus-ring); }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+Override only semantic tokens for a selected style; keep component structure and accessibility behavior stable.
