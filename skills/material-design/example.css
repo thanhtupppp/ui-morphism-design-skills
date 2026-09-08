@@ -1,0 +1,5 @@
+/* Real starter implementation: Material Design */
+.material-demo { padding: 24px; color: #1d1b20; background: #fffbfe; }
+.material-card { max-width: 560px; padding: 24px; border-radius: 16px; background: #f7f2fa; box-shadow: 0 1px 3px rgb(0 0 0 / .2), 0 1px 2px rgb(0 0 0 / .14); }
+.material-button { min-height: 44px; padding: 10px 16px; border: 0; border-radius: 999px; color: #fff; background: #6750a4; cursor: pointer; }
+.material-button:focus-visible { outline: 3px solid #4f378b; outline-offset: 3px; }

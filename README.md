@@ -2,9 +2,9 @@
 
 This repository is a reusable frontend design skill for selecting and implementing UI morphism styles in production products.
 
-## Reference-informed improvements
+## Code-first style skills
 
-The repository now includes an original comparison matrix, token namespace convention, hybrid compatibility rules, and stack implementation guidance. The organization is informed by the public documentation structure of [`Shubham7995/ui-morphism`](https://github.com/Shubham7995/ui-morphism/tree/main/docs), especially its comparison matrix, per-style documents, glossary, contrast checker, and link validation approach.
+Every style directory includes a real CSS implementation and a React/TSX starter component. The agent should read the style guidance first, then use the example pair as a starting point for implementation.
 
 ## Supported styles
 
@@ -12,10 +12,8 @@ Skeuomorphism, Flat Design, Neumorphism, Material Design, Glassmorphism, Claymor
 
 ## Agent usage
 
-1. Read `SKILL.md`.
-2. Read `references/comparison-matrix.md`.
-3. Describe product, users, context, density, device, brand personality, stack, and constraints.
-4. Choose exactly one primary style and at most one supporting style using `domains/product.csv`, `domains/reasoning.csv`, and `domains/hybrid-rules.csv`.
-5. Read the selected style file under `skills/`.
-6. Generate tokens using `references/token-convention.md` and `templates/design-tokens.css`.
-7. Plan components, implement, and run `references/review-checklist.md`.
+1. Read `SKILL.md` and `references/comparison-matrix.md`.
+2. Describe product, users, context, density, device, brand personality, stack, and constraints.
+3. Choose exactly one primary style and at most one supporting style.
+4. Read the selected style file and its `example.css` + `example.tsx`.
+5. Generate namespaced tokens, adapt the example to the project, and run the production checklist.

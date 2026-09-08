@@ -1,0 +1,7 @@
+/* Real starter implementation: Bento UI */
+.bento-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; padding: 24px; background: #f7f8fa; }
+.bento-card { min-width: 0; padding: 24px; border: 1px solid #e2e8f0; border-radius: 24px; background: #fff; }
+.bento-card--hero { grid-column: span 6; grid-row: span 2; }
+.bento-card--wide { grid-column: span 6; }
+.bento-card--small { grid-column: span 3; }
+@media (max-width: 767px) { .bento-grid { grid-template-columns: 1fr; } .bento-card, .bento-card--hero, .bento-card--wide, .bento-card--small { grid-column: auto; grid-row: auto; } }

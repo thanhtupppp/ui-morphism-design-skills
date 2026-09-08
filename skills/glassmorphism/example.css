@@ -1,0 +1,6 @@
+/* Real starter implementation: Glassmorphism */
+.glass-demo { min-height: 240px; padding: 24px; background: radial-gradient(circle at 20% 20%, #6d5dfc, transparent 40%), #101426; }
+.glass-card { max-width: 560px; padding: 24px; color: #fff; border: 1px solid rgb(255 255 255 / .42); border-radius: 20px; background: #202331; box-shadow: 0 8px 32px -8px rgb(0 0 0 / .38); }
+@supports (backdrop-filter: blur(1px)) { .glass-card { background: rgb(255 255 255 / .14); backdrop-filter: blur(20px) saturate(160%); } }
+.glass-button { min-height: 44px; padding: 10px 16px; color: #101426; border: 0; border-radius: 999px; background: #fff; cursor: pointer; }
+.glass-button:focus-visible { outline: 3px solid #f8d34f; outline-offset: 3px; }
