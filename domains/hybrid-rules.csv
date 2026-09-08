@@ -1,0 +1,16 @@
+style,base_layer,added_layer,verdict,constraint
+flat-design,structure,material-design,works,Use Material interaction rules without replacing the product's information architecture.
+flat-design,structure,neobrutalism,works,Use hard borders and accents only for bounded brand surfaces.
+flat-design,structure,glassmorphism,careful,Glass belongs to overlays or hero surfaces not tables and long text.
+flat-design,structure,aurora-ui,careful,Keep the gradient behind a stable content surface.
+material-design,system,bento-ui,works,Use Bento for layout spans while preserving component semantics.
+material-design,system,liquid-glass,careful,Limit Liquid Glass to platform/contextual chrome with solid fallback.
+neumorphism,soft-control,material-design,works,Use Material labels focus states and semantics to repair affordance risk.
+neumorphism,soft-control,glassmorphism,avoid,Two transparency/low-contrast systems compound uncertainty.
+claymorphism,soft-object,flat-design,works,Use Flat Design for dense content around expressive objects.
+glassmorphism,translucent-layer,bento-ui,careful,Blur one container or section rather than every tile.
+glassmorphism,translucent-layer,liquid-glass,avoid,Choose one glass dialect per surface class.
+liquid-glass,functional-material,spatial-depth,works,Use one material layer and reduce effects on constrained devices.
+aurora-ui,ambient-background,bento-ui,works,Keep grid/card surfaces readable and static.
+bento-ui,layout,neobrutalism,works,Use rigid grid structure to contain loud card styling.
+neobrutalism,hard-graphic,glassmorphism,avoid,Refraction and hard offset geometry communicate conflicting material physics.
