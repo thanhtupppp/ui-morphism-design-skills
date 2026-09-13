@@ -30,7 +30,7 @@ const mustContain = (text, pattern, label) => {
   if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`);
 };
 
-console.log('UI Morphism Quality Gates v1.0.0');
+console.log('UI Morphism Quality Gates v1.1.0');
 
 const gatesPath = join(root, 'references/quality-gates.md');
 const gates = read(gatesPath);
@@ -43,10 +43,26 @@ if (!gates) {
   mustContain(gates, /Gate D[\s\S]*target size/i, 'quality-gates.md');
   mustContain(gates, /Gate E[\s\S]*material-effect budget/i, 'quality-gates.md');
   mustContain(gates, /Gate F[\s\S]*cross-platform equivalence/i, 'quality-gates.md');
+  mustContain(gates, /Gate G[\s\S]*React Native adapter/i, 'quality-gates.md');
 }
 
 const skill = read(join(root, 'SKILL.md'));
 mustContain(skill, /quality-gates\.md/i, 'SKILL.md');
+mustContain(skill, /react-native-adapter\.md/i, 'SKILL.md');
+
+const adapter = read(join(root, 'references/react-native-adapter.md'));
+if (!adapter) {
+  fail('references/react-native-adapter.md: missing or unreadable.');
+} else {
+  for (const pattern of [
+    /semantic-first mapping/i,
+    /canonical token mapping/i,
+    /native interaction primitives/i,
+    /responsive adaptation/i,
+    /accessibility/i,
+    /performance and fallback/i,
+  ]) mustContain(adapter, pattern, 'react-native-adapter.md');
+}
 
 const skillJson = read(join(root, 'skill.json'));
 if (!skillJson) {
@@ -56,6 +72,9 @@ if (!skillJson) {
     const parsed = JSON.parse(skillJson);
     if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/quality-gates.md')) {
       fail('skill.json: quality-gates.md is not declared in contracts.');
+    }
+    if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/react-native-adapter.md')) {
+      fail('skill.json: react-native-adapter.md is not declared in contracts.');
     }
   } catch (error) {
     fail(`skill.json: invalid JSON (${error.message})`);
