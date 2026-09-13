@@ -4,7 +4,7 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 ## Current contract
 
-Version `1.5.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, and explicit platform capability negotiation. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+Version `1.5.1` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
 
 ## Code-first, cross-platform usage
 
@@ -16,6 +16,7 @@ Every style directory contains:
 - `example.css`: a runnable web/CSS starter.
 - `example.tsx`: a runnable React/semantic HTML starter.
 - `example.flutter.dart`: a Flutter implementation seed using native/theme primitives.
+- `example.native.tsx`: a React Native implementation seed using native interaction primitives and deterministic fallbacks.
 
 An agent should read all style files above before implementing a selected style. Do not output only generic visual advice; use the concrete recipes and platform mappings, then adapt tokens and primitives to the project.
 
@@ -36,6 +37,10 @@ The deterministic degradation path is:
 `full effect -> reduced effect -> opaque/static effect -> simpler native surface`
 
 Unsupported effects must not change content priority, semantic state, accessibility, responsive behavior, or interaction target size.
+
+## React Native examples
+
+Every style includes `example.native.tsx`. These seeds preserve semantic roles and state through `Pressable` or other native primitives, respond to available width, target at least 48px for primary tappable controls, and document what survives when decorative effects are removed.
 
 ## Core contracts
 
