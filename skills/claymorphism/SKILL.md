@@ -69,6 +69,9 @@ Use short, soft feedback. Avoid perpetual bouncing, excessive spring overshoot, 
 - Avoid large blur/shadow stacks across repeated list items.
 - Lazy-load large decorative illustrations.
 
+## Fallback behavior
+When soft highlights, blur, complex shadows, or custom compositing are unavailable or too expensive, keep the Clay identity through opaque shape, color, spacing, and explicit borders/state cues. Fall back to a flatter rounded surface rather than removing semantic affordances. On constrained renderers, a simple filled rounded container is the required baseline.
+
 ## Accessibility checklist
 - [ ] Body text and controls maintain required contrast.
 - [ ] Focus is visible without relying on shadow.
