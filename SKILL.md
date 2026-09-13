@@ -6,7 +6,7 @@
 2. Read `references/comparison-matrix.md`.
 3. Read `references/platform-contract.md` and `references/platform-matrix.md`.
 4. Select one primary style and at most one supporting style. Treat Bento as a layout system and Aurora as an atmospheric accent; neither should automatically become a full-surface material.
-5. Read the selected style's `SKILL.md`, `components.md`, `platforms.md`, and `example.css`/`example.tsx` before implementation.
+5. Read the selected style's `SKILL.md`, `components.md`, `platforms.md`, and all runnable examples (`example.css`, `example.tsx`, `example.flutter.dart`, `example.native.tsx`) before implementation.
 6. Fill the component-level output contract in `references/component-code-contract.md`: decision record -> semantic token record -> component recipes -> platform mappings -> responsive/accessibility rules -> fallback rule -> verification record.
 7. Generate namespaced semantic tokens for surfaces, text, opacity, blur, shadow/elevation, radius, border, focus, spacing, motion, and target size. Keep style tokens separate from semantic roles.
 8. Map those tokens to each target: HTML/CSS, React, Flutter, and any additional supported stack. For React Native, use `references/react-native-adapter.md` as the canonical platform mapping; do not make a CSS-only effect a required dependency for another renderer.
@@ -37,4 +37,4 @@ Use semantic HTML, namespaced CSS tokens, responsive media/container rules, prog
 Use standard Material/Cupertino interaction primitives where practical, `ThemeExtension`/theme data for tokens, `BoxDecoration`/`BoxShadow` for surfaces, `BackdropFilter` only for bounded effects, and `Semantics`/Focus APIs for custom controls. Tappable controls should target at least 48x48 logical pixels.
 
 ### React Native and other future targets
-Follow `references/react-native-adapter.md` for role/state/responsive/accessibility/effect mapping. Prefer native controls and available layout primitives. Implement advanced effects only when supported and provide the documented simpler fallback otherwise.
+Follow `references/react-native-adapter.md` for role/state/responsive/accessibility/effect mapping. Prefer native controls and available layout primitives. Implement advanced effects only when supported and provide the documented simpler fallback otherwise. Every style's `example.native.tsx` is the canonical small code seed for this mapping.
