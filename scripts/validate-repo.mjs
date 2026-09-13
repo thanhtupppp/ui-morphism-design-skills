@@ -139,8 +139,11 @@ if (readme) for (const style of expectedStyles) {
 if (failures.length) {
   console.error(`\nValidation FAILED: ${failures.length} error(s)`);
   failures.forEach((message) => console.error(`- ${message}`));
-  if (warnings.length) { console.error(`\nWarnings: ${warnings.length}`); warnings.forEach((message) => console.error(`- ${message}`)); }
+  if (warnings.length) { console.error(`\nWarnings: ${warnings.length}`); warnings.forEach((message) => console.error(`- ${message}`); }
   process.exit(1);
 }
 console.log(`Validation PASSED: ${expectedStyles.length} styles checked.`);
-if (warnings.length) { console.log(`Warnings: ${warnings.length}`); warnings.forEach((message) => console.log(`- ${message}`); }
+if (warnings.length) {
+  console.log(`Warnings: ${warnings.length}`);
+  warnings.forEach((message) => console.log(`- ${message}`));
+}
