@@ -47,36 +47,42 @@ class AuroraHeroCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      color: Colors.white.withValues(alpha: 0.94),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Create something remarkable',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: const Color(0xFF101426),
-                    fontWeight: FontWeight.w800,
-                  ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < 600;
+        return Card(
+          elevation: 0,
+          color: Colors.white.withValues(alpha: 0.94),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(compact ? 18 : 24)),
+          child: Padding(
+            padding: EdgeInsets.all(compact ? 16 : 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Create something remarkable',
+                  style: (compact ? Theme.of(context).textTheme.headlineSmall : Theme.of(context).textTheme.headlineMedium)?.copyWith(
+                        color: const Color(0xFF101426),
+                        fontWeight: FontWeight.w800,
+                      ),
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'The Aurora layer adds atmosphere while the content remains stable and readable.',
+                  style: TextStyle(color: Color(0xFF526078)),
+                ),
+                const SizedBox(height: 20),
+                FilledButton(
+                  onPressed: () {},
+                  style: FilledButton.styleFrom(minimumSize: const Size(48, 48)),
+                  child: const Text('Explore'),
+                ),
+              ],
             ),
-            const SizedBox(height: 12),
-            const Text(
-              'The Aurora layer adds atmosphere while the content remains stable and readable.',
-              style: TextStyle(color: Color(0xFF526078)),
-            ),
-            const SizedBox(height: 20),
-            FilledButton(
-              onPressed: () {},
-              child: const Text('Explore'),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -91,12 +97,17 @@ class AuroraExample extends StatelessWidget {
     return Scaffold(
       body: AuroraBackground(
         effectsEnabled: effectsEnabled,
-        child: const SafeArea(
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.all(24),
-              child: AuroraHeroCard(),
-            ),
+        child: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final horizontal = constraints.maxWidth < 600 ? 16.0 : 24.0;
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.all(horizontal),
+                  child: const AuroraHeroCard(),
+                ),
+              );
+            },
           ),
         ),
       ),
