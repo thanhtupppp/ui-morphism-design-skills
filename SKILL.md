@@ -5,16 +5,17 @@
 1. Analyze product, users, content density, device classes, brand, accessibility needs, target platforms, supported browsers/OS, existing component libraries, rendering constraints, and performance budget.
 2. Read `references/comparison-matrix.md`.
 3. Read `references/platform-contract.md` and `references/platform-matrix.md`.
-4. Select one primary style and at most one supporting style. Treat Bento as a layout system and Aurora as an atmospheric accent; neither should automatically become a full-surface material.
-5. Read the selected style's `SKILL.md`, `components.md`, `platforms.md`, and all runnable examples (`example.css`, `example.tsx`, `example.flutter.dart`, `example.native.tsx`) before implementation.
-6. Fill the component-level output contract in `references/component-code-contract.md`: decision record -> semantic token record -> component recipes -> platform mappings -> responsive/accessibility rules -> fallback rule -> verification record.
-7. Generate namespaced semantic tokens for surfaces, text, opacity, blur, shadow/elevation, radius, border, focus, spacing, motion, and target size. Keep style tokens separate from semantic roles.
-8. Map those tokens to each target: HTML/CSS, React, Flutter, and any additional supported stack. For React Native, use `references/react-native-adapter.md` as the canonical platform mapping; do not make a CSS-only effect a required dependency for another renderer.
-9. Negotiate each visual capability using `references/platform-matrix.md`: preserve required capabilities, adapt preferred effects to the target renderer, and attach a deterministic fallback to optional effects.
-10. Implement concrete recipes for every required component and every required interactive state. Mark each advanced effect as required, preferred, or optional and pair it with its deterministic fallback.
-11. Apply capability negotiation: advanced effect -> supported implementation -> reduced effect -> opaque/flat fallback.
-12. Read `references/quality-gates.md` and verify semantics, responsive behavior, motion/fallback, target size, effect budget, cross-platform equivalence, and React Native adapter requirements for every example produced or modified.
-13. Record verification for responsive/adaptive behavior, focus, semantics, contrast, forced colors/high contrast, large text, localization, reduced motion, reduced transparency where applicable, fallback behavior, and performance.
+4. Read `references/token-convention.md` before generating or adapting shared design tokens.
+5. Select one primary style and at most one supporting style. Treat Bento as a layout system and Aurora as an atmospheric accent; neither should automatically become a full-surface material.
+6. Read the selected style's `SKILL.md`, `components.md`, `platforms.md`, and all runnable examples (`example.css`, `example.tsx`, `example.flutter.dart`, `example.native.tsx`) before implementation.
+7. Fill the component-level output contract in `references/component-code-contract.md`: decision record -> semantic token record -> component recipes -> platform mappings -> responsive/accessibility rules -> fallback rule -> verification record.
+8. Generate namespaced semantic tokens for surfaces, text, opacity, blur, shadow/elevation, radius, border, focus, spacing, motion, and target size. Use the canonical grammar `--um-<style>-<group>[-<variant>]`; keep style tokens separate from semantic roles and provide opaque fallback tokens for translucent styles.
+9. Map those tokens to each target: HTML/CSS, React, Flutter, and any additional supported stack. For React Native, use `references/react-native-adapter.md` as the canonical platform mapping; do not make a CSS-only effect a required dependency for another renderer.
+10. Negotiate each visual capability using `references/platform-matrix.md`: preserve required capabilities, adapt preferred effects to the target renderer, and attach a deterministic fallback to optional effects.
+11. Implement concrete recipes for every required component and every required interactive state. Mark each advanced effect as required, preferred, or optional and pair it with its deterministic fallback.
+12. Apply capability negotiation: advanced effect -> supported implementation -> reduced effect -> opaque/flat fallback.
+13. Read `references/quality-gates.md` and verify semantics, responsive behavior, motion/fallback, target size, effect budget, cross-platform equivalence, token namespace, theme override behavior, and React Native adapter requirements for every example produced or modified.
+14. Record verification for responsive/adaptive behavior, focus, semantics, contrast, forced colors/high contrast, large text, localization, reduced motion, reduced transparency where applicable, fallback behavior, and performance.
 
 ## Hard rules
 
@@ -22,19 +23,20 @@
 - No style is considered cross-platform until its semantic tokens and component decisions have a documented mapping for every requested target.
 - Every generated or modified example must include an auditable verification record or an equivalent verification summary.
 - Every optional visual effect must declare its capability tier and deterministic fallback.
+- Shared tokens must follow `references/token-convention.md`; do not introduce unnamespaced reusable aliases.
+- Explicit theme selection must override system preference where theme switching is implemented, while forced-colors/high-contrast behavior must remain independently supported.
 - Visual effects never carry essential meaning alone. Required state information must survive the removal of blur, texture, glow, shadow, animation, and transparency.
-- Prefer native/standard controls for interaction semantics; style the shell instead of rebuilding accessible behavior from scratch.
-- A platform adaptation may change the rendering primitive but must preserve the same design intent and state model.
-- Unsupported capabilities must degrade without changing semantic anatomy, content priority, readable content, accessibility, responsive behavior, or interaction target size.
-- React Native is governed by the shared adapter contract; unsupported visual capabilities must use deterministic fallbacks.
 
 ## Target notes
 
-### HTML/CSS and React
-Use semantic HTML, namespaced CSS tokens, responsive media/container rules, progressive enhancement for advanced effects, `prefers-reduced-motion`, and `forced-colors` fallbacks.
+### HTML/CSS
+Prefer semantic HTML, namespaced CSS custom properties, responsive layout primitives, progressive enhancement for advanced effects, reduced-motion handling, and forced-colors fallbacks.
+
+### React
+Preserve semantic DOM elements and state attributes/props while reusing the same semantic token vocabulary as CSS. Do not move meaning into decorative wrappers.
 
 ### Flutter
-Use standard Material/Cupertino interaction primitives where practical, `ThemeExtension`/theme data for tokens, `BoxDecoration`/`BoxShadow` for surfaces, `BackdropFilter` only for bounded effects, and `Semantics`/Focus APIs for custom controls. Tappable controls should target at least 48x48 logical pixels.
+Prefer native controls and theme data/ThemeExtension, use bounded BackdropFilter only where supported, and keep a 48x48 logical-pixel interaction target for primary controls. Theme overrides must remain deterministic.
 
-### React Native and other future targets
-Follow `references/react-native-adapter.md` for role/state/responsive/accessibility/effect mapping. Prefer native controls and available layout primitives. Implement advanced effects only when supported and provide the documented simpler fallback otherwise. Every style's `example.native.tsx` is the canonical small code seed for this mapping.
+### React Native
+Use `references/react-native-adapter.md` as the canonical mapping. Prefer native interaction primitives such as Pressable, TextInput, Switch, Checkbox, Slider, and platform navigation. Responsive behavior must adapt to available width, and primary tappable controls should be at least 48px. Advanced visual effects remain optional and must degrade to a readable native surface without changing semantic state.
