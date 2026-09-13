@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MaterialDesignDemo extends StatelessWidget {
-  const MaterialDesignDemo({super.key});
+  const MaterialDesignDemo({super.key, this.onSave});
+
+  final VoidCallback? onSave;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +24,16 @@ class MaterialDesignDemo extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            Row(
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
               children: [
                 OutlinedButton(onPressed: () {}, child: const Text('Cancel')),
-                const SizedBox(width: 12),
-                FilledButton(onPressed: () {}, child: const Text('Save')),
+                FilledButton(
+                  onPressed: onSave,
+                  style: FilledButton.styleFrom(minimumSize: const Size(44, 44)),
+                  child: const Text('Save'),
+                ),
               ],
             ),
           ],
