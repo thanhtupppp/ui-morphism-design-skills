@@ -2,20 +2,47 @@
 
 ```css
 :root {
-  --color-bg: #f7f8fa;
-  --color-surface: #ffffff;
-  --color-text: #18202a;
-  --color-text-muted: #5d6875;
-  --color-border: #d7dde5;
-  --color-primary: #2563eb;
-  --radius-md: 0.75rem;
-  --radius-lg: 1.25rem;
-  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.08);
-  --shadow-md: 0 8px 24px rgb(15 23 42 / 0.12);
-  --focus-ring: 0 0 0 3px rgb(37 99 235 / 0.45);
-  --blur-surface: 16px;
-  --motion-fast: 140ms;
-  --motion-base: 220ms;
+  /* Flat Design core roles */
+  --flat-bg: #f7f8fa;
+  --flat-surface: #ffffff;
+  --flat-surface-subtle: #f1f5f9;
+  --flat-surface-strong: #e2e8f0;
+
+  --flat-ink: #18202a;
+  --flat-muted: #52606d;
+
+  --flat-border: #cbd5e1;
+  --flat-border-strong: #64748b;
+
+  --flat-primary: #2563eb;
+  --flat-primary-hover: #1d4ed8;
+  --flat-primary-active: #1e40af;
+
+  --flat-success: #15803d;
+  --flat-warning: #a16207;
+  --flat-danger: #b91c1c;
+  --flat-info: #0369a1;
+
+  --flat-focus: #1d4ed8;
+  --flat-on-primary: #ffffff;
+
+  /* Shape & layout */
+  --flat-radius-sm: 6px;
+  --flat-radius-md: 8px;
+  --flat-radius-lg: 12px;
+
+  --flat-control-height: 44px;
+
+  --flat-spacing-1: 4px;
+  --flat-spacing-2: 8px;
+  --flat-spacing-3: 12px;
+  --flat-spacing-4: 16px;
+  --flat-spacing-5: 20px;
+  --flat-spacing-6: 24px;
+  --flat-spacing-8: 32px;
+
+  /* Optional elevation for grouping, not meaning */
+  --flat-shadow-1: 0 1px 2px rgb(0 0 0 / 0.08);
 }
 
 @media (prefers-reduced-motion: reduce) {
