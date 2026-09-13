@@ -1,7 +1,7 @@
 {
   "name": "ui-morphism-design",
   "displayName": "UI Morphism Design Intelligence",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A frontend design skill for selecting and implementing ten UI morphism styles with cross-platform tokens, component recipes, accessibility, responsive behavior, platform capability negotiation, performance, and auditable agent output.",
   "styles": ["skeuomorphism", "flat-design", "neumorphism", "material-design", "glassmorphism", "claymorphism", "liquid-glass", "aurora-ui", "bento-ui", "neobrutalism"],
   "platforms": ["html-css", "react", "flutter", "react-native", "other-renderers-via-adapter"],
