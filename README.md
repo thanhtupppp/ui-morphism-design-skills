@@ -4,7 +4,7 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 ## Current contract
 
-Version `1.5.1` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+Version `1.6.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, a canonical token namespace/theme contract, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
 
 ## Code-first, cross-platform usage
 
@@ -27,6 +27,14 @@ An agent should read all style files above before implementing a selected style.
 `decision record -> semantic token record -> component recipes -> platform mappings -> responsive/accessibility rules -> fallback rule -> verification record`
 
 For generated or modified examples, record what was verified instead of treating the presence of visual code as proof of correctness.
+
+## Semantic token and theme contract
+
+`references/token-convention.md` is the canonical naming and theme contract. Reusable tokens use the grammar:
+
+`--um-<style>-<group>[-<variant>]`
+
+Use full style names rather than short aliases, keep style tokens separate from semantic roles, expose opaque fallback surfaces for translucent styles, and provide focus fallbacks that do not depend only on `box-shadow`. Explicit `[data-theme="dark"]` and `[data-theme="light"]` choices must override system preference where theme switching is implemented.
 
 ## Platform capability negotiation
 
@@ -51,6 +59,7 @@ Every style includes `example.native.tsx`. These seeds preserve semantic roles a
 - `references/platform-implementation-guide.md` — semantic tokens, capability negotiation, and verification workflow.
 - `references/quality-gates.md` — production-readiness checks for semantics, responsiveness, motion/fallback, target size, effect budget, and cross-platform equivalence.
 - `references/react-native-adapter.md` — canonical React Native role/state/token/responsive/accessibility/fallback mapping.
+- `references/token-convention.md` — canonical token namespace, accessibility token rules, and theme override behavior.
 
 ## Supported platforms
 
