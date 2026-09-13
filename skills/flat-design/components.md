@@ -64,6 +64,85 @@ A beginner should recognize:
 
 Tokens are semantic. Do not scatter literal colors across components. A dark theme should replace roles, not redesign every component.
 
+### 2.1 Theme profiles
+
+The theme contract changes **semantic roles only**. Component structure, state selectors, spacing relationships, and interaction behavior remain unchanged.
+
+```css
+:root,
+[data-theme="light"] {
+  --flat-bg: #f7f8fa;
+  --flat-surface: #ffffff;
+  --flat-surface-subtle: #f1f5f9;
+  --flat-surface-strong: #e2e8f0;
+  --flat-ink: #18202a;
+  --flat-muted: #52606d;
+  --flat-border: #cbd5e1;
+  --flat-border-strong: #64748b;
+  --flat-primary: #2563eb;
+  --flat-primary-hover: #1d4ed8;
+  --flat-primary-active: #1e40af;
+  --flat-success: #15803d;
+  --flat-warning: #a16207;
+  --flat-danger: #b91c1c;
+  --flat-info: #0369a1;
+  --flat-focus: #1d4ed8;
+  --flat-on-primary: #ffffff;
+}
+
+[data-theme="dark"] {
+  --flat-bg: #0f172a;
+  --flat-surface: #111827;
+  --flat-surface-subtle: #1e293b;
+  --flat-surface-strong: #334155;
+  --flat-ink: #f8fafc;
+  --flat-muted: #cbd5e1;
+  --flat-border: #475569;
+  --flat-border-strong: #94a3b8;
+  --flat-primary: #60a5fa;
+  --flat-primary-hover: #93c5fd;
+  --flat-primary-active: #3b82f6;
+  --flat-success: #4ade80;
+  --flat-warning: #facc15;
+  --flat-danger: #f87171;
+  --flat-info: #38bdf8;
+  --flat-focus: #93c5fd;
+  --flat-on-primary: #0f172a;
+}
+```
+
+The dark profile is role-based rather than a mechanical color inversion. Verify text, borders, controls, and semantic feedback independently for contrast.
+
+### 2.2 Density profiles
+
+Density changes spacing and component geometry while preserving the minimum accessible hit area. `compact` is intended for information-dense layouts; it must not create undersized touch targets.
+
+```css
+:root,
+[data-density="standard"] {
+  --flat-control-height: 44px;
+  --flat-density-padding: 16px;
+  --flat-density-gap: 12px;
+  --flat-density-row: 44px;
+}
+
+[data-density="comfortable"] {
+  --flat-control-height: 48px;
+  --flat-density-padding: 20px;
+  --flat-density-gap: 16px;
+  --flat-density-row: 48px;
+}
+
+[data-density="compact"] {
+  --flat-control-height: 44px;
+  --flat-density-padding: 12px;
+  --flat-density-gap: 8px;
+  --flat-density-row: 44px;
+}
+```
+
+Do not use density to reduce keyboard/touch target size below the platform accessibility requirement. Compact mode should reduce whitespace before reducing interactive affordance.
+
 ## 3. Typography
 
 Use typography as the primary depth system:
@@ -108,7 +187,7 @@ Every button has:
 
 ```css
 .flat-button {
-  min-height: 44px;
+  min-height: var(--flat-control-height);
   padding: 10px 16px;
   border: 1px solid transparent;
   border-radius: var(--flat-radius-md);
@@ -118,256 +197,53 @@ Every button has:
   font-weight: 650;
   cursor: pointer;
 }
-.flat-button:hover { background: var(--flat-primary-hover); }
-.flat-button:active { background: var(--flat-primary-active); }
-.flat-button:focus-visible { outline: 3px solid var(--flat-focus); outline-offset: 3px; }
-.flat-button:disabled,
-.flat-button[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
-.flat-button[aria-busy="true"] { cursor: wait; }
 ```
 
-Do not remove the focus ring because the button looks cleaner without it.
+## 5. Component recipes
 
-## 5. Icon button
+The remaining component recipes use the same semantic tokens and inherit the active theme/density profile. Do not create separate dark or compact component classes unless a component has a documented structural reason.
 
-An icon-only control must have an accessible name and a visible hit area. The icon itself is not the label.
+### Card/panel
+Use `--flat-surface`, `--flat-border`, and spacing tokens. Shadow is optional grouping only.
 
-```css
-.flat-icon-button {
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--flat-border);
-  border-radius: 50%;
-  background: var(--flat-surface);
-  color: var(--flat-ink);
-}
-```
+### Input/form field
+Persistent label, visible border, explicit focus ring, and explicit error/success messaging. Do not communicate validation by color alone.
 
-Use a tooltip only as supplementary discovery, not as the accessible name.
+### Navigation/toolbar
+Use semantic navigation landmarks and a persistent active cue such as text weight, indicator, icon treatment, or border in addition to color.
 
-## 6. Inputs and forms
+### Table/data grid
+Prefer stable row geometry, visible column relationships, semantic headers, and horizontal overflow only when necessary. Never clip critical data to force a desktop table into a narrow viewport.
 
-An input consists of:
+### Dialog/alert/banner
+Use semantic dialog/alert roles where applicable, clear heading/message/action relationships, and a focus treatment independent of background decoration.
 
-`label → control → helper/error text → state marker`
+### Tabs
+Use native or correctly mapped tab semantics. Selected state must remain understandable without color alone.
 
-Required states:
+### Progress/status
+Expose a machine-readable value/label where applicable. Pair semantic color with text/icon/state labels.
 
-- empty
-- filled
-- focus
-- disabled
-- read-only
-- invalid
-- valid/success where meaningful
-- loading when asynchronous
+## 6. State contract
 
-```css
-.flat-input {
-  min-height: 44px;
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid var(--flat-border-strong);
-  border-radius: var(--flat-radius-md);
-  background: var(--flat-surface);
-  color: var(--flat-ink);
-  font: inherit;
-}
-.flat-input:focus { border-color: var(--flat-primary); outline: 3px solid rgb(37 99 235 / .22); }
-.flat-input[aria-invalid="true"] { border-color: var(--flat-danger); }
-```
+Every interactive component should define: default, hover where supported, focus-visible, pressed/active, selected where applicable, disabled, loading where applicable, and error/success where applicable. Removing color, shadow, animation, and decoration must not erase the state distinction.
 
-Error messages should state what is wrong and how to fix it. Never communicate invalidity only through a red border.
+## 7. Responsive contract
 
-## 7. Select, checkbox, radio, switch
+Validate compact phone (~375px), tablet (~768px), desktop (~1024px), and wide desktop (~1440px). Prefer wrapping and content-driven sizing over fixed coordinates. Localization and text scaling must not clip controls.
 
-- **Select:** clear label and current value; custom styling must preserve keyboard behavior.
-- **Checkbox:** represents independent boolean choices; selected state must include a check/filled state.
-- **Radio:** represents one choice in a group; selected state must be obvious without relying on color.
-- **Switch:** represents an immediate on/off setting and needs an accessible state announcement.
+## 8. Accessibility contract
 
-Avoid drawing fake controls when native/standard controls already provide correct semantics and interaction.
+- Body text target contrast: 4.5:1; large text: 3:1.
+- Focus must be visible and not rely on color alone.
+- Interactive targets must remain platform-appropriate; web examples use at least 44px and Flutter targets at least 48 logical pixels.
+- Labels and errors must be programmatically associated.
+- Keyboard, screen-reader, zoom, and forced-colors behavior must remain usable.
 
-## 8. Cards and panels
+## 9. Motion and fallback
 
-Flat cards are containers first. They may be:
+Flat Design does not require animation. Respect `prefers-reduced-motion`. Optional shadow/elevation must degrade to borders/grouping without changing meaning.
 
-- informational
-- interactive
-- selectable
-- expandable
-- draggable
+## 10. Implementation rule
 
-Do not make the entire card clickable unless the card truly represents one action.
-
-```css
-.flat-card {
-  padding: 24px;
-  border: 1px solid var(--flat-border);
-  border-radius: var(--flat-radius-lg);
-  background: var(--flat-surface);
-}
-```
-
-For interactive cards, provide a single clear accessible name and avoid nested competing interactive controls.
-
-## 9. Lists
-
-A list needs:
-
-`leading cue → title → secondary information → trailing action/state`
-
-Selected, disabled, unread, loading, and error states must have explicit cues.
-
-Use separators when scanability benefits; otherwise use spacing and grouping.
-
-## 10. Navigation
-
-Navigation identifies **where the user is** and **where they can go**.
-
-Desktop may use top/side navigation; mobile may use bottom navigation or compact menus depending on task frequency.
-
-```css
-.flat-nav {
-  display: flex;
-  gap: 16px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--flat-border);
-  background: var(--flat-surface);
-}
-.flat-nav a[aria-current="page"] {
-  color: var(--flat-primary);
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 5px;
-}
-```
-
-The active cue should survive grayscale testing.
-
-## 11. Tabs
-
-Tabs switch between peer views, not unrelated routes. Use a selected indicator plus an accessible selected state. Never make the active tab distinguishable only by a slightly different color.
-
-## 12. Menus and command surfaces
-
-Menu items require a clear label, predictable keyboard order, hover/pressed behavior, disabled treatment, and a visible current selection when selection exists. Group unrelated actions with separators or headings.
-
-## 13. Dialogs and sheets
-
-Flat dialogs rely on:
-
-`surface + scrim + spacing + typography + explicit close/focus behavior`
-
-The scrim separates the modal task from the page. The dialog itself should remain opaque and readable.
-
-## 14. Alerts, banners, snackbars
-
-Use semantic role + icon + text + action. Severity examples:
-
-- info
-- success
-- warning
-- error
-
-Color is supplementary. An error should still be understandable in monochrome.
-
-## 15. Badges, chips, tags
-
-Badges are for concise metadata/status. Chips can represent filters, selections, or compact actions. Do not turn every piece of metadata into a chip; overuse creates visual noise.
-
-## 16. Tables and data grids
-
-Flat Design is especially strong for data-dense interfaces.
-
-Required table states:
-
-- header
-- body
-- hover/focus where applicable
-- selected row
-- sorted column
-- loading
-- empty
-- error
-- pagination/overflow
-
-Keep table surfaces opaque. Prefer alignment and column spacing to excessive borders.
-
-## 17. Forms and dense workflows
-
-Use a consistent vertical rhythm. Group fields by task, not by data type. Keep destructive actions visually and spatially separated from routine actions. Preserve DOM/focus order when layouts change responsively.
-
-## 18. Progress and status
-
-Progress bars, meters, spinners, and status dots must have a textual or semantic interpretation when the state matters. Never encode status solely as green/yellow/red.
-
-## 19. Empty, loading, and error states
-
-Every major content surface should define:
-
-- empty: what this means + what to do next
-- loading: stable skeleton or progress cue
-- error: what failed + retry/recovery action
-- partial: what is available and what is missing
-
-## 20. Responsive behavior
-
-Use mobile-first layout. Recommended validation widths:
-
-- 320–375px compact phone
-- 768px tablet
-- 1024px desktop/tablet landscape
-- 1440px large desktop
-
-Use content-driven breakpoints. Let columns collapse before text becomes unreadably narrow. Preserve logical DOM order. Do not solve mobile layout by simply shrinking desktop typography.
-
-## 21. Density modes
-
-Flat Design supports explicit density profiles:
-
-- Comfortable: more padding and larger rows.
-- Standard: balanced production default.
-- Compact: dense tables and professional tools.
-
-Changing density should alter spacing and control height consistently rather than randomly shrinking individual elements.
-
-## 22. Motion
-
-Motion is optional. Prefer short opacity/transform transitions for state feedback. Never use motion to communicate information that is unavailable in the final static state. Under reduced motion, remove non-essential transitions and preserve immediate state feedback.
-
-## 23. Dark mode
-
-Dark mode changes semantic surface and text roles. Do not simply invert colors. Preserve hierarchy through contrast, border strength, and spacing. Re-test status colors and focus indicators on both themes.
-
-## 24. Accessibility and resilience
-
-Flat Design is the baseline/fallback for effect-heavy styles. Test:
-
-- keyboard-only operation
-- visible focus
-- screen-reader names/roles/states
-- grayscale
-- high contrast / forced colors where supported
-- zoom and text scaling
-- long localized strings
-- RTL layouts when applicable
-- disabled motion
-- missing imagery
-
-WCAG 2.2 adds requirements around focus not being obscured and minimum target size; the design system should account for these at the component level rather than leaving them to individual screens. See the platform contract for renderer-specific target guidance.
-
-## 25. Performance
-
-Flat Design should be the cheapest visual path. Avoid unnecessary filters, large shadows, decorative background images, and layout-triggering animation. Keep component styles tokenized so theming does not duplicate whole component trees.
-
-## 26. Anti-patterns
-
-- “Flat” meaning no hierarchy.
-- Gray-on-gray text.
-- Hidden borders and removed focus indicators.
-- Every item given the same visual weight.
-- Color as the only state signal.
-- Giant rounded cards for every tiny piece of information.
-- Fixed-height controls that break under localization or text scaling.
-- Custom controls that reproduce native behavior poorly.
+When adapting Flat Design across platforms, preserve semantic roles, states, hierarchy, density intent, and accessibility behavior. Pixel-perfect parity is not required; semantic parity is.
