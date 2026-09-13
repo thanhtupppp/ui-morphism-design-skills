@@ -62,6 +62,15 @@ Examples:
 - disabled = reduced interaction + readable content + reduced decoration
 - pressed = semantic activation + recessed treatment
 
+## Responsive/adaptive behavior
+Neumorphism is sensitive to surface continuity and shadow scale. Recompose rather than shrink a desktop composition:
+
+- **Compact:** reduce decorative shadow spread, stack controls, preserve readable spacing, and keep target sizes intact.
+- **Medium:** retain grouped controls while allowing content-driven wrapping and flexible containers.
+- **Expanded:** use larger breathing room and bounded shadow stacks without turning every surface into a floating object.
+
+Use flexible Grid/Flex or native layout primitives. Avoid fixed heights and avoid layouts that clip when text scales or localization expands labels. Responsive changes must preserve semantic order and explicit state cues.
+
 ## Accessibility and fallback
 The fallback is **Flat Design**: opaque surface, explicit border, clear state indicators, no dependence on shadow. Preserve native semantics on web and Flutter controls; apply neumorphic styling around them rather than painting inaccessible custom controls from scratch.
 
