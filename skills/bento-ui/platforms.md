@@ -135,6 +135,10 @@ Focus must remain visible even when the tile has no border or when the material 
 - A linked tile needs one clear accessible name; supplementary metadata should not become accidental extra links.
 - Do not use fixed tile heights that clip translated or enlarged text.
 - Test compact widths around 375px, tablet around 768px, desktop around 1024px, and wide desktop around 1440px on web; validate compact/medium/expanded layouts on Flutter.
+- In forced-colors/high-contrast modes, expose solid tile boundaries, text, focus indicators, and state cues that do not depend on gradients, shadows, or low-opacity decoration.
+
+## Reduced motion
+Grid reflow and tile transitions are enhancements. Honor `prefers-reduced-motion: reduce` on web and the platform reduced-motion/accessibility setting on native renderers by minimizing or disabling nonessential transitions. Never require animation to understand a tile's priority, state, or action.
 
 ## Performance
 The grid algorithm is usually inexpensive compared with tile content. Optimize the contents:
@@ -164,3 +168,4 @@ Examples:
 - [ ] Unsupported span features fall back to a simpler grid.
 - [ ] The selected material remains consistent across tiles.
 - [ ] The grid works with keyboard, screen reader, touch, zoom, and text scaling.
+- [ ] Reduced-motion and forced-colors paths preserve hierarchy and interaction meaning.
