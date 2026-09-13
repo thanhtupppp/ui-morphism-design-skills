@@ -30,7 +30,7 @@ const mustContain = (text, pattern, label) => {
   if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`);
 };
 
-console.log('UI Morphism Quality Gates v1.4.0');
+console.log('UI Morphism Quality Gates v1.5.0');
 
 const gatesPath = join(root, 'references/quality-gates.md');
 const gates = read(gatesPath);
@@ -46,12 +46,27 @@ if (!gates) {
   mustContain(gates, /Gate G[\s\S]*React Native adapter/i, 'quality-gates.md');
 }
 
+const tokenConvention = read(join(root, 'references/token-convention.md'));
+if (!tokenConvention) {
+  fail('references/token-convention.md: missing or unreadable.');
+} else {
+  mustContain(tokenConvention, /--um-<style>-<group>\[-<variant>\]/i, 'token-convention.md');
+  mustContain(tokenConvention, /full style name|short aliases/i, 'token-convention.md');
+  mustContain(tokenConvention, /opaque fallback surface/i, 'token-convention.md');
+  mustContain(tokenConvention, /focus.*box-shadow|box-shadow.*focus/i, 'token-convention.md');
+  mustContain(tokenConvention, /:root\[data-theme="dark"\]/i, 'token-convention.md');
+  mustContain(tokenConvention, /:root:not\(\[data-theme="light"\]\)/i, 'token-convention.md');
+}
+
 const skill = read(join(root, 'SKILL.md'));
 mustContain(skill, /quality-gates\.md/i, 'SKILL.md');
 mustContain(skill, /react-native-adapter\.md/i, 'SKILL.md');
+mustContain(skill, /token-convention\.md/i, 'SKILL.md');
+mustContain(skill, /--um-<style>-<group>\[-<variant>\]/i, 'SKILL.md');
 mustContain(skill, /decision record[\s\S]*semantic token record[\s\S]*verification record/i, 'SKILL.md');
 mustContain(skill, /platform-matrix\.md/i, 'SKILL.md');
 mustContain(skill, /example\.native\.tsx/i, 'SKILL.md');
+mustContain(skill, /theme|data-theme|forced-colors/i, 'SKILL.md');
 
 const componentContract = read(join(root, 'references/component-code-contract.md'));
 if (!componentContract) {
@@ -103,23 +118,22 @@ if (!skillJson) {
 } else {
   try {
     const parsed = JSON.parse(skillJson);
-    if (parsed.version !== '1.5.1') {
-      fail(`skill.json: expected contract version 1.5.1, found ${parsed.version ?? 'missing'}.`);
+    if (parsed.version !== '1.6.0') {
+      fail(`skill.json: expected contract version 1.6.0, found ${parsed.version ?? 'missing'}.`);
     }
     if (!Array.isArray(parsed.platforms) || !parsed.platforms.includes('react-native')) {
       fail('skill.json: react-native is not declared as a supported platform.');
     }
-    if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/platform-matrix.md')) {
-      fail('skill.json: platform-matrix.md is not declared in contracts.');
-    }
-    if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/quality-gates.md')) {
-      fail('skill.json: quality-gates.md is not declared in contracts.');
-    }
-    if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/react-native-adapter.md')) {
-      fail('skill.json: react-native-adapter.md is not declared in contracts.');
-    }
-    if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/component-code-contract.md')) {
-      fail('skill.json: component-code-contract.md is not declared in contracts.');
+    for (const contract of [
+      'references/platform-matrix.md',
+      'references/quality-gates.md',
+      'references/react-native-adapter.md',
+      'references/component-code-contract.md',
+      'references/token-convention.md',
+    ]) {
+      if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes(contract)) {
+        fail(`skill.json: ${contract} is not declared in contracts.`);
+      }
     }
   } catch (error) {
     fail(`skill.json: invalid JSON (${error.message})`);
