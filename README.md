@@ -4,7 +4,7 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 ## Current contract
 
-Version `1.4.0` supports ten visual styles and a semantic-first cross-platform implementation model. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+Version `1.5.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, and explicit platform capability negotiation. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
 
 ## Code-first, cross-platform usage
 
@@ -21,18 +21,28 @@ An agent should read all style files above before implementing a selected style.
 
 ## Agent output contract
 
-`references/component-code-contract.md` now requires an auditable sequence:
+`references/component-code-contract.md` requires an auditable sequence:
 
 `decision record -> semantic token record -> component recipes -> platform mappings -> responsive/accessibility rules -> fallback rule -> verification record`
 
 For generated or modified examples, record what was verified instead of treating the presence of visual code as proof of correctness.
+
+## Platform capability negotiation
+
+`references/platform-matrix.md` is the capability decision table for HTML/CSS, React, Flutter, and React Native. It distinguishes `Native`, `Adapt`, and `Fallback` behavior and separates `Required`, `Preferred`, and `Optional` effects.
+
+The deterministic degradation path is:
+
+`full effect -> reduced effect -> opaque/static effect -> simpler native surface`
+
+Unsupported effects must not change content priority, semantic state, accessibility, responsive behavior, or interaction target size.
 
 ## Core contracts
 
 - `references/comparison-matrix.md` — style selection and depth/cost guidance.
 - `references/component-code-contract.md` — required component/state output and auditable agent workflow.
 - `references/platform-contract.md` — framework-agnostic implementation and fallback rules.
-- `references/platform-matrix.md` — renderer capability matrix.
+- `references/platform-matrix.md` — renderer capability matrix and capability negotiation.
 - `references/platform-implementation-guide.md` — semantic tokens, capability negotiation, and verification workflow.
 - `references/quality-gates.md` — production-readiness checks for semantics, responsiveness, motion/fallback, target size, effect budget, and cross-platform equivalence.
 - `references/react-native-adapter.md` — canonical React Native role/state/token/responsive/accessibility/fallback mapping.
