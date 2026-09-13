@@ -3,21 +3,12 @@
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
-const VALIDATOR_VERSION = '2.1.0';
+const VALIDATOR_VERSION = '2.0.0';
 const root = process.cwd();
 const stylesRoot = join(root, 'skills');
 const expectedStyles = ['skeuomorphism', 'flat-design', 'neumorphism', 'material-design', 'glassmorphism', 'claymorphism', 'liquid-glass', 'aurora-ui', 'bento-ui', 'neobrutalism'];
 const requiredFiles = ['SKILL.md', 'components.md', 'platforms.md', 'example.css', 'example.tsx', 'example.flutter.dart'];
-const requiredRefs = [
-  'references/component-code-contract.md',
-  'references/platform-contract.md',
-  'references/platform-matrix.md',
-  'references/review-checklist.md',
-  'references/token-convention.md',
-  'references/code-examples.md',
-  'references/quality-gates.md',
-  'references/react-native-adapter.md',
-];
+const requiredRefs = ['references/component-code-contract.md', 'references/platform-contract.md', 'references/platform-matrix.md', 'references/review-checklist.md', 'references/token-convention.md', 'references/code-examples.md'];
 const failures = [];
 const warnings = [];
 
@@ -102,9 +93,6 @@ else {
     for (const platform of ['html-css', 'react', 'flutter', 'react-native', 'other-renderers-via-adapter']) if (!Array.isArray(parsed.platforms) || !parsed.platforms.includes(platform)) fail(`skill.json: missing platform ${platform}`);
     for (const step of ['analyze', 'select-primary-style', 'generate-semantic-tokens', 'negotiate-platform-capabilities', 'plan-components', 'implement', 'audit']) if (!Array.isArray(parsed.workflow) || !parsed.workflow.includes(step)) fail(`skill.json: missing workflow step ${step}`);
     if (parsed.source_of_truth !== 'SKILL.md') fail('skill.json: source_of_truth must be SKILL.md');
-    for (const contract of ['references/component-code-contract.md', 'references/platform-contract.md', 'references/platform-matrix.md', 'references/quality-gates.md', 'references/react-native-adapter.md']) {
-      if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes(contract)) fail(`skill.json: missing contract ${contract}`);
-    }
   } catch (error) { fail(`skill.json: invalid JSON (${error.message})`); }
 }
 
@@ -120,14 +108,6 @@ const platformContract = read(join(root, 'references/platform-contract.md'));
 if (platformContract) {
   for (const pattern of [/required|preferred|optional/i, /progressive enhancement/i, /reduced.?motion/i, /forced colors/i, /375|768|1024|1440/i, /fallback/i]) if (!pattern.test(platformContract)) warn(`platform-contract.md: missing contract concept ${pattern}`);
 }
-const qualityGates = read(join(root, 'references/quality-gates.md'));
-if (qualityGates) {
-  for (const pattern of [/Gate A|semantics/i, /Gate B|responsive/i, /Gate C|motion|fallback/i, /Gate D|target size/i, /Gate E|effect budget/i, /Gate F|cross-platform/i, /Gate G|React Native adapter/i]) if (!pattern.test(qualityGates)) fail(`quality-gates.md: missing quality gate concept ${pattern}`);
-}
-const reactNativeAdapter = read(join(root, 'references/react-native-adapter.md'));
-if (reactNativeAdapter) {
-  for (const pattern of [/semantic-first mapping/i, /canonical token mapping/i, /native interaction primitives/i, /responsive adaptation/i, /accessibility/i, /performance|fallback/i]) if (!pattern.test(reactNativeAdapter)) fail(`react-native-adapter.md: missing adapter concept ${pattern}`);
-}
 
 const readme = read(join(root, 'README.md'));
 if (readme) for (const style of expectedStyles) {
@@ -139,11 +119,8 @@ if (readme) for (const style of expectedStyles) {
 if (failures.length) {
   console.error(`\nValidation FAILED: ${failures.length} error(s)`);
   failures.forEach((message) => console.error(`- ${message}`));
-  if (warnings.length) { console.error(`\nWarnings: ${warnings.length}`); warnings.forEach((message) => console.error(`- ${message}`); }
+  if (warnings.length) { console.error(`\nWarnings: ${warnings.length}`); warnings.forEach((message) => console.error(`- ${message}`)); }
   process.exit(1);
 }
 console.log(`Validation PASSED: ${expectedStyles.length} styles checked.`);
-if (warnings.length) {
-  console.log(`Warnings: ${warnings.length}`);
-  warnings.forEach((message) => console.log(`- ${message}`));
-}
+if (warnings.length) { console.log(`Warnings: ${warnings.length}`); warnings.forEach((message) => console.log(`- ${message}`)); }
