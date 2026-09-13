@@ -1,18 +1,29 @@
 # Component-Level Code Contract
 
-Every style folder now has `components.md`. The agent must read it after `SKILL.md` and before writing frontend code.
+Every style folder must document component recipes and a platform mapping. The agent must read the selected style's `SKILL.md`, `components.md`, `platforms.md`, and runnable examples before writing frontend code.
 
 ## Required component coverage
 
 For each selected style, define concrete values and code for:
 
 - Page/background surface.
-- Button: default, hover, active, disabled, and focus-visible.
+- Button: default, hover (where supported), active/pressed, selected, disabled, loading, and focus-visible.
 - Card/panel.
 - Input/form field.
 - Navigation or toolbar.
 - Modal, alert, badge, table, or style-specific control where applicable.
-- Opacity, blur, shadow, radius, border, and target-size decisions.
+- Opacity, blur, shadow/elevation, radius, border, typography, spacing, and target-size decisions.
+
+## Required platform coverage
+
+For every target requested by the project, provide:
+
+- HTML/CSS recipe using semantic HTML and progressive enhancement where required.
+- React recipe using semantic DOM and the host project's styling approach.
+- Flutter recipe using the platform's theme/component primitives and explicit semantics/focus behavior.
+- Additional target mapping when the project requests another renderer.
+
+The platform recipe may approximate an optional visual effect, but it must preserve the semantic token, state, hierarchy, and interaction intent.
 
 ## Required output from the agent
 
@@ -23,16 +34,29 @@ Secondary surface:
 Text opacity:
 Decorative opacity:
 Blur:
-Shadow:
+Shadow/elevation:
 Radius:
 Border:
+Typography:
+Spacing:
+Minimum target:
 Focus ring:
 Button recipe:
 Card recipe:
 Input recipe:
 Navigation recipe:
-Responsive rule:
-Reduced-motion/fallback:
+Platform mappings:
+Responsive/adaptive rule:
+Accessibility/semantics rule:
+Reduced-motion/transparency rule:
+Unsupported-effect fallback:
+Performance constraint:
 ```
 
-Do not return only a style name or generic prose. Every component decision must be backed by a token and a code example. Extend the style's `components.md` when the project introduces a component not covered by the base recipes.
+## Semantic-state rule
+
+State must remain understandable after removing decorative effects. Do not use color, shadow, opacity, blur, glow, texture, or motion as the only channel for selection, error, disabled, success, or focus.
+
+## Responsive rule
+
+The same component anatomy must survive compact, medium, and expanded widths. Do not solve localization/text scaling with fixed heights or clipped overflow.
