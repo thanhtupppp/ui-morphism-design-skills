@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SkeuomorphicControl extends StatelessWidget {
-  const SkeuomorphicControl({super.key});
+  const SkeuomorphicControl({super.key, this.onPressed});
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +20,15 @@ class SkeuomorphicControl extends StatelessWidget {
           BoxShadow(color: Color(0x47000000), offset: Offset(0, 4), blurRadius: 8),
         ],
       ),
-      child: Semantics(
-        button: true,
-        label: 'Skeuomorphic control',
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: FilledButton(onPressed: () {}, child: const Text('Activate')),
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: FilledButton(
+          onPressed: onPressed,
+          style: FilledButton.styleFrom(
+            minimumSize: const Size(44, 44),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+          ),
+          child: const Text('Activate'),
         ),
       ),
     );
