@@ -12,7 +12,8 @@
 8. Map those tokens to each target: HTML/CSS, React, Flutter, and any additional supported stack. Do not make a CSS-only effect a required dependency for another renderer.
 9. Implement concrete recipes for every required component and every required interactive state.
 10. Apply capability negotiation: advanced effect -> supported implementation -> reduced effect -> opaque/flat fallback.
-11. Test responsive/adaptive behavior, focus, semantics, contrast, forced colors/high contrast, large text, localization, reduced motion, reduced transparency where applicable, fallback behavior, and performance.
+11. Read `references/quality-gates.md` and verify semantics, responsive behavior, motion/fallback, target size, effect budget, and cross-platform equivalence for every example produced or modified.
+12. Test responsive/adaptive behavior, focus, semantics, contrast, forced colors/high contrast, large text, localization, reduced motion, reduced transparency where applicable, fallback behavior, and performance.
 
 ## Hard rules
 
