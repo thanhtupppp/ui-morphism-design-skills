@@ -32,5 +32,12 @@ For the same component, compare semantic anatomy rather than pixels:
 
 A renderer may use different primitives while preserving this sequence.
 
+## Gate G — React Native adapter
+- React Native implementations must have a deterministic mapping for semantic roles, state, spacing, shape, effects, responsive behavior, accessibility, and fallback.
+- Prefer `Pressable`, `TextInput`, `Switch`, `Slider`, and other native semantic primitives over custom painted controls.
+- Unsupported blur, shadow, gradient, or advanced motion must degrade to a simpler native surface without changing hierarchy or meaning.
+- Responsive behavior must use available-width primitives such as Flexbox, `useWindowDimensions`, `onLayout`, or the product's established breakpoint system.
+- The canonical mapping contract is `references/react-native-adapter.md`.
+
 ## Warning policy
 Validator warnings are quality-debt signals, not permission to weaken a contract. Resolve warnings by improving the example or documentation. Only promote a warning to a hard failure when the missing behavior is necessary for portability, accessibility, correctness, or repository integrity.
