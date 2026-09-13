@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ClayCard extends StatelessWidget {
-  const ClayCard({super.key});
+  const ClayCard({super.key, this.onPressed});
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,15 @@ class ClayCard extends StatelessWidget {
           BoxShadow(color: Color(0x80FFFFFF), offset: Offset(0, -5), blurRadius: 12),
         ],
       ),
-      child: FilledButton(onPressed: () {}, child: const Text('Start')),
+      child: FilledButton(
+        onPressed: onPressed,
+        style: FilledButton.styleFrom(
+          minimumSize: const Size(44, 44),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        ),
+        child: const Text('Start'),
+      ),
     );
   }
 }
