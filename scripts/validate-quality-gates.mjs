@@ -30,7 +30,7 @@ const mustContain = (text, pattern, label) => {
   if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`);
 };
 
-console.log('UI Morphism Quality Gates v1.2.1');
+console.log('UI Morphism Quality Gates v1.2.2');
 
 const gatesPath = join(root, 'references/quality-gates.md');
 const gates = read(gatesPath);
@@ -50,6 +50,7 @@ const skill = read(join(root, 'SKILL.md'));
 mustContain(skill, /quality-gates\.md/i, 'SKILL.md');
 mustContain(skill, /react-native-adapter\.md/i, 'SKILL.md');
 mustContain(skill, /decision record[\s\S]*semantic token record[\s\S]*verification record/i, 'SKILL.md');
+mustContain(skill, /platform-matrix\.md/i, 'SKILL.md');
 
 const componentContract = read(join(root, 'references/component-code-contract.md'));
 if (!componentContract) {
@@ -69,6 +70,16 @@ if (!componentContract) {
   ]) {
     mustContain(componentContract, pattern, `component-code-contract.md (${name})`);
   }
+}
+
+const platformMatrix = read(join(root, 'references/platform-matrix.md'));
+if (!platformMatrix) {
+  fail('references/platform-matrix.md: missing or unreadable.');
+} else {
+  mustContain(platformMatrix, /\| Style \| HTML\/CSS \| React \| Flutter \| React Native \|/i, 'platform-matrix.md');
+  mustContain(platformMatrix, /Capability tier legend/i, 'platform-matrix.md');
+  mustContain(platformMatrix, /Required[\s\S]*Preferred[\s\S]*Optional/i, 'platform-matrix.md');
+  mustContain(platformMatrix, /full effect[\s\S]*reduced effect[\s\S]*opaque\/static effect[\s\S]*simpler native surface/i, 'platform-matrix.md');
 }
 
 const adapter = read(join(root, 'references/react-native-adapter.md'));
@@ -91,8 +102,14 @@ if (!skillJson) {
 } else {
   try {
     const parsed = JSON.parse(skillJson);
-    if (parsed.version !== '1.4.0') {
-      fail(`skill.json: expected contract version 1.4.0, found ${parsed.version ?? 'missing'}.`);
+    if (parsed.version !== '1.5.0') {
+      fail(`skill.json: expected contract version 1.5.0, found ${parsed.version ?? 'missing'}.`);
+    }
+    if (!Array.isArray(parsed.platforms) || !parsed.platforms.includes('react-native')) {
+      fail('skill.json: react-native is not declared as a supported platform.');
+    }
+    if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/platform-matrix.md')) {
+      fail('skill.json: platform-matrix.md is not declared in contracts.');
     }
     if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/quality-gates.md')) {
       fail('skill.json: quality-gates.md is not declared in contracts.');
