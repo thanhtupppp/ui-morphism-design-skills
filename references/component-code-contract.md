@@ -21,9 +21,21 @@ For every target requested by the project, provide:
 - HTML/CSS recipe using semantic HTML and progressive enhancement where required.
 - React recipe using semantic DOM and the host project's styling approach.
 - Flutter recipe using the platform's theme/component primitives and explicit semantics/focus behavior.
+- React Native recipe using native interaction primitives and the shared adapter contract.
 - Additional target mapping when the project requests another renderer.
 
 The platform recipe may approximate an optional visual effect, but it must preserve the semantic token, state, hierarchy, and interaction intent.
+
+## Required runnable examples
+
+Every style must provide four small implementation seeds:
+
+- `example.css` — web/CSS progressive-enhancement baseline.
+- `example.tsx` — React/semantic DOM baseline.
+- `example.flutter.dart` — Flutter/theme-native baseline.
+- `example.native.tsx` — React Native/native-primitive baseline.
+
+The React Native seed must demonstrate a native interaction primitive, accessible state, available-width adaptation, a minimum 48px target for primary tappable controls, and a deterministic fallback for unsupported decoration.
 
 ## Required output from the agent
 
@@ -73,6 +85,8 @@ Verification:
 - Never describe an effect without its capability tier (`required`, `preferred`, or `optional`) and fallback.
 - Never claim a state is implemented when it exists only through decoration or animation.
 - Never omit the verification record for generated or modified example code.
+- Never omit the React Native seed when React Native is a requested target.
+- Primary React Native tappable controls must target at least 48px in their minimum dimension.
 
 ## Semantic-state rule
 
