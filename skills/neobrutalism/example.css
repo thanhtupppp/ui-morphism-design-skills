@@ -3,4 +3,9 @@
 .neo-card { max-width: 560px; padding: 24px; border: 3px solid #0a0a0a; background: #fff; box-shadow: 8px 8px 0 #0a0a0a; }
 .neo-button { min-height: 44px; padding: 10px 16px; border: 2px solid #0a0a0a; background: #ffdc58; color: #0a0a0a; box-shadow: 4px 4px 0 #0a0a0a; cursor: pointer; }
 .neo-button:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #0a0a0a; }
+.neo-button:active { transform: translate(4px, 4px); box-shadow: none; }
 .neo-button:focus-visible { outline: 3px solid #155e75; outline-offset: 4px; }
+.neo-button:disabled { cursor: not-allowed; opacity: .55; }
+@media (max-width: 767px) { .neo-demo { padding: 16px; } .neo-card { padding: 16px; } .neo-button { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .neo-button { transform: none; transition: none; } }
+@media (forced-colors: active) { .neo-demo { background: Canvas; color: CanvasText; } .neo-card { background: Canvas; color: CanvasText; border: 2px solid CanvasText; box-shadow: none; } .neo-button { background: ButtonFace; color: ButtonText; border: 2px solid ButtonText; box-shadow: none; } .neo-button:focus-visible { outline-color: Highlight; } }
