@@ -30,7 +30,7 @@ const mustContain = (text, pattern, label) => {
   if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`);
 };
 
-console.log('UI Morphism Quality Gates v1.2.2');
+console.log('UI Morphism Quality Gates v1.3.0');
 
 const gatesPath = join(root, 'references/quality-gates.md');
 const gates = read(gatesPath);
@@ -130,6 +130,7 @@ for (const style of styles) {
   const css = read(join(dir, 'example.css'));
   const tsx = read(join(dir, 'example.tsx'));
   const dart = read(join(dir, 'example.flutter.dart'));
+  const native = read(join(dir, 'example.native.tsx'));
 
   if (!css) fail(`${style}/example.css: missing or unreadable.`);
   else {
@@ -151,6 +152,18 @@ for (const style of styles) {
     mustContain(dart, /Button|TextButton|ElevatedButton|OutlinedButton|FilledButton|IconButton|TextField|Switch|Checkbox|Slider|NavigationBar|Tab/i, `${style}/example.flutter.dart`);
     mustContain(dart, /48|minimumSize|tap target|target size|MaterialTapTargetSize/i, `${style}/example.flutter.dart`);
     mustContain(dart, /LayoutBuilder|MediaQuery|Wrap|GridView|responsive|width/i, `${style}/example.flutter.dart`);
+  }
+
+  if (!native) {
+    fail(`${style}/example.native.tsx: missing or unreadable.`);
+  } else {
+    mustContain(native, /Pressable|TextInput|Switch|Slider/i, `${style}/example.native.tsx`);
+    mustContain(native, /accessibilityRole|accessibilityState/i, `${style}/example.native.tsx`);
+    mustContain(native, /useWindowDimensions|onLayout|Flexbox|flexDirection|width/i, `${style}/example.native.tsx`);
+    mustContain(native, /disabled|pressed|selected|loading|error/i, `${style}/example.native.tsx`);
+    mustContain(native, /fallback|remove|unsupported|without.*blur|without.*shadow|retain.*state/i, `${style}/example.native.tsx`);
+    mustContain(native, /Verification:/i, `${style}/example.native.tsx`);
+    mustContain(native, /minHeight:\s*48|minimum.*48|48px/i, `${style}/example.native.tsx`);
   }
 }
 
