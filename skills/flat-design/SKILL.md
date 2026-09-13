@@ -1,54 +1,98 @@
 # Flat Design
 
-## Purpose
-Flat Design uses color, typography, spacing, alignment, icons, and explicit states instead of simulated physical depth.
+## Definition
+Flat Design is a visual language where hierarchy and affordance come primarily from **semantic color, typography, spacing, alignment, grouping, borders, and explicit state changes** instead of realistic depth, texture, bevels, or material simulation.
 
-## Use when
-- The product is data-dense, operational, cross-platform, or long-lived.
-- Speed, scanning, readability, and maintainability matter more than material drama.
-- The team needs a stable design-system foundation.
+A flat interface is not an interface with every shadow removed. It is an interface whose meaning survives without decorative depth.
+
+## Beginner recognition test
+A person unfamiliar with design should be able to point at a screen and answer immediately:
+
+- What is the page/background?
+- Which regions belong together?
+- Which elements are interactive?
+- Which control is primary?
+- Which navigation item is active?
+- Which field has focus?
+- Which content is selected, disabled, loading, or in error?
+
+If removing shadows or gradients makes these answers unclear, the hierarchy is insufficiently semantic for Flat Design.
 
 ## Visual DNA
-- Use semantic color roles rather than one-off hex values.
-- Create hierarchy with spacing, type scale, grouping, borders, and surface tone.
-- Use restrained radius and shadow; zero shadow is valid, but zero hierarchy is not.
-- Keep icon geometry and text contrast consistent.
+1. **Color roles** define semantic importance, not random decoration.
+2. **Typography** defines hierarchy and reading order.
+3. **Spacing** separates groups and establishes rhythm.
+4. **Alignment** creates structure.
+5. **Borders/separators** define functional boundaries when needed.
+6. **Surface tone** distinguishes major regions.
+7. **Icons** reinforce meaning but do not replace labels for critical actions.
+8. **Depth is optional** and restrained; a zero-shadow component is fully valid.
 
-## Component rules
-- Button: primary, secondary, destructive, ghost, and disabled variants need distinct states.
-- Form: persistent label, helper text, inline error, focus, and success treatment.
-- Table: opaque header/body, selected row, sortable state, loading, empty, and error state.
-- Navigation: active state must include more than color, such as icon, underline, weight, or surface.
+## Core principles
+- Use semantic tokens rather than component-specific one-off colors.
+- Prefer one clear visual hierarchy over many competing accents.
+- Make interaction states explicit and persistent enough to understand without hover.
+- Keep content order and DOM/focus order aligned with task order.
+- Use familiar controls when available rather than drawing imitations.
+- Preserve meaning in grayscale, high-contrast, zoom, localization, and reduced-motion modes.
+- Keep the visual language stable across mobile, tablet, desktop, and large-screen layouts.
 
-## Token recipe
-```css
-:root {
-  --um-flat-design-bg: #f7f8fa;
-  --um-flat-design-surface-1: #ffffff;
-  --um-flat-design-ink: #18202a;
-  --um-flat-design-ink-muted: #52606d;
-  --um-flat-design-border-strong: #64748b;
-  --um-flat-design-accent: #2563eb;
-  --um-flat-design-focus: #1d4ed8;
-}
-.um-flat-button { min-height: 44px; border: 1px solid transparent; border-radius: 8px; background: var(--um-flat-design-accent); color: white; }
-.um-flat-button:focus-visible { outline: 3px solid var(--um-flat-design-focus); outline-offset: 3px; }
-```
+## Component system
+The canonical component set includes page/shell, header, navigation, tabs, buttons, icon buttons, links, cards/panels, lists, forms, inputs, selects, checkboxes, radios, switches, sliders, menus, dialogs/sheets, alerts/banners/snackbars, badges/chips, progress/meter, tables/data grids, pagination, loading/skeleton, empty state, and error recovery.
+
+Every interactive component needs a state matrix appropriate to its behavior, including default, hover where supported, pressed, focus-visible/focused, selected/checked, disabled, loading, invalid/error and success where meaningful.
+
+## Data-dense stance
+Flat Design is the default recommendation when the product is operational, data-dense, cross-platform, accessibility-sensitive, performance-constrained, or expected to evolve for years. It can form the stable foundation beneath a bounded expressive accent style.
+
+## Forms
+Form fields use a persistent label, control, supporting/help text when useful, and explicit validation. Errors must explain what happened and what to do next. Required state should not rely on placeholder text alone.
+
+## Navigation
+Navigation communicates both destination and current location. Active state should combine at least two cues when practical, such as color + weight, color + underline/indicator, or icon + surface.
+
+## Tables
+Use stable opaque surfaces, clear header/body differentiation, predictable alignment, selected-row state, sort indicators, and explicit empty/loading/error behavior. Do not turn every cell into a bordered box.
+
+## Responsive behavior
+Use mobile-first CSS Grid/Flexbox on the web and adaptive layout primitives on native platforms. Prefer content-driven breakpoints and stable reading order. Validate compact phone, tablet, desktop, zoom/text scaling, long localization, and RTL when applicable.
 
 ## Motion
-Prefer opacity and transform for feedback. Use short transitions for hover/focus and immediate feedback for critical status. Respect reduced motion.
+Use short, purposeful opacity/transform transitions for feedback. Critical state should be immediately understandable without waiting for animation. Under reduced motion, remove non-essential transitions and preserve state changes.
 
-## Responsive and performance
-Build mobile-first. Use CSS Grid/Flexbox, content-based breakpoints, and stable DOM order. Flat Design is a good fallback for all advanced styles.
+## Accessibility
+Focus must be visible and not rely on color alone. Status, selection, and errors should have more than one communication channel when practical. WCAG 2.2 includes requirements for focus not being obscured and target size; these constraints should be embedded in component recipes and tested per platform. citeturn724602search1
 
-## Accessibility checklist
-- [ ] Body text and controls meet contrast requirements.
-- [ ] Every interactive state is visible without hover.
-- [ ] Color is not the only status channel.
-- [ ] Keyboard order follows visual/task order.
-- [ ] Zoom and localization do not clip content.
+For Flutter, standard Material widgets can provide semantics and adaptive behavior, but the Flat Design tokens should still be controlled through themes rather than scattered per-widget styling. Flutter 3.47.2 documentation indicates Material 3 is the default and supports adaptive, accessible experiences; use `ThemeData`/`ThemeExtension` to map project tokens. citeturn724602search2turn724602search7
+
+## Flutter mapping
+Recommended primitives:
+
+- surface/container → `Container`, `DecoratedBox`, `Card` with restrained elevation
+- primary action → `FilledButton`
+- secondary action → `OutlinedButton`
+- tertiary action → `TextButton`
+- field → `TextField`/`TextFormField` with `InputDecoration`
+- navigation → standard `NavigationBar`/`NavigationRail`/appropriate app shell
+- dialog → `Dialog`/`showDialog`
+- transient message → `SnackBar`
+- list → `ListView`/slivers
+- data → `DataTable`/`PaginatedDataTable` or project data-grid primitive
+
+Flutter's current Material implementation is Material 3 by default, so Flat Design should intentionally neutralize unnecessary elevation, shape, and color while preserving the standard behavioral semantics. citeturn724602search0turn724602search6
+
+## Web mapping
+Use semantic HTML first: `button`, `a`, `input`, `select`, `textarea`, `nav`, `dialog`, headings, lists and tables. React should preserve the same semantics and only handle composition/state; the exact styling mechanism is determined by the host project.
+
+## Progressive enhancement
+Flat Design is the mandatory fallback for advanced morphism styles. If blur, glow, transparency, texture, animation, or custom filters fail, the semantic structure and component states must remain fully usable.
 
 ## Anti-patterns
-- Removing borders and focus indicators to look minimalist.
-- Gray-on-gray text and disabled controls that become invisible.
-- Inconsistent component states across screens.
+- Removing borders/focus indicators to appear minimal.
+- Gray-on-gray body text.
+- Color-only status or selection.
+- Treating every item as a card.
+- Replacing standard controls with inaccessible visual replicas.
+- Fixed-height text containers that break under localization or scaling.
+- Excessive micro-borders that turn the UI into a grid of boxes.
+- Applying expressive gradients or effects to every component.
