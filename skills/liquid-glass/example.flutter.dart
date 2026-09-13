@@ -8,30 +8,47 @@ class LiquidGlassToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final toolbar = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: effectsEnabled ? const Color(0x9EFFFFFF) : Theme.of(context).colorScheme.surface,
-        border: Border.all(color: effectsEnabled ? const Color(0xB8FFFFFF) : Theme.of(context).colorScheme.outline),
-        borderRadius: BorderRadius.circular(999),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(tooltip: 'Search', onPressed: () {}, icon: const Icon(Icons.search)),
-          IconButton(tooltip: 'Settings', onPressed: () {}, icon: const Icon(Icons.settings)),
-        ],
-      ),
-    );
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < 600;
+        final horizontalPadding = compact ? 8.0 : 12.0;
+        final blur = compact ? 14.0 : 20.0;
+        final toolbar = Container(
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 8),
+          decoration: BoxDecoration(
+            color: effectsEnabled ? const Color(0x9EFFFFFF) : Theme.of(context).colorScheme.surface,
+            border: Border.all(color: effectsEnabled ? const Color(0xB8FFFFFF) : Theme.of(context).colorScheme.outline),
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                tooltip: 'Search',
+                onPressed: () {},
+                style: IconButton.styleFrom(minimumSize: const Size(48, 48)),
+                icon: const Icon(Icons.search),
+              ),
+              IconButton(
+                tooltip: 'Settings',
+                onPressed: () {},
+                style: IconButton.styleFrom(minimumSize: const Size(48, 48)),
+                icon: const Icon(Icons.settings),
+              ),
+            ],
+          ),
+        );
 
-    if (!effectsEnabled) return toolbar;
+        if (!effectsEnabled) return toolbar;
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(999),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-        child: toolbar,
-      ),
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(999),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+            child: toolbar,
+          ),
+        );
+      },
     );
   }
 }
