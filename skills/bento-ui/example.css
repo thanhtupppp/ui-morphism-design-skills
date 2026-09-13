@@ -10,6 +10,7 @@
   --bento-page-padding: 24px;
   --bento-card-padding: 24px;
   --bento-radius: 24px;
+  --bento-target-min: 44px;
 }
 
 .bento-grid {
@@ -52,7 +53,8 @@
 }
 
 .bento-action {
-  min-height: 44px;
+  min-width: var(--bento-target-min);
+  min-height: var(--bento-target-min);
   padding: 10px 14px;
   border: 1px solid var(--bento-border);
   border-radius: 10px;
@@ -80,7 +82,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bento-card { scroll-behavior: auto; }
+  .bento-grid *,
+  .bento-grid *::before,
+  .bento-grid *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @media (forced-colors: active) {
