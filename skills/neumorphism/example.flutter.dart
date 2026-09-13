@@ -7,26 +7,34 @@ class NeumorphicButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: const Color(0xFFE6E7EE),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0xFF697386)),
-        boxShadow: const [
-          BoxShadow(color: Color(0xFFB8B9BE), offset: Offset(6, 6), blurRadius: 12),
-          BoxShadow(color: Color(0xFFFFFFFF), offset: Offset(-6, -6), blurRadius: 12),
-        ],
-      ),
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          minimumSize: const Size(44, 44),
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-          foregroundColor: const Color(0xFF272B35),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        ),
-        child: const Text('Play'),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < 600;
+        final offset = compact ? 4.0 : 6.0;
+        final blur = compact ? 8.0 : 12.0;
+
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            color: const Color(0xFFE6E7EE),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: const Color(0xFF697386)),
+            boxShadow: [
+              BoxShadow(color: const Color(0xFFB8B9BE), offset: Offset(offset, offset), blurRadius: blur),
+              BoxShadow(color: const Color(0xFFFFFFFF), offset: Offset(-offset, -offset), blurRadius: blur),
+            ],
+          ),
+          child: TextButton(
+            onPressed: onPressed,
+            style: TextButton.styleFrom(
+              minimumSize: const Size(44, 44),
+              padding: EdgeInsets.symmetric(horizontal: compact ? 14 : 18, vertical: 12),
+              foregroundColor: const Color(0xFF272B35),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            ),
+            child: const Text('Play'),
+          ),
+        );
+      },
     );
   }
 }
