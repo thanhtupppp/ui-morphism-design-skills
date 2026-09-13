@@ -4,7 +4,7 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 ## Current contract
 
-Version `1.3.0` supports ten visual styles and a semantic-first cross-platform implementation model. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+Version `1.4.0` supports ten visual styles and a semantic-first cross-platform implementation model. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
 
 ## Code-first, cross-platform usage
 
@@ -19,10 +19,18 @@ Every style directory contains:
 
 An agent should read all style files above before implementing a selected style. Do not output only generic visual advice; use the concrete recipes and platform mappings, then adapt tokens and primitives to the project.
 
+## Agent output contract
+
+`references/component-code-contract.md` now requires an auditable sequence:
+
+`decision record -> semantic token record -> component recipes -> platform mappings -> responsive/accessibility rules -> fallback rule -> verification record`
+
+For generated or modified examples, record what was verified instead of treating the presence of visual code as proof of correctness.
+
 ## Core contracts
 
 - `references/comparison-matrix.md` — style selection and depth/cost guidance.
-- `references/component-code-contract.md` — required component/state output.
+- `references/component-code-contract.md` — required component/state output and auditable agent workflow.
 - `references/platform-contract.md` — framework-agnostic implementation and fallback rules.
 - `references/platform-matrix.md` — renderer capability matrix.
 - `references/platform-implementation-guide.md` — semantic tokens, capability negotiation, and verification workflow.
