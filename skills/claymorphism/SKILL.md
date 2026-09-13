@@ -1,56 +1,86 @@
 # Claymorphism
 
 ## Purpose
-Claymorphism uses opaque, inflated, rounded objects with soft highlights and hue-matched shadows to communicate friendliness.
+Claymorphism uses opaque, inflated, rounded objects with soft highlights and hue-matched shadows to communicate friendliness, warmth, and approachable physicality.
+
+## How to recognize it
+A Claymorphic object looks like a soft molded piece of colored clay: rounded, opaque, inflated, and gently shaded. The body itself has color and volume; it is not transparent and does not depend on a photographic texture.
 
 ## Use when
-- The product is educational, playful, onboarding-focused, wellness-oriented, or gamified.
-- Visual objects need warmth and approachable physicality.
+- The product is educational, playful, onboarding-focused, wellness-oriented, creative, or gamified.
+- A hero object or featured module benefits from warmth and physicality.
+- The interface has enough whitespace for large rounded objects.
 
 ## Avoid when
 - The workflow is regulated, dense, data-heavy, or credibility-first.
-- Every list item would need a large inflated surface.
-- Pastel colors cannot maintain text and focus contrast.
+- Every list item would become a large inflated object.
+- Pastel colors cannot maintain text/focus contrast.
+- Transparency or realistic material is the stronger product metaphor.
 
 ## Visual DNA
-- Use an opaque pastel or candy-colored body.
-- Use large radius/squircle geometry and one consistent light source.
-- Pair a light inset top, dark inset bottom, and hue-matched outer shadow.
-- Keep typography crisp and less playful than the object layer.
+- Opaque pastel, candy, or brand-colored body.
+- Large rounded or squircle geometry.
+- One consistent light direction.
+- Soft light inner highlight.
+- Soft darker inner shade on the opposite side.
+- Hue-matched outer shadow rather than generic black blur.
+- Crisp typography and conventional information structure above the decorative layer.
 
-## Token recipe
-```css
-:root {
-  --um-claymorphism-bg: #f4f1fb;
-  --um-claymorphism-surface-1: #cfd4ff;
-  --um-claymorphism-ink: #24233a;
-  --um-claymorphism-border-strong: #554d86;
-  --um-claymorphism-radius-lg: 32px;
-  --um-claymorphism-shadow-1: inset 0 10px 18px -6px rgb(255 255 255 / .62), inset 0 -10px 18px -6px rgb(52 42 91 / .32), 0 24px 44px -12px rgb(80 65 150 / .32);
-}
-.um-clay { border: 1px solid transparent; border-radius: var(--um-claymorphism-radius-lg); background: var(--um-claymorphism-surface-1); box-shadow: var(--um-claymorphism-shadow-1); }
-.um-clay:focus-visible { outline: 3px solid var(--um-claymorphism-border-strong); outline-offset: 4px; }
-```
+## Material hierarchy
+1. Body color establishes the object.
+2. Shape establishes the inflated silhouette.
+3. Inner highlight/shade establishes curvature.
+4. Outer shadow establishes separation from the page.
+5. Content establishes meaning.
+6. Explicit state styling establishes interaction.
 
-## Component rules
-- Card/button: use different scale, not identical radius and shadow everywhere.
-- Empty state: clay illustration can be expressive while text/action remains conventional.
-- Form: use explicit labels, borders, and error text; do not rely on indentation or shadow.
-- Dense content: switch to Flat Design surfaces around clay hero objects.
+Decorative volume must never replace semantic affordance.
+
+## Component strategy
+- Hero/feature card: strongest Clay expression.
+- Primary CTA: smaller, clearer clay object.
+- Icon button/badge/chip: use restrained clay treatment.
+- Form controls: conventional opaque controls inside a clay shell when density or precision matters.
+- Tables/data grids: Flat or Material surfaces.
+- Empty states/illustrations: excellent place for expressive Clay shapes.
+
+## Distinction from similar styles
+- **Neumorphism:** shared-surface relief; Clay uses its own opaque colored body.
+- **Glassmorphism:** translucent and backdrop-dependent; Clay is opaque.
+- **Skeuomorphism:** realistic physical material and texture; Clay is stylized and simplified.
+- **Flat Design:** hierarchy without physical volume; Clay intentionally adds soft volume around selected objects.
+
+## State rules
+- Default: stable inflated form.
+- Hover: subtle lift/brightness, primarily for pointer devices.
+- Pressed: tiny inward translation/scale and optional shadow compression.
+- Focus: explicit high-contrast ring/border.
+- Selected: visible indicator, icon, stronger fill, or textual cue in addition to depth.
+- Disabled: semantic disabled treatment; reduce decoration without destroying legibility.
+- Error: text/icon/border; never rely on pastel hue or shadow alone.
 
 ## Motion
-Use soft scale/translate feedback. Avoid bouncing loops and large spring overshoot. Freeze or simplify motion under reduced motion.
+Use short, soft feedback. Avoid perpetual bouncing, excessive spring overshoot, or decorative rotation. Reduced motion should collapse to instant or near-instant state changes.
 
 ## Responsive and performance
-Limit deep shadow stacks and large blur radii in lists. Avoid fixed-height cards that clip translated/localized text. Keep illustrations lazy-loaded.
+- Reduce shadow spread and decorative object size before reducing usable target size.
+- Avoid fixed-height cards.
+- Reduce effect density on small screens.
+- Avoid large blur/shadow stacks across repeated list items.
+- Lazy-load large decorative illustrations.
 
 ## Accessibility checklist
-- [ ] Pastel text and icons meet contrast.
-- [ ] Controls remain visible if shadows are removed.
-- [ ] Focus ring differs from the body shadow.
-- [ ] Forced-colors mode provides solid boundaries.
+- [ ] Body text and controls maintain required contrast.
+- [ ] Focus is visible without relying on shadow.
+- [ ] Selection/disabled/error states remain understandable in grayscale.
+- [ ] Forced-colors/high-contrast mode exposes solid boundaries and semantic state.
+- [ ] Text scaling and localization do not clip inside rounded shapes.
+- [ ] Interactive semantics remain native/accessible.
 
 ## Anti-patterns
-- Tiny text inside giant soft shapes.
-- Clay styling on every table row.
-- Translucent clay surfaces whose body cannot be shaded consistently.
+- Applying Clay to every component.
+- Making all cards, buttons, and badges identical in radius and shadow.
+- Tiny typography inside oversized shapes.
+- Turning Clay transparent and calling it glass.
+- Using neutral paired relief shadows until the UI becomes Neumorphic.
+- Using decoration to communicate state without semantic labels/indicators.
