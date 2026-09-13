@@ -30,7 +30,7 @@ const mustContain = (text, pattern, label) => {
   if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`);
 };
 
-console.log('UI Morphism Quality Gates v1.1.0');
+console.log('UI Morphism Quality Gates v1.2.0');
 
 const gatesPath = join(root, 'references/quality-gates.md');
 const gates = read(gatesPath);
@@ -49,6 +49,21 @@ if (!gates) {
 const skill = read(join(root, 'SKILL.md'));
 mustContain(skill, /quality-gates\.md/i, 'SKILL.md');
 mustContain(skill, /react-native-adapter\.md/i, 'SKILL.md');
+mustContain(skill, /decision record[\s\S]*semantic token record[\s\S]*verification record/i, 'SKILL.md');
+
+const componentContract = read(join(root, 'references/component-code-contract.md'));
+if (!componentContract) {
+  fail('references/component-code-contract.md: missing or unreadable.');
+} else {
+  mustContain(componentContract, /Decision record/i, 'component-code-contract.md');
+  mustContain(componentContract, /Semantic token record/i, 'component-code-contract.md');
+  mustContain(componentContract, /Component recipes/i, 'component-code-contract.md');
+  mustContain(componentContract, /Platform mappings/i, 'component-code-contract.md');
+  mustContain(componentContract, /Responsive\/accessibility rules/i, 'component-code-contract.md');
+  mustContain(componentContract, /Fallback rule/i, 'component-code-contract.md');
+  mustContain(componentContract, /Verification record/i, 'component-code-contract.md');
+  mustContain(componentContract, /auditable/i, 'component-code-contract.md');
+}
 
 const adapter = read(join(root, 'references/react-native-adapter.md'));
 if (!adapter) {
@@ -70,11 +85,17 @@ if (!skillJson) {
 } else {
   try {
     const parsed = JSON.parse(skillJson);
+    if (parsed.version !== '1.4.0') {
+      fail(`skill.json: expected contract version 1.4.0, found ${parsed.version ?? 'missing'}.`);
+    }
     if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/quality-gates.md')) {
       fail('skill.json: quality-gates.md is not declared in contracts.');
     }
     if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/react-native-adapter.md')) {
       fail('skill.json: react-native-adapter.md is not declared in contracts.');
+    }
+    if (!Array.isArray(parsed.contracts) || !parsed.contracts.includes('references/component-code-contract.md')) {
+      fail('skill.json: component-code-contract.md is not declared in contracts.');
     }
   } catch (error) {
     fail(`skill.json: invalid JSON (${error.message})`);
