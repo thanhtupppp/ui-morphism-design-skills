@@ -30,7 +30,7 @@ const mustContain = (text, pattern, label) => {
   if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`);
 };
 
-console.log('UI Morphism Quality Gates v1.3.0');
+console.log('UI Morphism Quality Gates v1.4.0');
 
 const gatesPath = join(root, 'references/quality-gates.md');
 const gates = read(gatesPath);
@@ -51,6 +51,7 @@ mustContain(skill, /quality-gates\.md/i, 'SKILL.md');
 mustContain(skill, /react-native-adapter\.md/i, 'SKILL.md');
 mustContain(skill, /decision record[\s\S]*semantic token record[\s\S]*verification record/i, 'SKILL.md');
 mustContain(skill, /platform-matrix\.md/i, 'SKILL.md');
+mustContain(skill, /example\.native\.tsx/i, 'SKILL.md');
 
 const componentContract = read(join(root, 'references/component-code-contract.md'));
 if (!componentContract) {
@@ -102,8 +103,8 @@ if (!skillJson) {
 } else {
   try {
     const parsed = JSON.parse(skillJson);
-    if (parsed.version !== '1.5.0') {
-      fail(`skill.json: expected contract version 1.5.0, found ${parsed.version ?? 'missing'}.`);
+    if (parsed.version !== '1.5.1') {
+      fail(`skill.json: expected contract version 1.5.1, found ${parsed.version ?? 'missing'}.`);
     }
     if (!Array.isArray(parsed.platforms) || !parsed.platforms.includes('react-native')) {
       fail('skill.json: react-native is not declared as a supported platform.');
@@ -161,7 +162,7 @@ for (const style of styles) {
     mustContain(native, /accessibilityRole|accessibilityState/i, `${style}/example.native.tsx`);
     mustContain(native, /useWindowDimensions|onLayout|Flexbox|flexDirection|width/i, `${style}/example.native.tsx`);
     mustContain(native, /disabled|pressed|selected|loading|error/i, `${style}/example.native.tsx`);
-    mustContain(native, /fallback|remove|unsupported|without.*blur|without.*shadow|retain.*state/i, `${style}/example.native.tsx`);
+    mustContain(native, /fallback|remove|unsupported|retain.*state|without.*blur|without.*shadow/i, `${style}/example.native.tsx`);
     mustContain(native, /Verification:/i, `${style}/example.native.tsx`);
     mustContain(native, /minHeight:\s*48|minimum.*48|48px/i, `${style}/example.native.tsx`);
   }
