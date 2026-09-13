@@ -170,6 +170,12 @@ Prioritize:
 - avoiding layout-thrashing resize logic;
 - virtualization for genuinely large repeated collections rather than for a small marketing grid.
 
+## Fallback behavior
+Bento must remain understandable without advanced grid or animation features. If CSS Grid spans, masonry-like packing, container queries, or animation capabilities are unavailable, use a simpler one- or two-column source-order-preserving stack with the same tile priorities, spacing, names, and states. The fallback must retain hierarchy rather than imitate unsupported desktop geometry.
+
+## Motion and reduced motion
+Grid reflow and tile transitions are enhancements. When reduced-motion is requested, disable or minimize nonessential movement and preserve the same content order, tile priority, and state cues. Never require animation to discover content or interaction.
+
 ## Implementation checklist
 Before shipping a Bento page, verify:
 - [ ] Every tile has a clear semantic role.
