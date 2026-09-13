@@ -27,6 +27,19 @@ The platform recipe may approximate an optional visual effect, but it must prese
 
 ## Required output from the agent
 
+Produce the implementation in this order so the result is auditable:
+
+1. **Decision record** — name the primary style, any bounded supporting style, component roles, material/effect choices, and the reason those choices fit the product constraints.
+2. **Semantic token record** — list the semantic roles and canonical style tokens that back them; do not expose generic token names such as `--primary` or `--surface` in reusable CSS.
+3. **Component recipes** — provide the required component states and their semantic anatomy before optional visual effects.
+4. **Platform mappings** — map the same roles and states to every requested renderer; use the native interaction primitive for that renderer whenever available.
+5. **Responsive/adaptive rule** — state what changes at compact, medium, and expanded widths and what must remain invariant.
+6. **Accessibility rule** — state names/labels, keyboard or touch behavior, focus treatment, state exposure, text scaling, localization, and high-contrast/forced-colors behavior.
+7. **Fallback rule** — state the exact degradation path for unsupported, disabled, or reduced effects.
+8. **Verification record** — state the viewport/device checks, interaction states, accessibility checks, fallback checks, and performance-sensitive effects that were verified.
+
+Use this machine-readable field set when a compact output is required:
+
 ```text
 Style:
 Primary surface:
@@ -51,7 +64,15 @@ Accessibility/semantics rule:
 Reduced-motion/transparency rule:
 Unsupported-effect fallback:
 Performance constraint:
+Verification:
 ```
+
+### Output invariants
+
+- Never return a platform recipe without its corresponding semantic role and state model.
+- Never describe an effect without its capability tier (`required`, `preferred`, or `optional`) and fallback.
+- Never claim a state is implemented when it exists only through decoration or animation.
+- Never omit the verification record for generated or modified example code.
 
 ## Semantic-state rule
 
