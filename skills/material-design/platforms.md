@@ -20,11 +20,20 @@ Model the system as semantic roles: color, typography, shape, elevation, state l
 - Use `Material`/`elevation`, `ShapeBorder`, `ColorScheme`, and state properties for the visual layer.
 - Keep custom components compatible with `Focus`, keyboard traversal, semantics, large text, and platform adaptation.
 
+## React Native and other renderers
+- Use platform-native controls and the renderer's supported layout primitives.
+- Map Material roles, component states, shape, spacing, and adaptive behavior rather than forcing web-specific CSS behavior.
+- When elevation or state-layer APIs differ, use the closest supported semantic treatment and preserve explicit borders/focus/state indicators.
+- The fallback is an opaque, flatter surface with semantic color roles and clear outlines; unsupported effects must not become a blocker for interaction or readability.
+
 ## State model
 Every core component gets default/hover/focus/pressed/selected/disabled plus loading/error/success where relevant. Map web hover to desktop Flutter pointer state; do not require hover for mobile comprehension.
 
 ## Responsive/accessibility
-Use compact/medium/expanded layout rules rather than shrinking desktop coordinates. Preserve accessible names, error associations, focus order, and scalable typography. Flutter's built-in widgets provide accessibility semantics; test TalkBack/VoiceOver and keyboard traversal.
+Use compact/medium/expanded layout rules rather than shrinking desktop coordinates. Preserve accessible names, error associations, focus order, and scalable typography. Flutter's built-in widgets provide accessibility semantics; test TalkBack/VoiceOver and keyboard traversal. Respect reduced-motion preferences and provide a no-motion equivalent for nonessential transitions. Ensure forced-colors/high-contrast modes retain deterministic outlines, focus, and state cues.
+
+## Reduced motion
+On web, honor `prefers-reduced-motion: reduce`; on Flutter and other renderers, map the platform accessibility setting to shorter or disabled nonessential transitions. State changes must remain understandable without motion.
 
 ## Performance
 Prefer framework elevation and composited primitives over custom shadows. Keep motion bounded to local state transitions and provide reduced-motion alternatives.
