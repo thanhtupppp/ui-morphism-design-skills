@@ -20,11 +20,20 @@ Hierarchy is created by semantic color, typography, spacing, alignment, borders,
 - Use `InputDecoration` for persistent labels/helper/error text; use `Focus`/`FocusNode` for keyboard styling.
 - Keep an optional `elevation: 0` baseline rather than inventing shadows for flat surfaces.
 
+## React Native and other renderers
+- Use the renderer's native semantic controls and layout primitives.
+- Map the same role tokens, state cues, spacing, and responsive intent; do not require pixel-identical rendering.
+- When a renderer lacks a web-style primitive, use its closest accessible native equivalent rather than a custom painted control.
+- The fallback is a simpler opaque surface with explicit border/state cues; Flat Design should remain usable without any decorative effect capability.
+
 ## Shared component recipe
 Button = semantic fill + explicit focus/pressed/disabled states; Card = surface + border + spacing; Input = label + border + focus + helper/error; Navigation = active icon/label/indicator; Table = stable row/header state cues.
 
 ## Responsive/accessibility
-Validate compact phone, tablet, desktop and text scaling/localization. Flutter tappable targets should be >=48x48 logical px; web controls should use the product's minimum target policy. Ensure grayscale, high contrast, keyboard, screen reader, and forced-colors paths remain understandable.
+Validate compact phone, tablet, desktop and text scaling/localization. Flutter tappable targets should be >=48x48 logical px; web controls should use the product's minimum target policy. Ensure grayscale, high contrast, keyboard, screen reader, and forced-colors paths remain understandable. Use reduced-motion behavior for any transition or state animation: content and state changes must remain fully understandable without motion.
+
+## Reduced motion
+When `prefers-reduced-motion: reduce` applies on web, reduce or remove nonessential transitions. On Flutter, honor the platform accessibility/reduced-motion setting when available. Never hide state changes behind animation.
 
 ## Performance
 This style is the preferred fallback for all effect-heavy styles because it avoids expensive compositing and backdrop sampling.
