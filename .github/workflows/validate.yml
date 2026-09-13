@@ -24,3 +24,6 @@ jobs:
 
       - name: Validate repository
         run: node scripts/validate-repo.mjs
+
+      - name: Validate quality gates
+        run: node scripts/validate-quality-gates.mjs
