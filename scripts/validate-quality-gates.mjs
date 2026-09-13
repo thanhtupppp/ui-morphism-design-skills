@@ -30,7 +30,7 @@ const mustContain = (text, pattern, label) => {
   if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`);
 };
 
-console.log('UI Morphism Quality Gates v1.2.0');
+console.log('UI Morphism Quality Gates v1.2.1');
 
 const gatesPath = join(root, 'references/quality-gates.md');
 const gates = read(gatesPath);
@@ -55,14 +55,20 @@ const componentContract = read(join(root, 'references/component-code-contract.md
 if (!componentContract) {
   fail('references/component-code-contract.md: missing or unreadable.');
 } else {
-  mustContain(componentContract, /Decision record/i, 'component-code-contract.md');
-  mustContain(componentContract, /Semantic token record/i, 'component-code-contract.md');
-  mustContain(componentContract, /Component recipes/i, 'component-code-contract.md');
-  mustContain(componentContract, /Platform mappings/i, 'component-code-contract.md');
-  mustContain(componentContract, /Responsive\/accessibility rules/i, 'component-code-contract.md');
-  mustContain(componentContract, /Fallback rule/i, 'component-code-contract.md');
-  mustContain(componentContract, /Verification record/i, 'component-code-contract.md');
-  mustContain(componentContract, /auditable/i, 'component-code-contract.md');
+  for (const [name, pattern] of [
+    ['decision record', /\*\*Decision record\*\*/i],
+    ['semantic token record', /\*\*Semantic token record\*\*/i],
+    ['component recipes', /\*\*Component recipes\*\*/i],
+    ['platform mappings', /\*\*Platform mappings\*\*/i],
+    ['responsive/adaptive rule', /\*\*Responsive\/adaptive rule\*\*/i],
+    ['accessibility rule', /\*\*Accessibility rule\*\*/i],
+    ['fallback rule', /\*\*Fallback rule\*\*/i],
+    ['verification record', /\*\*Verification record\*\*/i],
+    ['auditable output', /auditable/i],
+    ['output invariants', /## Output invariants/i],
+  ]) {
+    mustContain(componentContract, pattern, `component-code-contract.md (${name})`);
+  }
 }
 
 const adapter = read(join(root, 'references/react-native-adapter.md'));
