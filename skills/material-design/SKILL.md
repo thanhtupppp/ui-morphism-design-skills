@@ -56,6 +56,9 @@ Critical information must never exist only in hover, elevation, or color.
 ## Adaptive behavior
 Use compact/medium/expanded layouts and task-driven breakpoints. Examples include navigation bar↔rail↔drawer, single-column↔multi-column, side panel↔sheet, and inline actions↔overflow menu. Preserve semantic and task order when layout changes.
 
+## Fallback behavior
+Material must remain usable when advanced elevation, state-layer, shadow, motion, or renderer-specific capabilities are unavailable. The fallback is a simpler opaque surface with explicit outline/border, semantic color roles, readable typography, and native controls. Loss of elevation must not remove focus, selection, error, or enabled-state meaning. On constrained or unsupported renderers, prefer flat surfaces and deterministic borders over emulating unsupported effects.
+
 ## Accessibility
 Material implementations must test contrast, focus visibility, target size, keyboard traversal, screen-reader names, dialog focus management, text scaling, localization, RTL, reduced motion, forced-colors/high-contrast equivalents where relevant, and error association.
 
