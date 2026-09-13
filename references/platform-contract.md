@@ -35,7 +35,7 @@ Optional effects must have a deterministic fallback that keeps the component rec
 
 ## HTML/React baseline
 
-Use semantic elements (`button`, `a`, `input`, headings, lists, dialogs) before custom div-based controls. CSS should use namespaced semantic variables. Progressive enhancement is required for blur, advanced color effects, and non-essential animation. Honor `prefers-reduced-motion` and `forced-colors`.
+Use semantic elements (`button`, `a`, `input`, headings, lists, dialogs) before custom div-based controls. CSS should use namespaced semantic variables. Progressive enhancement is required for blur, advanced color effects, and non-essential animation. Honor `prefers-reduced-motion` and forced colors.
 
 ## Flutter baseline
 
@@ -74,4 +74,5 @@ A platform implementation passes only when:
 - Text scaling/localization does not clip controls.
 - Unsupported effects degrade without breaking hierarchy.
 - Reduced-motion behavior is deterministic.
+- Forced colors/high-contrast mode preserves readable text, visible focus, explicit state boundaries, and semantic meaning when decorative effects are removed.
 - Performance-sensitive effects are bounded to small surfaces.
