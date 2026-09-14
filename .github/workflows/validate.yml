@@ -30,3 +30,6 @@ jobs:
 
       - name: Validate semantic parity
         run: node scripts/validate-semantic-parity.mjs
+
+      - name: Validate accessibility parity
+        run: node scripts/validate-accessibility-parity.mjs
