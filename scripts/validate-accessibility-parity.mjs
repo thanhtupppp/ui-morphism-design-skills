@@ -26,7 +26,11 @@ for (const style of styles) {
   requirePattern(css, /:focus-visible/i, `${style}/example.css focus`);
   requirePattern(css, /@media\s*\(forced-colors:\s*active/i, `${style}/example.css forced colors`);
   requirePattern(css, /@media\s*\(prefers-reduced-motion/i, `${style}/example.css reduced motion`);
-  requirePattern(css, /min-(?:height|width)\s*:\s*(?:44px|var\([^)]*target[^)]*\))/i, `${style}/example.css target size`);
+  requirePattern(css, /min-height:\s*(?:44px|var\([^)]*target[^)]*\))/i, `${style}/example.css target size`);
+
+  if (['glassmorphism', 'liquid-glass', 'aurora-ui'].includes(style)) {
+    requirePattern(css, /prefers-reduced-transparency|surface-fallback|background:\s*#(?:[0-9a-f]{3,8})/i, `${style}/example.css reduced-transparency fallback`);
+  }
 
   requirePattern(react, /<button\b|<a\b|<input\b|<select\b|<textarea\b/i, `${style}/example.tsx semantic primitive`);
   requirePattern(react, /data-state|aria-(?:disabled|selected|pressed|busy|invalid)|disabled/i, `${style}/example.tsx state semantics`);
