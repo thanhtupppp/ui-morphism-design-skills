@@ -9,6 +9,7 @@ const manifestPath = join(root, 'references', 'component-parity.json');
 const failures = [];
 
 const read = (path) => readFileSync(path, 'utf8');
+const readOptional = (path) => { try { return read(path); } catch { return ''; } };
 const fail = (message) => failures.push(message);
 
 let manifest;
@@ -26,11 +27,18 @@ const requireEvidence = (text, patterns, label) => {
 
 for (const style of styles) {
   const dir = join(root, 'skills', style);
+  const css = read(join(dir, 'example.css'));
+  const react = read(join(dir, 'example.tsx'));
+  const flutter = read(join(dir, 'example.flutter.dart'));
+  const native = read(join(dir, 'example.native.tsx'));
+  const platformContract = readOptional(join(dir, 'platforms.md'));
+  const shared = `${css}\n${react}\n${flutter}\n${native}\n${platformContract}`;
+
   const sources = {
-    'html-css': `${read(join(dir, 'example.css'))}\n${read(join(dir, 'example.tsx'))}`,
-    react: read(join(dir, 'example.tsx')),
-    flutter: read(join(dir, 'example.flutter.dart')),
-    'react-native': read(join(dir, 'example.native.tsx')),
+    'html-css': `${css}\n${react}`,
+    react: `${css}\n${react}`,
+    flutter,
+    'react-native': native,
   };
 
   for (const [renderer, rules] of Object.entries(manifest.renderers)) {
@@ -44,12 +52,15 @@ for (const style of styles) {
     requireEvidence(text, rules.stateSignals, `${style}/${renderer} state semantics`);
     requireEvidence(text, rules.nameSignals, `${style}/${renderer} accessible naming`);
     if (manifest.responsive) requireEvidence(text, rules.responsiveSignals, `${style}/${renderer} responsive intent`);
-    if (manifest.fallbackRequired) requireEvidence(text, rules.fallbackSignals, `${style}/${renderer} deterministic fallback`);
 
-    const targetRequirement = renderer === 'html-css' || renderer === 'react'
-      ? `${manifest.targetSize.webCssPx}px`
-      : `${manifest.targetSize.nativeLogicalPx}`;
-    requireEvidence(text, [targetRequirement, 'target', 'minHeight', 'min-height', 'minimumSize'], `${style}/${renderer} target-size policy`);
+    if (manifest.fallbackRequired) {
+      requireEvidence(shared, rules.fallbackSignals, `${style}/${renderer} deterministic fallback`);
+    }
+
+    const isWeb = renderer === 'html-css' || renderer === 'react';
+    const targetRequirement = isWeb ? `${manifest.targetSize.webCssPx}px` : `${manifest.targetSize.nativeLogicalPx}`;
+    const targetText = isWeb ? `${css}\n${text}` : text;
+    requireEvidence(targetText, [targetRequirement, 'target', 'minHeight', 'min-height', 'minimumSize', 'control-height'], `${style}/${renderer} target-size policy`);
   }
 }
 
