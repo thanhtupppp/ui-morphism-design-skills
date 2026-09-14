@@ -1,8 +1,8 @@
-/* Real starter implementation: Claymorphism */
-.clay-demo { padding: 24px; background: #f4f1fb; color: #24233a; }
-.clay-card { max-width: 560px; padding: 28px; border-radius: 32px; background: #cfd4ff; box-shadow: inset 0 10px 18px -6px rgb(255 255 255 / .62), inset 0 -10px 18px -6px rgb(52 42 91 / .32), 0 24px 44px -12px rgb(80 65 150 / .32); }
-.clay-button { min-height: 44px; padding: 10px 18px; border: 0; border-radius: 20px; background: #fff; color: #24233a; cursor: pointer; }
-.clay-button:focus-visible { outline: 3px solid #554d86; outline-offset: 4px; }
+:root { --um-claymorphism-surface: #f4f1fb; --um-claymorphism-card: #cfd4ff; --um-claymorphism-ink: #24233a; --um-claymorphism-focus: #554d86; --um-claymorphism-target-min: 44px; --um-claymorphism-radius-card: 32px; --um-claymorphism-shadow: 0 24px 44px -12px rgb(80 65 150 / .32); }
+.clay-demo { padding: 24px; background: var(--um-claymorphism-surface); color: var(--um-claymorphism-ink); }
+.clay-card { max-width: 560px; padding: 28px; border-radius: var(--um-claymorphism-radius-card); background: var(--um-claymorphism-card); box-shadow: inset 0 10px 18px -6px rgb(255 255 255 / .62), inset 0 -10px 18px -6px rgb(52 42 91 / .32), var(--um-claymorphism-shadow); }
+.clay-button { min-height: var(--um-claymorphism-target-min); padding: 10px 18px; border: 0; border-radius: 20px; background: #fff; color: var(--um-claymorphism-ink); cursor: pointer; }
+.clay-button:focus-visible { outline: 3px solid var(--um-claymorphism-focus); outline-offset: 4px; }
 .clay-button:disabled { cursor: not-allowed; opacity: .55; }
 @media (max-width: 767px) { .clay-demo { padding: 16px; } .clay-card { padding: 20px; border-radius: 24px; } .clay-button { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .clay-card, .clay-button { transition: none; } }
