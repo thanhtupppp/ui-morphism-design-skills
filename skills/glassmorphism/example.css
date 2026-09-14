@@ -1,9 +1,9 @@
-/* Real starter implementation: Glassmorphism */
+:root { --um-glassmorphism-surface-fallback: #202331; --um-glassmorphism-surface-translucent: rgb(255 255 255 / .14); --um-glassmorphism-ink: #fff; --um-glassmorphism-border: rgb(255 255 255 / .42); --um-glassmorphism-focus: #f8d34f; --um-glassmorphism-target-min: 44px; --um-glassmorphism-radius: 20px; --um-glassmorphism-blur: 20px; }
 .glass-demo { min-height: 240px; padding: 24px; background: radial-gradient(circle at 20% 20%, #6d5dfc, transparent 40%), #101426; }
-.glass-card { max-width: 560px; padding: 24px; color: #fff; border: 1px solid rgb(255 255 255 / .42); border-radius: 20px; background: #202331; box-shadow: 0 8px 32px -8px rgb(0 0 0 / .38); }
-@supports (backdrop-filter: blur(1px)) { .glass-card { background: rgb(255 255 255 / .14); backdrop-filter: blur(20px) saturate(160%); } }
-.glass-button { min-height: 44px; padding: 10px 16px; color: #101426; border: 0; border-radius: 999px; background: #fff; cursor: pointer; }
-.glass-button:focus-visible { outline: 3px solid #f8d34f; outline-offset: 3px; }
+.glass-card { max-width: 560px; padding: 24px; color: var(--um-glassmorphism-ink); border: 1px solid var(--um-glassmorphism-border); border-radius: var(--um-glassmorphism-radius); background: var(--um-glassmorphism-surface-fallback); box-shadow: 0 8px 32px -8px rgb(0 0 0 / .38); }
+@supports (backdrop-filter: blur(1px)) { .glass-card { background: var(--um-glassmorphism-surface-translucent); backdrop-filter: blur(var(--um-glassmorphism-blur)) saturate(160%); } }
+.glass-button { min-height: var(--um-glassmorphism-target-min); padding: 10px 16px; color: #101426; border: 0; border-radius: 999px; background: #fff; cursor: pointer; }
+.glass-button:focus-visible { outline: 3px solid var(--um-glassmorphism-focus); outline-offset: 3px; }
 .glass-button:disabled { cursor: not-allowed; opacity: .55; }
 @media (max-width: 767px) { .glass-demo { padding: 16px; } .glass-card { padding: 16px; } .glass-button { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .glass-card, .glass-button { transition: none; } }
