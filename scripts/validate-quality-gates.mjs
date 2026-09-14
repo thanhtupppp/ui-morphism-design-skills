@@ -10,19 +10,20 @@ const read = (path) => { try { return readFileSync(path, 'utf8'); } catch { retu
 const fail = (message) => failures.push(message);
 const mustContain = (text, pattern, label) => { if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`); };
 
-console.log('UI Morphism Quality Gates v1.7.0');
+console.log('UI Morphism Quality Gates v1.8.0');
 
 const requiredContracts = [
   ['references/quality-gates.md', /Gate A[\s\S]*Gate G/i],
   ['references/token-convention.md', /--um-<style>-<group>\[-<variant>\]/i],
   ['references/semantic-parity.md', /semantic anatomy[\s\S]*state meaning[\s\S]*responsive intent/i],
+  ['references/accessibility-parity.md', /Accessibility behavior is part of cross-platform parity[\s\S]*state semantics/i],
   ['references/react-native-adapter.md', /semantic-first mapping/i],
   ['references/component-code-contract.md', /Decision record[\s\S]*Verification record/i],
 ];
 for (const [relative, pattern] of requiredContracts) mustContain(read(join(root, relative)), pattern, relative);
 
 const skill = read(join(root, 'SKILL.md'));
-for (const pattern of [/quality-gates\.md/i, /semantic-parity\.md/i, /token-convention\.md/i, /--um-<style>-<group>\[-<variant>\]/i, /react-native-adapter\.md/i]) mustContain(skill, pattern, 'SKILL.md');
+for (const pattern of [/quality-gates\.md/i, /semantic-parity\.md/i, /accessibility-parity\.md/i, /token-convention\.md/i, /react-native-adapter\.md/i, /accessibility meaning must not depend on color/i]) mustContain(skill, pattern, 'SKILL.md');
 
 const matrix = read(join(root, 'references/platform-matrix.md'));
 for (const pattern of [/HTML\/CSS.*React.*Flutter.*React Native/i, /Required.*Preferred.*Optional/i, /full effect.*reduced effect.*opaque\/static effect.*simpler native surface/i]) mustContain(matrix, pattern, 'platform-matrix.md');
@@ -32,9 +33,9 @@ if (!skillJson) fail('skill.json: missing or unreadable.');
 else {
   try {
     const parsed = JSON.parse(skillJson);
-    if (parsed.version !== '1.7.0') fail(`skill.json: expected contract version 1.7.0, found ${parsed.version ?? 'missing'}.`);
+    if (parsed.version !== '1.8.0') fail(`skill.json: expected contract version 1.8.0, found ${parsed.version ?? 'missing'}.`);
     for (const contract of requiredContracts.map(([path]) => path)) if (!parsed.contracts?.includes(contract)) fail(`skill.json: ${contract} is not declared in contracts.`);
-  } catch (error) { fail(`skill.json: invalid JSON (${error.message})`); }
+  } catch (error) { fail(`skill.json: invalid JSON (${error.message}).`); }
 }
 
 for (const style of styles) {
