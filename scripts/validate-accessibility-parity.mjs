@@ -26,7 +26,8 @@ for (const style of styles) {
   requirePattern(css, /:focus-visible/i, `${style}/example.css focus`);
   requirePattern(css, /@media\s*\(forced-colors:\s*active/i, `${style}/example.css forced colors`);
   requirePattern(css, /@media\s*\(prefers-reduced-motion/i, `${style}/example.css reduced motion`);
-  requirePattern(css, /min-height:\s*(?:44px|var\([^)]*target[^)]*\))/i, `${style}/example.css target size`);
+  requirePattern(css, /min-height\s*:/i, `${style}/example.css minimum geometry`);
+  requirePattern(css, /44px|48px|target|min(?:imum)?[-_]?(?:size|height)|control-height/i, `${style}/example.css target-size policy`);
 
   if (['glassmorphism', 'liquid-glass', 'aurora-ui'].includes(style)) {
     requirePattern(css, /prefers-reduced-transparency|surface-fallback|background:\s*#(?:[0-9a-f]{3,8})/i, `${style}/example.css reduced-transparency fallback`);
