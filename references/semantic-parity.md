@@ -18,6 +18,16 @@ For every style, the implementation seeds must expose:
 - an accessible name or visible relationship for interactive/form content where applicable;
 - a focus/selection/state cue that remains understandable without decorative effects.
 
+## Structured parity
+
+`references/component-parity.json` is the normalized machine-readable contract for the primary interactive component. It maps the invariant semantic fields to renderer-specific evidence without requiring identical primitives or pixel values.
+
+The parity order is:
+
+`role → accessible name → state → responsive intent → target size → fallback`
+
+`scripts/validate-component-parity.mjs` is the enforcement point for this normalized contract.
+
 ## Parity rule
 
 Visual details may differ by renderer. Semantic role, content order, state meaning, responsive intent, accessibility behavior, and minimum target size must not silently diverge.
