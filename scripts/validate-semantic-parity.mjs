@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = process.cwd();
@@ -9,18 +9,23 @@ const failures = [];
 const read = (path) => { try { return readFileSync(path, 'utf8'); } catch { return null; } };
 const fail = (message) => failures.push(message);
 const requirePattern = (text, pattern, label) => { if (!text || !pattern.test(text)) fail(`${label}: missing ${pattern}`); };
+const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+requirePattern(read(join(root, 'references/semantic-parity.md')), /Accessibility parity|accessibility meaning/i, 'semantic-parity.md accessibility parity');
+requirePattern(read(join(root, 'references/accessibility-parity.md')), /semantic cue|state semantics/i, 'accessibility-parity.md');
 
 for (const style of styles) {
   const dir = join(root, 'skills', style);
   const prefix = `--um-${style}-`;
-  const css = read(join(dir, 'example.css'));
-  const react = read(join(dir, 'example.tsx'));
-  const flutter = read(join(dir, 'example.flutter.dart'));
-  const native = read(join(dir, 'example.native.tsx'));
-  const contract = `${css || ''}\n${react || ''}\n${flutter || ''}\n${native || ''}`;
+  const escapedPrefix = escapeRegex(prefix);
+  const css = read(join(dir, 'example.css')) || '';
+  const react = read(join(dir, 'example.tsx')) || '';
+  const flutter = read(join(dir, 'example.flutter.dart')) || '';
+  const native = read(join(dir, 'example.native.tsx')) || '';
+  const contract = `${css}\n${react}\n${flutter}\n${native}`;
 
-  requirePattern(css, new RegExp(`${prefix.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')}[a-z0-9-]+\\s*:`), `${style}/example.css token definition`);
-  requirePattern(css, new RegExp(`var\\(${prefix.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')}`), `${style}/example.css token consumption`);
+  requirePattern(css, new RegExp(`${escapedPrefix}[a-z0-9-]+\\s*:`), `${style}/example.css token definition`);
+  requirePattern(css, new RegExp(`var\\(${escapedPrefix}`), `${style}/example.css token consumption`);
   requirePattern(react, /<button\b|<a\b|<input\b|<select\b|<textarea\b/i, `${style}/example.tsx semantic primitive`);
   requirePattern(flutter, /Button|TextButton|ElevatedButton|OutlinedButton|FilledButton|IconButton|TextField|Switch|Checkbox|Slider|NavigationBar|Tab/i, `${style}/example.flutter.dart native primitive`);
   requirePattern(native, /Pressable|TextInput|Switch|Slider/i, `${style}/example.native.tsx native primitive`);
