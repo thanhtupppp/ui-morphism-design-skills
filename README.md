@@ -4,7 +4,7 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 ## Current contract
 
-Version `1.7.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, a canonical token namespace/theme contract, semantic parity validation, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+Version `1.8.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, a canonical token namespace/theme contract, semantic parity validation, accessibility parity validation, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
 
 ## Code-first, cross-platform usage
 
@@ -40,6 +40,10 @@ Use full style names rather than short aliases, keep style tokens separate from 
 
 `references/semantic-parity.md` defines cross-renderer invariants. `scripts/validate-semantic-parity.mjs` checks all ten styles for canonical CSS token definition/consumption, semantic interactive primitives, state coverage, responsive intent, target-size guidance, fallback behavior, and verification records. Renderer-specific visual treatment may differ; semantic anatomy and state meaning may not silently diverge.
 
+## Accessibility parity
+
+`references/accessibility-parity.md` defines cross-renderer accessibility invariants. `scripts/validate-accessibility-parity.mjs` checks focus visibility, forced-colors handling, reduced motion, accessible naming, native controls, target-size guidance, explicit state semantics, and fallback behavior across all ten styles.
+
 ## Platform capability negotiation
 
 `references/platform-matrix.md` is the capability decision table for HTML/CSS, React, Flutter, and React Native. It distinguishes `Native`, `Adapt`, and `Fallback` behavior and separates `Required`, `Preferred`, and `Optional` effects.
@@ -65,6 +69,7 @@ Every style includes `example.native.tsx`. These seeds preserve semantic roles a
 - `references/react-native-adapter.md` — canonical React Native role/state/token/responsive/accessibility/fallback mapping.
 - `references/token-convention.md` — canonical token namespace, accessibility token rules, and theme override behavior.
 - `references/semantic-parity.md` — cross-renderer semantic invariants.
+- `references/accessibility-parity.md` — cross-renderer accessibility invariants.
 
 ## Supported platforms
 
@@ -78,6 +83,7 @@ Run all repository validators locally:
 node scripts/validate-repo.mjs
 node scripts/validate-quality-gates.mjs
 node scripts/validate-semantic-parity.mjs
+node scripts/validate-accessibility-parity.mjs
 ```
 
 GitHub Actions runs all validators on pushes and pull requests targeting `main`.
