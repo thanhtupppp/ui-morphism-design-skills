@@ -4,7 +4,7 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 ## Current contract
 
-Version `1.6.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, a canonical token namespace/theme contract, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+Version `1.7.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, a canonical token namespace/theme contract, semantic parity validation, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
 
 ## Code-first, cross-platform usage
 
@@ -13,7 +13,7 @@ Every style directory contains:
 - `SKILL.md`: when to use, visual system, risks, accessibility, and anti-patterns.
 - `components.md`: component-level recipes for buttons, cards, inputs, navigation, states, opacity, blur, shadows, radius, borders, and responsive behavior.
 - `platforms.md`: how the same visual intent maps to HTML/CSS, React, Flutter, React Native, and other renderers.
-- `example.css`: a runnable web/CSS starter.
+- `example.css`: a runnable web/CSS starter with canonical semantic tokens.
 - `example.tsx`: a runnable React/semantic HTML starter.
 - `example.flutter.dart`: a Flutter implementation seed using native/theme primitives.
 - `example.native.tsx`: a React Native implementation seed using native interaction primitives and deterministic fallbacks.
@@ -35,6 +35,10 @@ For generated or modified examples, record what was verified instead of treating
 `--um-<style>-<group>[-<variant>]`
 
 Use full style names rather than short aliases, keep style tokens separate from semantic roles, expose opaque fallback surfaces for translucent styles, and provide focus fallbacks that do not depend only on `box-shadow`. Explicit `[data-theme="dark"]` and `[data-theme="light"]` choices must override system preference where theme switching is implemented.
+
+## Semantic parity
+
+`references/semantic-parity.md` defines cross-renderer invariants. `scripts/validate-semantic-parity.mjs` checks all ten styles for canonical CSS token definition/consumption, semantic interactive primitives, state coverage, responsive intent, target-size guidance, fallback behavior, and verification records. Renderer-specific visual treatment may differ; semantic anatomy and state meaning may not silently diverge.
 
 ## Platform capability negotiation
 
@@ -60,6 +64,7 @@ Every style includes `example.native.tsx`. These seeds preserve semantic roles a
 - `references/quality-gates.md` — production-readiness checks for semantics, responsiveness, motion/fallback, target size, effect budget, and cross-platform equivalence.
 - `references/react-native-adapter.md` — canonical React Native role/state/token/responsive/accessibility/fallback mapping.
 - `references/token-convention.md` — canonical token namespace, accessibility token rules, and theme override behavior.
+- `references/semantic-parity.md` — cross-renderer semantic invariants.
 
 ## Supported platforms
 
@@ -67,14 +72,15 @@ HTML/CSS, React, Flutter, React Native, and other renderers through the adapter 
 
 ## Validation
 
-Run the repository validators locally:
+Run all repository validators locally:
 
 ```bash
 node scripts/validate-repo.mjs
 node scripts/validate-quality-gates.mjs
+node scripts/validate-semantic-parity.mjs
 ```
 
-GitHub Actions runs both validators on pushes and pull requests targeting `main`.
+GitHub Actions runs all validators on pushes and pull requests targeting `main`.
 
 ## Supported styles
 
