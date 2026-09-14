@@ -13,7 +13,7 @@
   "renderers": {
     "html-css": {
       "semanticPrimitive": ["button", "a"],
-      "stateSignals": [":disabled", "aria-pressed"],
+      "stateSignals": [":disabled", "aria-pressed", "data-state", ":active"],
       "nameSignals": ["text", "aria-label", "aria-labelledby", "label"],
       "responsiveSignals": ["@media", "container", "clamp", "grid", "flex"],
       "fallbackSignals": ["fallback", "forced-colors", "unsupported", "surface-fallback"]
@@ -21,7 +21,7 @@
     "react": {
       "semanticPrimitive": ["<button", "<a"],
       "stateSignals": ["disabled", "aria-pressed", "data-state"],
-      "nameSignals": ["aria-label", "aria-labelledby", "<label", "visible text"],
+      "nameSignals": ["aria-label", "aria-labelledby", "<label", "visible text", ">Open", ">Start", ">Explore", ">View", ">Apply", ">Submit", ">Continue", ">Save"],
       "responsiveSignals": ["responsive", "width", "grid", "flex", "breakpoint"],
       "fallbackSignals": ["fallback", "unsupported", "remove", "without blur", "without shadow"]
     },
