@@ -27,3 +27,12 @@ jobs:
 
       - name: Validate quality gates
         run: node scripts/validate-quality-gates.mjs
+
+      - name: Validate semantic parity
+        run: node scripts/validate-semantic-parity.mjs
+
+      - name: Validate accessibility parity
+        run: node scripts/validate-accessibility-parity.mjs
+
+      - name: Validate component parity
+        run: node scripts/validate-component-parity.mjs
