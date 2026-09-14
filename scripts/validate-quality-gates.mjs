@@ -13,7 +13,7 @@ const mustContain = (text, pattern, label) => { if (!text || !pattern.test(text)
 console.log('UI Morphism Quality Gates v1.8.0');
 
 const requiredContracts = [
-  ['references/quality-gates.md', /Gate A[\s\S]*Gate G/i],
+  ['references/quality-gates.md', /Gate A[\s\S]*Gate H/i],
   ['references/token-convention.md', /--um-<style>-<group>\[-<variant>\]/i],
   ['references/semantic-parity.md', /semantic anatomy[\s\S]*state meaning[\s\S]*responsive intent/i],
   ['references/accessibility-parity.md', /Accessibility behavior is part of cross-platform parity[\s\S]*state semantics/i],
