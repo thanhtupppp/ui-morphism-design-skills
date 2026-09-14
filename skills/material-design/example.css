@@ -1,11 +1,11 @@
-/* Real starter implementation: Material Design */
-.material-demo { padding: 24px; color: #1d1b20; background: #fffbfe; }
-.material-card { max-width: 560px; padding: 24px; border-radius: 16px; background: #f7f2fa; box-shadow: 0 1px 3px rgb(0 0 0 / .2), 0 1px 2px rgb(0 0 0 / .14); }
-.material-button { min-height: 44px; min-width: 44px; padding: 10px 16px; border: 0; border-radius: 999px; color: #fff; background: #6750a4; cursor: pointer; }
-.material-button:hover { background: #5b4694; }
-.material-button:active { background: #4f378b; }
+:root { --um-material-design-surface: #fffbfe; --um-material-design-surface-card: #f7f2fa; --um-material-design-ink: #1d1b20; --um-material-design-primary: #6750a4; --um-material-design-primary-hover: #5b4694; --um-material-design-primary-active: #4f378b; --um-material-design-focus: #4f378b; --um-material-design-target-min: 44px; --um-material-design-radius-card: 16px; }
+.material-demo { padding: 24px; color: var(--um-material-design-ink); background: var(--um-material-design-surface); }
+.material-card { max-width: 560px; padding: 24px; border-radius: var(--um-material-design-radius-card); background: var(--um-material-design-surface-card); box-shadow: 0 1px 3px rgb(0 0 0 / .2), 0 1px 2px rgb(0 0 0 / .14); }
+.material-button { min-height: var(--um-material-design-target-min); min-width: var(--um-material-design-target-min); padding: 10px 16px; border: 0; border-radius: 999px; color: #fff; background: var(--um-material-design-primary); cursor: pointer; }
+.material-button:hover { background: var(--um-material-design-primary-hover); }
+.material-button:active { background: var(--um-material-design-primary-active); }
 .material-button:disabled { cursor: not-allowed; opacity: .5; }
-.material-button:focus-visible { outline: 3px solid #4f378b; outline-offset: 3px; }
+.material-button:focus-visible { outline: 3px solid var(--um-material-design-focus); outline-offset: 3px; }
 @media (max-width: 767px) { .material-demo { padding: 16px; } .material-card { padding: 16px; } .material-button { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .material-button { transition: none; } }
 @media (forced-colors: active) { .material-demo { background: Canvas; color: CanvasText; } .material-card { background: Canvas; color: CanvasText; border: 1px solid CanvasText; box-shadow: none; } .material-button { background: ButtonFace; color: ButtonText; border: 1px solid ButtonText; } .material-button:focus-visible { outline-color: Highlight; } }
