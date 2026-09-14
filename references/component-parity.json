@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "component": "primary-action",
+  "role": "button",
+  "accessibleName": "required",
+  "states": ["default", "pressed", "disabled"],
+  "responsive": true,
+  "fallbackRequired": true,
+  "targetSize": {
+    "webCssPx": 44,
+    "nativeLogicalPx": 48
+  },
+  "renderers": {
+    "html-css": {
+      "semanticPrimitive": ["button", "a"],
+      "stateSignals": [":disabled", "aria-pressed"],
+      "nameSignals": ["text", "aria-label", "aria-labelledby", "label"],
+      "responsiveSignals": ["@media", "container", "clamp", "grid", "flex"],
+      "fallbackSignals": ["fallback", "forced-colors", "unsupported", "surface-fallback"]
+    },
+    "react": {
+      "semanticPrimitive": ["<button", "<a"],
+      "stateSignals": ["disabled", "aria-pressed", "data-state"],
+      "nameSignals": ["aria-label", "aria-labelledby", "<label", "visible text"],
+      "responsiveSignals": ["responsive", "width", "grid", "flex", "breakpoint"],
+      "fallbackSignals": ["fallback", "unsupported", "remove", "without blur", "without shadow"]
+    },
+    "flutter": {
+      "semanticPrimitive": ["Button", "TextButton", "ElevatedButton", "OutlinedButton", "FilledButton", "IconButton"],
+      "stateSignals": ["onPressed", "enabled", "selected", "pressed"],
+      "nameSignals": ["Semantics", "Tooltip", "Text"],
+      "responsiveSignals": ["LayoutBuilder", "MediaQuery", "Wrap", "GridView", "width"],
+      "fallbackSignals": ["fallback", "effectsEnabled", "without", "remove"]
+    },
+    "react-native": {
+      "semanticPrimitive": ["Pressable", "Button"],
+      "stateSignals": ["disabled", "accessibilityState", "pressed"],
+      "nameSignals": ["accessibilityLabel", "accessibilityHint", "Text"],
+      "responsiveSignals": ["useWindowDimensions", "onLayout", "width", "flexDirection"],
+      "fallbackSignals": ["fallback", "unsupported", "remove", "without", "effectsEnabled"]
+    }
+  }
+}
