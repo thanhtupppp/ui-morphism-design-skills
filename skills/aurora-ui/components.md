@@ -6,23 +6,24 @@ Aurora is primarily an atmospheric layer. Component recipes below preserve seman
 
 ```css
 :root {
-  --aurora-bg: #0d1021;
-  --aurora-a: #6d5dfc;
-  --aurora-b: #19c6b5;
-  --aurora-c: #ff6b9a;
-  --aurora-card: rgb(255 255 255 / .94);
-  --aurora-card-strong: rgb(255 255 255 / .98);
-  --aurora-ink: #101426;
-  --aurora-ink-muted: #526078;
-  --aurora-focus: #f8d34f;
-  --aurora-border: rgb(255 255 255 / .26);
-  --aurora-blur: 64px;
-  --aurora-radius-card: 20px;
-  --aurora-radius-control: 12px;
+  --um-aurora-ui-bg: #0d1021;
+  --um-aurora-ui-aurora-a: #6d5dfc;
+  --um-aurora-ui-aurora-b: #19c6b5;
+  --um-aurora-ui-aurora-c: #ff6b9a;
+  --um-aurora-ui-surface-1: rgb(255 255 255 / .94);
+  --um-aurora-ui-surface-2: rgb(255 255 255 / .98);
+  --um-aurora-ui-ink: #101426;
+  --um-aurora-ui-ink-muted: #526078;
+  --um-aurora-ui-focus: #f8d34f;
+  --um-aurora-ui-border: rgb(255 255 255 / .26);
+  --um-aurora-ui-blur-1: 64px;
+  --um-aurora-ui-radius-card: 20px;
+  --um-aurora-ui-radius-control: 12px;
+  --um-aurora-ui-target-min: 44px;
 }
 ```
 
-Keep decorative Aurora tokens separate from application semantic tokens such as `--color-error`, `--color-success`, and `--color-selected`.
+Keep decorative Aurora tokens separate from application semantic tokens such as error, success, and selected roles.
 
 ## 2. Anatomy of an Aurora page
 
@@ -54,7 +55,7 @@ Use a few large light fields. Start with one dominant and one accent, then add a
   min-height: 100%;
   overflow: hidden;
   padding: 24px;
-  background: var(--aurora-bg);
+  background: var(--um-aurora-ui-bg);
 }
 
 .aurora-page::before {
@@ -64,10 +65,10 @@ Use a few large light fields. Start with one dominant and one accent, then add a
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 18% 22%, var(--aurora-a), transparent 34%),
-    radial-gradient(circle at 78% 18%, var(--aurora-b), transparent 30%),
-    radial-gradient(circle at 58% 82%, var(--aurora-c), transparent 32%);
-  filter: blur(var(--aurora-blur));
+    radial-gradient(circle at 18% 22%, var(--um-aurora-ui-aurora-a), transparent 34%),
+    radial-gradient(circle at 78% 18%, var(--um-aurora-ui-aurora-b), transparent 30%),
+    radial-gradient(circle at 58% 82%, var(--um-aurora-ui-aurora-c), transparent 32%);
+  filter: blur(var(--um-aurora-ui-blur-1));
   opacity: .82;
 }
 ```
@@ -86,9 +87,9 @@ Prefer a stable hero surface when text overlaps a strong or moving light region.
 .aurora-hero {
   max-width: 760px;
   padding: 32px;
-  border-radius: 24px;
-  background: var(--aurora-card);
-  color: var(--aurora-ink);
+  border-radius: var(--um-aurora-ui-radius-card);
+  background: var(--um-aurora-ui-surface-1);
+  color: var(--um-aurora-ui-ink);
 }
 ```
 
@@ -101,10 +102,10 @@ A card can be completely neutral. A single primary card may receive a restrained
 ```css
 .aurora-card {
   padding: 24px;
-  border: 1px solid rgb(255 255 255 / .18);
-  border-radius: var(--aurora-radius-card);
-  background: var(--aurora-card);
-  color: var(--aurora-ink);
+  border: 1px solid var(--um-aurora-ui-border);
+  border-radius: var(--um-aurora-ui-radius-card);
+  background: var(--um-aurora-ui-surface-1);
+  color: var(--um-aurora-ui-ink);
 }
 
 .aurora-card--featured {
@@ -120,8 +121,8 @@ The button remains a semantic control. Aurora can provide surrounding atmosphere
 
 ```css
 .aurora-button {
-  min-height: 44px;
-  min-width: 44px;
+  min-height: var(--um-aurora-ui-target-min);
+  min-width: var(--um-aurora-ui-target-min);
   padding: 10px 16px;
   border: 0;
   border-radius: 999px;
@@ -134,7 +135,7 @@ The button remains a semantic control. Aurora can provide surrounding atmosphere
 .aurora-button:hover { filter: brightness(1.05); }
 .aurora-button:active { transform: translateY(1px); }
 .aurora-button:focus-visible {
-  outline: 3px solid var(--aurora-focus);
+  outline: 3px solid var(--um-aurora-ui-focus);
   outline-offset: 3px;
 }
 .aurora-button:disabled {
@@ -151,11 +152,11 @@ Use the same state contract as a normal button. Provide an accessible name.
 
 ```css
 .aurora-icon-button {
-  width: 44px;
-  height: 44px;
+  width: var(--um-aurora-ui-target-min);
+  height: var(--um-aurora-ui-target-min);
   border: 1px solid rgb(16 20 38 / .16);
-  border-radius: 12px;
-  background: var(--aurora-card-strong);
+  border-radius: var(--um-aurora-ui-radius-control);
+  background: var(--um-aurora-ui-surface-2);
 }
 ```
 
@@ -169,18 +170,18 @@ Input anatomy:
 
 ```css
 .aurora-input {
-  min-height: 44px;
+  min-height: var(--um-aurora-ui-target-min);
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #9ca3af;
-  border-radius: var(--aurora-radius-control);
+  border-radius: var(--um-aurora-ui-radius-control);
   background: #fff;
-  color: var(--aurora-ink);
+  color: var(--um-aurora-ui-ink);
   font: inherit;
 }
 
 .aurora-input:focus-visible {
-  outline: 3px solid var(--aurora-focus);
+  outline: 3px solid var(--um-aurora-ui-focus);
   outline-offset: 2px;
 }
 
