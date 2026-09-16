@@ -1,0 +1,84 @@
+name: Build UI Morphism Skill Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Verify tag matches skill.json version
+        if: github.ref_type == 'tag'
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          version = json.load(open("skill.json", encoding="utf-8"))["version"]
+          tag = os.environ["GITHUB_REF_NAME"]
+          expected = f"v{version}"
+          print(f"skill.json={version} tag={tag}")
+          sys.exit(0 if tag == expected else 1)
+          PY
+
+      - name: Run release regression tests
+        run: |
+          python3 -m unittest tests/test-skill-validator.py
+          python3 -m unittest tests/test-packager.py
+          python3 -m unittest tests/test-release-verifier.py
+          python3 -m unittest tests/test-evals.py
+
+      - name: Build release bundle
+        run: |
+          mkdir -p release
+          python3 scripts/package-skill.py --root . --output release/skill.zip --json
+          python3 scripts/validate-skill-package.py release/skill.zip --format json --output release/package-validation.json
+          python3 scripts/verify-release.py release --expected-revision "$GITHUB_SHA" --output release/release-verification.json
+
+      - name: Publish release summary
+        shell: bash
+        run: |
+          {
+            echo "## UI Morphism Skill Release Bundle"
+            echo
+            echo "Revision: \`$GITHUB_SHA\`"
+            echo
+            echo '```text'
+            cat release/skill.zip.sha256
+            echo '```'
+            echo
+            echo "SBOM: CycloneDX 1.6"
+            echo
+            echo "Provenance: in-toto Statement v1 / SLSA provenance v1"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload release bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-morphism-skill-release-${{ github.ref_name }}
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 0
+          path: |
+            release/skill.zip
+            release/skill.zip.sha256
+            release/skill-package-manifest.json
+            release/skill.sbom.cdx.json
+            release/skill.provenance.json
+            release/package-validation.json
+            release/release-verification.json
