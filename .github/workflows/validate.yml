@@ -16,14 +16,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
           node-version: 24
           package-manager-cache: false
 
+      - name: Test Skill validator
+        run: python3 -m unittest tests/test-skill-validator.py
+
       - name: Validate ChatGPT Skill package
-        run: python3 scripts/validate-skill-package.py .
+        run: python3 scripts/validate-skill-package.py . --format json --output skill-validation.json
+
+      - name: Print Skill validation report
+        if: always()
+        run: cat skill-validation.json || true
 
       - name: Validate repository
         run: node scripts/validate-repo.mjs
