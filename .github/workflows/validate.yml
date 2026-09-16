@@ -30,7 +30,7 @@ jobs:
       - name: Test Skill validator
         run: python3 -m unittest tests/test-skill-validator.py
 
-      - name: Test trigger eval router and thresholds
+      - name: Test trigger eval router, thresholds, and baseline
         run: python3 -m unittest tests/test-evals.py
 
       - name: Validate ChatGPT Skill package
@@ -40,12 +40,30 @@ jobs:
         if: always()
         run: cat skill-validation.json || true
 
-      - name: Run trigger, thresholds, and semantic parity evals
-        run: python3 scripts/run-evals.py --thresholds evals/thresholds.json --output eval-report.json
+      - name: Run trigger, thresholds, baseline, and semantic parity evals
+        id: evals
+        continue-on-error: true
+        run: python3 scripts/run-evals.py --thresholds evals/thresholds.json --baseline evals/baseline.json --output eval-report.json
 
-      - name: Print eval report summary
+      - name: Publish eval job summary
         if: always()
-        run: python3 -c "import json; r=json.load(open('eval-report.json')); print(json.dumps({'summary': r['summary'], 'threshold_failures': r.get('thresholds', {}).get('failures', [])}, indent=2))" || true
+        run: |
+          if [ -f eval-report.json ]; then
+            python3 scripts/render-eval-summary.py eval-report.json --output eval-summary.md
+            cat eval-summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            printf '## UI Morphism Eval Summary\n\n**FAIL** — eval-report.json was not produced.\n' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Print eval diagnostics
+        if: always()
+        run: python3 -c "import json; r=json.load(open('eval-report.json')); print(json.dumps({'summary': r['summary'], 'threshold_failures': r.get('thresholds', {}).get('failures', []), 'baseline_regressions': r.get('baseline', {}).get('regressions', [])}, indent=2))" || true
+
+      - name: Enforce eval result
+        if: always()
+        run: |
+          test -f eval-report.json
+          python3 -c "import json,sys; r=json.load(open('eval-report.json')); sys.exit(0 if r.get('ok') else 1)"
 
       - name: Validate repository
         run: node scripts/validate-repo.mjs
