@@ -28,18 +28,36 @@ Claymorphism uses opaque, inflated, soft, highly rounded surfaces. Decorative vo
 
 ```css
 .clay-button {
-  min-height:var(--um-claymorphism-target-min);
-  padding:10px 18px;
-  border:1px solid transparent;
-  border-radius:var(--um-claymorphism-radius-md);
-  background:var(--um-claymorphism-surface-2);
-  color:var(--um-claymorphism-ink);
-  box-shadow:var(--um-claymorphism-shadow-soft), var(--um-claymorphism-shadow-highlight), var(--um-claymorphism-shadow-shade);
+  min-height: var(--um-claymorphism-target-min);
+  padding: 10px 18px;
+  border: 1px solid var(--um-claymorphism-border);
+  border-radius: var(--um-claymorphism-radius-md);
+  background: var(--um-claymorphism-surface-2);
+  color: var(--um-claymorphism-ink);
+  box-shadow:
+    var(--um-claymorphism-shadow-soft),
+    var(--um-claymorphism-shadow-highlight),
+    var(--um-claymorphism-shadow-shade);
 }
-.clay-button:focus-visible { outline:3px solid var(--um-claymorphism-focus); outline-offset:4px; }
+
+.clay-button:hover { filter: brightness(1.02); }
+.clay-button:active,
+.clay-button[aria-pressed="true"] {
+  transform: translateY(1px);
+  box-shadow: var(--um-claymorphism-shadow-highlight), var(--um-claymorphism-shadow-shade);
+}
+.clay-button:focus-visible {
+  outline: 3px solid var(--um-claymorphism-focus);
+  outline-offset: 4px;
+}
+.clay-button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+}
 ```
 
-Default, hover, pressed, selected, disabled, loading and focus meaning must not depend on shadow or pastel color alone.
+Loading, selected and error states require explicit text/icon/state semantics in addition to decorative depth or color. Pressed feedback may compress depth, but shadow alone is never the state contract.
 
 ## Components
 
