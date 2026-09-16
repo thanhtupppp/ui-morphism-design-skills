@@ -16,7 +16,8 @@
     "liquid-glass": {"precision": 1.0, "recall": 1.0, "f1": 1.0},
     "aurora-ui": {"precision": 1.0, "recall": 1.0, "f1": 1.0},
     "bento-ui": {"precision": 1.0, "recall": 1.0, "f1": 1.0},
-    "neobrutalism": {"precision": 1.0, "recall": 1.0, "f1": 1.0}
+    "neobrutalism": {"precision": 1.0, "recall": 1.0, "f1": 1.0},
+    "swiss-editorial": {"precision": 1.0, "recall": 1.0, "f1": 1.0}
   },
   "max_drop": {
     "global": {

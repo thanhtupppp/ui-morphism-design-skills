@@ -40,6 +40,10 @@
     "neobrutalism": {
       "positive": {"dev tool": 5, "developer tool": 5, "bold campaign": 5, "portfolio": 3, "hard shadow": 5, "thick border": 5, "saturated": 3},
       "negative": {"calm healthcare": -4, "subtle enterprise": -3}
+    },
+    "swiss-editorial": {
+      "positive": {"swiss editorial": 7, "international typographic style": 7, "editorial journal": 6, "research library": 6, "typography-led": 5, "magazine index": 5, "asymmetric grid": 4, "long-form reading": 3},
+      "negative": {"app shell": -4, "gamification": -4, "translucent": -3, "physical metaphor": -3}
     }
   },
   "global_rules": [

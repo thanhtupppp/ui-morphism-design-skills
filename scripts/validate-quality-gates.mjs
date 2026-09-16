@@ -5,7 +5,19 @@ import { join } from 'node:path';
 
 const root = process.cwd();
 const CONTRACT_VERSION = '1.9.0';
-const styles = ['skeuomorphism', 'flat-design', 'neumorphism', 'material-design', 'glassmorphism', 'claymorphism', 'liquid-glass', 'aurora-ui', 'bento-ui', 'neobrutalism'];
+const styles = [
+  'skeuomorphism',
+  'flat-design',
+  'neumorphism',
+  'material-design',
+  'glassmorphism',
+  'claymorphism',
+  'liquid-glass',
+  'aurora-ui',
+  'bento-ui',
+  'neobrutalism',
+  'swiss-editorial',
+];
 const failures = [];
 const read = (path) => { try { return readFileSync(path, 'utf8'); } catch { return null; } };
 const fail = (message) => failures.push(message);

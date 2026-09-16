@@ -6,8 +6,8 @@ import { join } from 'node:path';
 const VALIDATOR_VERSION = '2.0.0';
 const root = process.cwd();
 const stylesRoot = join(root, 'skills');
-const expectedStyles = ['skeuomorphism', 'flat-design', 'neumorphism', 'material-design', 'glassmorphism', 'claymorphism', 'liquid-glass', 'aurora-ui', 'bento-ui', 'neobrutalism'];
-const requiredFiles = ['SKILL.md', 'components.md', 'platforms.md', 'example.css', 'example.tsx', 'example.flutter.dart'];
+const expectedStyles = ['skeuomorphism', 'flat-design', 'neumorphism', 'material-design', 'glassmorphism', 'claymorphism', 'liquid-glass', 'aurora-ui', 'bento-ui', 'neobrutalism', 'swiss-editorial'];
+const requiredFiles = ['SKILL.md', 'components.md', 'platforms.md', 'example.css', 'example.tsx', 'example.flutter.dart', 'example.native.tsx'];
 const requiredRefs = ['references/component-code-contract.md', 'references/platform-contract.md', 'references/platform-matrix.md', 'references/review-checklist.md', 'references/token-convention.md', 'references/code-examples.md'];
 const failures = [];
 const warnings = [];
@@ -72,7 +72,7 @@ for (const style of expectedStyles) {
     if (!/<button\b|<a\b|<input\b|<select\b|<textarea\b/i.test(tsx)) warn(`${style}/example.tsx: no obvious native interactive element detected.`);
     if (/role=["']button["']/i.test(tsx) && !/tabIndex/i.test(tsx)) warn(`${style}/example.tsx: custom button role lacks explicit keyboard focus handling.`);
     if (/<input\b|<select\b|<textarea\b/i.test(tsx) && !/aria-label|aria-labelledby|<label\b/i.test(tsx)) warn(`${style}/example.tsx: form control has no obvious accessible label.`);
-    if (!/disabled|aria-disabled|aria-selected|aria-busy|data-state/i.test(tsx)) warn(`${style}/example.tsx: no explicit interactive state marker detected.`);
+    if (!/disabled|aria-disabled|aria-selected|aria-pressed|aria-expanded|aria-busy|data-state/i.test(tsx)) warn(`${style}/example.tsx: no explicit interactive state marker detected.`);
     if (!/responsive|matchMedia|useMediaQuery|grid|flex|width/i.test(tsx)) warn(`${style}/example.tsx: responsive implementation intent is not obvious.`);
   }
 

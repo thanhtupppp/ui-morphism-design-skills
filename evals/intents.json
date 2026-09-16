@@ -12,6 +12,8 @@
     {"id":"bento-overview","intent":"Design a product overview page as a modular grid with intentional spans and feature sections.","expected_primary":"bento-ui","allowed_supporting":["flat-design","aurora-ui"],"forbidden":[]},
     {"id":"brutalist-devtool","intent":"Create a developer tool with thick border, hard shadow, saturated fills and a deliberately bold visual system.","expected_primary":"neobrutalism","allowed_supporting":["flat-design"],"forbidden":["glassmorphism"]},
     {"id":"critical-field-ui","intent":"Design a critical field operated interface with data dense status tables and a performance constrained device.","expected_primary":"flat-design","allowed_supporting":["material-design"],"forbidden":["glassmorphism","liquid-glass","aurora-ui","neumorphism"]},
-    {"id":"material-critical-app","intent":"Build a critical cross-platform app shell with native components, clear state layers and a shared design system.","expected_primary":"material-design","allowed_supporting":["flat-design"],"forbidden":["aurora-ui","claymorphism"]}
+    {"id":"material-critical-app","intent":"Build a critical cross-platform app shell with native components, clear state layers and a shared design system.","expected_primary":"material-design","allowed_supporting":["flat-design"],"forbidden":["aurora-ui","claymorphism"]},
+    {"id":"swiss-editorial-journal","intent":"Design a Swiss editorial journal with a typography-led asymmetric grid, magazine index and long-form reading.","expected_primary":"swiss-editorial","allowed_supporting":["flat-design"],"forbidden":["glassmorphism","claymorphism"]},
+    {"id":"swiss-research-library","intent":"Create a research library using the international typographic style with a disciplined editorial journal hierarchy.","expected_primary":"swiss-editorial","allowed_supporting":["flat-design"],"forbidden":["aurora-ui","neumorphism"]}
   ]
 }

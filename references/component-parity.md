@@ -2,7 +2,7 @@
 
 The repository describes cross-platform component parity with a structured contract and checks example sources for renderer-specific evidence.
 
-`references/component-parity.json` defines the normalized contract for the primary interactive example used by all ten visual styles.
+`references/component-parity.json` defines the normalized contract for the primary interactive example used by all eleven visual styles.
 
 ## Required normalized semantics
 
@@ -18,7 +18,7 @@ The baseline action exposes `default`, `pressed`, and `disabled` state. Addition
 
 ## Enforcement
 
-`scripts/validate-component-parity.mjs` loads the manifest and checks each of the ten styles against renderer-specific evidence. A passing result means the implementation contains concrete signals for the same normalized contract; it does not claim pixel identity or runtime equivalence.
+`scripts/validate-component-parity.mjs` loads the manifest and checks each of the eleven styles against renderer-specific evidence. A passing result means the implementation contains concrete signals for the same normalized contract; it does not claim pixel identity or runtime equivalence.
 
 Before reading example sources, the validator requires all four supported renderer objects, non-empty lists of non-blank evidence strings, and boolean `true` for the responsive and fallback requirements. Missing renderers or malformed rule lists fail validation rather than silently skipping coverage.
 

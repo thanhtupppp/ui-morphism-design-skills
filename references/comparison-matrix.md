@@ -14,6 +14,7 @@ This is an original implementation-oriented matrix inspired by the documentation
 | Aurora UI | Ambient multi-color gradient and glow behind content | AI/marketing hero, premium brand surfaces | Noise and reading contrast | Background accent only |
 | Bento UI | Modular grid with intentional spans and content hierarchy | Overview pages, portfolios, feature sections | Card soup and broken mobile reading order | Layout system, not a material |
 | Neobrutalism | Solid borders, hard offset shadows, saturated fills, bold type | Dev tools, portfolios, bold campaigns | Harsh hierarchy, overflow, localization | Deliberate high-contrast system |
+| Swiss Editorial | Asymmetric type hierarchy, horizontal rules, opaque paper/ink, restrained accent | Journals, research libraries, cultural portfolios | Oversized headlines and tiny metadata | Content-led editorial system |
 
 ## Depth models
 
@@ -22,12 +23,13 @@ This is an original implementation-oriented matrix inspired by the documentation
 - Claymorphism gives an opaque object its own volume and color.
 - Glassmorphism and Liquid Glass place a translucent plane between the user and content.
 - Flat Design, Bento UI, and Neobrutalism use layout, borders, gaps, or hard offsets instead of soft depth.
+- Swiss Editorial creates hierarchy through a reading grid and type scale, without material effects.
 
 ## Cost tiers
 
 | Tier | Styles | Typical concern |
 |---|---|---|
-| Low visual cost | Flat Design, Material Design, Bento UI, Neobrutalism | Hierarchy, state clarity, content order |
+| Low visual cost | Flat Design, Material Design, Bento UI, Neobrutalism, Swiss Editorial | Hierarchy, state clarity, content order |
 | Medium visual cost | Skeuomorphism, Neumorphism, Glassmorphism, Claymorphism | Shadow count, contrast, asset weight, blur |
 | High visual cost | Liquid Glass, Aurora UI at motion, heavy Skeuomorphism | Compositing, backdrop sampling, animation budget |
 

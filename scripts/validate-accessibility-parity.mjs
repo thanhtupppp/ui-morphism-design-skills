@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = process.cwd();
-const styles = ['skeuomorphism', 'flat-design', 'neumorphism', 'material-design', 'glassmorphism', 'claymorphism', 'liquid-glass', 'aurora-ui', 'bento-ui', 'neobrutalism'];
+const styles = ['skeuomorphism', 'flat-design', 'neumorphism', 'material-design', 'glassmorphism', 'claymorphism', 'liquid-glass', 'aurora-ui', 'bento-ui', 'neobrutalism', 'swiss-editorial'];
 const failures = [];
 const read = (path) => { try { return readFileSync(path, 'utf8'); } catch { return null; } };
 const requirePattern = (text, pattern, label) => { if (!text || !pattern.test(text)) failures.push(`${label}: missing ${pattern}`); };

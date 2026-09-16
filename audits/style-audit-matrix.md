@@ -1,6 +1,6 @@
 # Style Audit Matrix — v1.9 Stabilization
 
-This matrix tracks the 10 supported styles across the 7 required files per style (70 files total).
+This matrix tracks the 11 supported styles across the 7 required files per style (77 files total).
 
 ## Status legend
 
@@ -22,7 +22,7 @@ This matrix tracks the 10 supported styles across the 7 required files per style
 | File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
 |---|---|---|---|---|---|---|---|
 | `skills/aurora-ui/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Core guidance is sound; manual parity cross-check pending. |
-| `skills/aurora-ui/components.md` | **FAIL** | REVIEW | PASS | PASS | PASS | **FAIL** | Uses legacy `--aurora-*` tokens instead of `--um-aurora-ui-*`. |
+| `skills/aurora-ui/components.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Canonical `--um-aurora-ui-*` tokens are enforced; manual component comparison remains. |
 | `skills/aurora-ui/platforms.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | CI passes; renderer guidance needs manual comparison with examples. |
 | `skills/aurora-ui/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/aurora-ui/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
@@ -46,7 +46,7 @@ This matrix tracks the 10 supported styles across the 7 required files per style
 | File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
 |---|---|---|---|---|---|---|---|
 | `skills/claymorphism/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Core guidance separates decorative volume from semantics. |
-| `skills/claymorphism/components.md` | **FAIL** | REVIEW | PASS | PASS | PASS | **FAIL** | Uses legacy `--clay-*` token namespace. |
+| `skills/claymorphism/components.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Canonical `--um-claymorphism-*` tokens are enforced; manual component comparison remains. |
 | `skills/claymorphism/platforms.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | CI passes; verify shadow reduction/fallback consistency manually. |
 | `skills/claymorphism/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/claymorphism/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
@@ -57,8 +57,8 @@ This matrix tracks the 10 supported styles across the 7 required files per style
 
 | File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
 |---|---|---|---|---|---|---|---|
-| `skills/flat-design/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | **FAIL** | Contains non-portable ChatGPT session citations and an unnecessary framework-version-pinned claim. |
-| `skills/flat-design/components.md` | **FAIL** | REVIEW | PASS | PASS | PASS | **FAIL** | Uses legacy `--flat-*` tokens and legacy theme token examples. |
+| `skills/flat-design/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Non-portable citations and framework-version-pinned wording were removed. |
+| `skills/flat-design/components.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Canonical `--um-flat-design-*` tokens are enforced; manual component comparison remains. |
 | `skills/flat-design/platforms.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | CI passes; manually verify token mapping after namespace migration. |
 | `skills/flat-design/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/flat-design/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
@@ -70,7 +70,7 @@ This matrix tracks the 10 supported styles across the 7 required files per style
 | File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
 |---|---|---|---|---|---|---|---|
 | `skills/glassmorphism/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Opaque fallback sequence is documented correctly. |
-| `skills/glassmorphism/components.md` | **FAIL** | REVIEW | PASS | PASS | PASS | **FAIL** | Uses legacy `--glass-*` tokens. |
+| `skills/glassmorphism/components.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Canonical `--um-glassmorphism-*` tokens are enforced; manual component comparison remains. |
 | `skills/glassmorphism/platforms.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Verify reduced-transparency and opaque fallback mapping manually. |
 | `skills/glassmorphism/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/glassmorphism/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
@@ -82,7 +82,7 @@ This matrix tracks the 10 supported styles across the 7 required files per style
 | File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
 |---|---|---|---|---|---|---|---|
 | `skills/liquid-glass/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Capability tiers and effect degradation are documented. |
-| `skills/liquid-glass/components.md` | **FAIL** | REVIEW | PASS | PASS | PASS | **FAIL** | Uses legacy `--liquid-*` tokens. |
+| `skills/liquid-glass/components.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Canonical `--um-liquid-glass-*` tokens are enforced; manual component comparison remains. |
 | `skills/liquid-glass/platforms.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Manually verify distortion/blur/tint/opaque capability ladder per renderer. |
 | `skills/liquid-glass/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/liquid-glass/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
@@ -94,7 +94,7 @@ This matrix tracks the 10 supported styles across the 7 required files per style
 | File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
 |---|---|---|---|---|---|---|---|
 | `skills/material-design/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | System-level guidance is consistent with semantic role approach. |
-| `skills/material-design/components.md` | **FAIL** | REVIEW | PASS | PASS | PASS | **FAIL** | Uses legacy `--md-*` tokens. |
+| `skills/material-design/components.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Canonical `--um-material-design-*` tokens are enforced; manual component comparison remains. |
 | `skills/material-design/platforms.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Verify component-role mapping and state layers across all renderers. |
 | `skills/material-design/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/material-design/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
@@ -106,7 +106,7 @@ This matrix tracks the 10 supported styles across the 7 required files per style
 | File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
 |---|---|---|---|---|---|---|---|
 | `skills/neobrutalism/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Focus-vs-heavy-border rule is documented; manual example comparison pending. |
-| `skills/neobrutalism/components.md` | **FAIL** | REVIEW | PASS | PASS | PASS | **FAIL** | Uses legacy `--neo-*` tokens. |
+| `skills/neobrutalism/components.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Canonical `--um-neobrutalism-*` tokens are enforced; manual component comparison remains. |
 | `skills/neobrutalism/platforms.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Verify pressed translation does not alter semantic/hit bounds across renderers. |
 | `skills/neobrutalism/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/neobrutalism/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
@@ -118,7 +118,7 @@ This matrix tracks the 10 supported styles across the 7 required files per style
 | File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
 |---|---|---|---|---|---|---|---|
 | `skills/neumorphism/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Explicit flat fallback and shadow-independent state guidance are present. |
-| `skills/neumorphism/components.md` | **FAIL** | REVIEW | PASS | PASS | PASS | **FAIL** | Uses legacy `--neu-*` tokens. |
+| `skills/neumorphism/components.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Canonical `--um-neumorphism-*` tokens are enforced; manual component comparison remains. |
 | `skills/neumorphism/platforms.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Verify inset-shadow degradation and explicit state cues on native renderers. |
 | `skills/neumorphism/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/neumorphism/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
@@ -130,33 +130,43 @@ This matrix tracks the 10 supported styles across the 7 required files per style
 | File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
 |---|---|---|---|---|---|---|---|
 | `skills/skeuomorphism/SKILL.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Custom gesture alternatives and flat fallback are explicitly required. |
-| `skills/skeuomorphism/components.md` | **FAIL** | REVIEW | PASS | PASS | PASS | **FAIL** | Uses legacy `--sk-*` tokens. |
+| `skills/skeuomorphism/components.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Canonical `--um-skeuomorphism-*` tokens are enforced; manual component comparison remains. |
 | `skills/skeuomorphism/platforms.md` | PASS | REVIEW | PASS | PASS | PASS | REVIEW | Verify knob/slider/switch accessible alternatives across renderers. |
 | `skills/skeuomorphism/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/skeuomorphism/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/skeuomorphism/example.flutter.dart` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 | `skills/skeuomorphism/example.native.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Current automated parity/accessibility/quality gates pass. |
 
+## 11. Swiss Editorial
+
+| File | Token namespace | Semantic parity | Accessibility | Fallback | Performance | Overall | Notes |
+|---|---|---|---|---|---|---|---|
+| `skills/swiss-editorial/SKILL.md` | PASS | PASS | PASS | PASS | PASS | PASS | Typography-led scope, selection criteria, and fallbacks are explicit. |
+| `skills/swiss-editorial/components.md` | PASS | PASS | PASS | PASS | PASS | PASS | Canonical tokens, state matrix, and responsive behavior are documented. |
+| `skills/swiss-editorial/platforms.md` | PASS | PASS | PASS | PASS | PASS | PASS | Web, React, Flutter, React Native, and adapter mappings are documented. |
+| `skills/swiss-editorial/example.css` | PASS | PASS | PASS | PASS | PASS | PASS | Automated parity, accessibility, responsive, and forced-colors gates pass. |
+| `skills/swiss-editorial/example.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | Browser interaction and automated accessibility tests pass. |
+| `skills/swiss-editorial/example.flutter.dart` | PASS | PASS | PASS | PASS | PASS | PASS | Flutter analysis and widget tests pass in the recorded harness. |
+| `skills/swiss-editorial/example.native.tsx` | PASS | PASS | PASS | PASS | PASS | PASS | TypeScript validation passes; device checks remain documented in the verification record. |
+
 ## Current stabilization summary
 
 | Metric | Count |
 |---|---:|
-| Styles | 10 |
-| Required files | 70 |
-| Files with confirmed FAIL | 10 |
-| `components.md` namespace failures | 9 |
-| `SKILL.md` content-leak/version-drift failures | 1 |
-| Example files passing current automated gates | 40 |
-| Files still requiring deeper manual parity review | 20 |
+| Styles | 11 |
+| Required files | 77 |
+| Files with confirmed FAIL | 0 |
+| `components.md` namespace failures | 0 |
+| `SKILL.md` content-leak/version-drift failures | 0 |
+| Example files passing current automated gates | 44 |
+| Swiss Editorial browser tests | 11 passing |
 
-### Confirmed fix queue
+### Remaining review queue
 
-1. Normalize 9 `components.md` files to the canonical `--um-<style>-...` namespace.
-2. Remove ChatGPT-session citations and version-pinned Flutter wording from `skills/flat-design/SKILL.md`.
-3. Re-run semantic/accessibility/quality gates after token migration.
-4. Manually close all REVIEW cells by comparing `platforms.md` and four renderer examples per style.
-5. Add validator rules so legacy token aliases and session citations cannot return.
+1. Manually close the retained REVIEW cells by comparing `platforms.md` and four renderer examples per style.
+2. Run device screen-reader, hardware keyboard, high-contrast, safe-area, and OS text-scaling checks for Swiss Editorial in host applications.
+3. Keep the namespace, citation, semantic, accessibility, component parity, packaging, and eval gates green as styles evolve.
 
 ## Definition of Done
 
-The style audit is complete only when all 70 rows are **PASS**, with zero legacy token aliases, zero session citations, zero semantic/accessibility/fallback/performance regressions, and full CI green on the final head.
+The style audit is complete only when all 77 rows are **PASS**, with zero legacy token aliases, zero session citations, zero semantic/accessibility/fallback/performance regressions, and full CI green on the final head.

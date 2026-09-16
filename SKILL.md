@@ -1,9 +1,13 @@
 ---
 name: ui-morphism-design
-description: Select, compare, implement, adapt, review, and validate production-ready UI morphism systems across HTML/CSS, React, Flutter, React Native, and compatible renderers. Use for Skeuomorphism, Flat Design, Neumorphism, Material Design, Glassmorphism, Claymorphism, Liquid Glass, Aurora UI, Bento UI, and Neobrutalism, including semantic tokens, component states, accessibility, responsive behavior, platform capability negotiation, deterministic fallbacks, and cross-platform parity.
+description: Select, compare, implement, adapt, review, and validate production-ready UI systems across HTML/CSS, React, Flutter, React Native, and compatible renderers. Use for Skeuomorphism, Flat Design, Neumorphism, Material Design, Glassmorphism, Claymorphism, Liquid Glass, Aurora UI, Bento UI, Neobrutalism, and Swiss Editorial, including semantic tokens, component states, accessibility, responsive behavior, platform capability negotiation, deterministic fallbacks, and cross-platform parity.
 ---
 
 # UI Morphism Design Skill
+
+## Editorial interfaces
+
+For journals, research libraries, and typography-led portfolios, consider [Swiss Editorial](skills/swiss-editorial/SKILL.md). Its search, category filtering, reading, and bookmark example can be explored with the local preview described in `README.md`. Preserve the user's existing brand and requested scope when selecting a style.
 
 ## Code-first, cross-platform workflow
 

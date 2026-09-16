@@ -19,6 +19,7 @@ STYLES = (
     "neobrutalism",
     "neumorphism",
     "skeuomorphism",
+    "swiss-editorial",
 )
 REQUIRED_FILES = (
     "SKILL.md",

@@ -13,7 +13,7 @@ const original = JSON.parse(readFileSync(join(repo, 'references/component-parity
 test('the complete repository contract passes', () => {
   const result = spawnSync(process.execPath, [validator], { cwd: repo, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /10 styles × 4 renderers/);
+  assert.match(result.stdout, /11 styles × 4 renderers/);
 });
 
 const invalidContracts = [
