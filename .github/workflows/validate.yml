@@ -2,9 +2,12 @@ name: Validate UI Morphism Design Skill
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - ai-agent/chatgpt-skill-compat-1.9
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -24,8 +27,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
-          node-version: 24
-          package-manager-cache: false
+          node-version: "24"
 
       - name: Test Skill validator
         run: python3 -m unittest tests/test-skill-validator.py
@@ -47,23 +49,43 @@ jobs:
 
       - name: Publish eval job summary
         if: always()
+        shell: bash
         run: |
           if [ -f eval-report.json ]; then
             python3 scripts/render-eval-summary.py eval-report.json --output eval-summary.md
             cat eval-summary.md >> "$GITHUB_STEP_SUMMARY"
           else
-            printf '## UI Morphism Eval Summary\n\n**FAIL** — eval-report.json was not produced.\n' >> "$GITHUB_STEP_SUMMARY"
+            printf '## UI Morphism Eval Summary\n\n**FAIL** - eval-report.json was not produced.\n' >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Print eval diagnostics
         if: always()
-        run: python3 -c "import json; r=json.load(open('eval-report.json')); print(json.dumps({'summary': r['summary'], 'threshold_failures': r.get('thresholds', {}).get('failures', []), 'baseline_regressions': r.get('baseline', {}).get('regressions', [])}, indent=2))" || true
+        shell: bash
+        run: |
+          if [ -f eval-report.json ]; then
+            python3 - <<'PY'
+          import json
+          report = json.load(open("eval-report.json", encoding="utf-8"))
+          payload = {
+              "summary": report.get("summary", {}),
+              "threshold_failures": report.get("thresholds", {}).get("failures", []),
+              "baseline_regressions": report.get("baseline", {}).get("regressions", []),
+          }
+          print(json.dumps(payload, indent=2))
+          PY
+          fi
 
       - name: Enforce eval result
         if: always()
+        shell: bash
         run: |
           test -f eval-report.json
-          python3 -c "import json,sys; r=json.load(open('eval-report.json')); sys.exit(0 if r.get('ok') else 1)"
+          python3 - <<'PY'
+          import json
+          import sys
+          report = json.load(open("eval-report.json", encoding="utf-8"))
+          sys.exit(0 if report.get("ok") else 1)
+          PY
 
       - name: Validate repository
         run: node scripts/validate-repo.mjs
