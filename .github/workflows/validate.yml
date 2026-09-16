@@ -32,11 +32,30 @@ jobs:
       - name: Test Skill validator
         run: python3 -m unittest tests/test-skill-validator.py
 
+      - name: Test deterministic packager
+        run: python3 -m unittest tests/test-packager.py
+
       - name: Test trigger eval router, thresholds, and baseline
         run: python3 -m unittest tests/test-evals.py
 
-      - name: Validate ChatGPT Skill package
+      - name: Validate ChatGPT Skill source tree
         run: python3 scripts/validate-skill-package.py . --format json --output skill-validation.json
+
+      - name: Build deterministic skill.zip twice
+        shell: bash
+        run: |
+          mkdir -p package-a package-b
+          python3 scripts/package-skill.py --root . --output package-a/skill.zip --json
+          python3 scripts/package-skill.py --root . --output package-b/skill.zip --json
+          cmp package-a/skill.zip package-b/skill.zip
+          cmp package-a/skill-package-manifest.json package-b/skill-package-manifest.json
+          test "$(sha256sum package-a/skill.zip | cut -d ' ' -f1)" = "$(sha256sum package-b/skill.zip | cut -d ' ' -f1)"
+
+      - name: Validate built skill.zip
+        run: python3 scripts/validate-skill-package.py package-a/skill.zip --format json --output package-validation.json
+
+      - name: Print package checksum
+        run: cat package-a/skill.zip.sha256
 
       - name: Print Skill validation report
         if: always()
