@@ -4,7 +4,7 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 ## Current contract
 
-Version `1.8.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, a canonical token namespace/theme contract, semantic parity validation, accessibility parity validation, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+Version `1.9.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, a canonical token namespace/theme contract, semantic parity validation, accessibility parity validation, structured component parity validation, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
 
 ## Code-first, cross-platform usage
 
@@ -38,11 +38,17 @@ Use full style names rather than short aliases, keep style tokens separate from 
 
 ## Semantic parity
 
-`references/semantic-parity.md` defines cross-renderer invariants. `scripts/validate-semantic-parity.mjs` checks all ten styles for canonical CSS token definition/consumption, semantic interactive primitives, state coverage, responsive intent, target-size guidance, fallback behavior, and verification records. Renderer-specific visual treatment may differ; semantic anatomy and state meaning may not silently diverge.
+`references/semantic-parity.md` defines cross-renderer invariants. `scripts/validate-semantic-parity.mjs` checks all ten styles for canonical CSS token definition/consumption, semantic interactive primitives, state coverage, responsive intent, target-size guidance, fallback behavior, accessibility parity references, and verification records. Renderer-specific visual treatment may differ; semantic anatomy and state meaning may not silently diverge.
 
 ## Accessibility parity
 
 `references/accessibility-parity.md` defines cross-renderer accessibility invariants. `scripts/validate-accessibility-parity.mjs` checks focus visibility, forced-colors handling, reduced motion, accessible naming, native controls, target-size guidance, explicit state semantics, and fallback behavior across all ten styles.
+
+## Structured component parity
+
+`references/component-parity.json` is the normalized machine-readable contract for the primary interactive component. It defines the baseline role, accessible-name requirement, default/pressed/disabled states, responsive intent, target-size policy, and deterministic fallback requirement, plus renderer-specific evidence signals.
+
+`references/component-parity.md` documents the normalization model, and `scripts/validate-component-parity.mjs` validates its schema and checks source evidence across all ten styles × four renderers. Missing renderers and malformed evidence rules fail validation. Source checks remain heuristic and do not replace runtime interaction or accessibility testing.
 
 ## Platform capability negotiation
 
@@ -62,6 +68,8 @@ Every style includes `example.native.tsx`. These seeds preserve semantic roles a
 
 - `references/comparison-matrix.md` — style selection and depth/cost guidance.
 - `references/component-code-contract.md` — required component/state output and auditable agent workflow.
+- `references/component-parity.json` — machine-readable normalized primary-action parity contract.
+- `references/component-parity.md` — structured component parity rules.
 - `references/platform-contract.md` — framework-agnostic implementation and fallback rules.
 - `references/platform-matrix.md` — renderer capability matrix and capability negotiation.
 - `references/platform-implementation-guide.md` — semantic tokens, capability negotiation, and verification workflow.
@@ -84,6 +92,8 @@ node scripts/validate-repo.mjs
 node scripts/validate-quality-gates.mjs
 node scripts/validate-semantic-parity.mjs
 node scripts/validate-accessibility-parity.mjs
+node scripts/validate-component-parity.mjs
+node --test scripts/validate-component-parity.test.mjs
 ```
 
 GitHub Actions runs all validators on pushes and pull requests targeting `main`.

@@ -48,5 +48,11 @@ A renderer may use different primitives while preserving this sequence.
 - Translucent/atmospheric examples should honor reduced-transparency preferences or provide an opaque replacement when the effect is intentionally disabled.
 - The canonical accessibility contract is `references/accessibility-parity.md`.
 
+## Gate I — structured component parity
+- `references/component-parity.json` is the normalized source for the primary interactive component contract.
+- Every style must preserve the same semantic role, accessible-name requirement, baseline states, responsive intent, target-size policy, and deterministic fallback across all supported renderers.
+- Renderer-specific implementation details may differ, but they must provide concrete evidence for every normalized field.
+- `scripts/validate-component-parity.mjs` must pass before a style is considered cross-platform ready.
+
 ## Warning policy
 Validator warnings are quality-debt signals, not permission to weaken a contract. Resolve warnings by improving the example or documentation. Only promote a warning to a hard failure when the missing behavior is necessary for portability, accessibility, correctness, or repository integrity.
