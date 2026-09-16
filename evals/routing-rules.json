@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "styles": {
+    "skeuomorphism": {
+      "positive": {"physical metaphor": 5, "instrument": 5, "mixer": 4, "knob": 4, "device panel": 5, "real-world control": 5, "texture": 2},
+      "negative": {"dense table": -4, "documentation": -3, "performance constrained": -3}
+    },
+    "flat-design": {
+      "positive": {"saas": 4, "crud": 5, "dense table": 5, "documentation": 4, "dashboard": 3, "performance constrained": 5, "data dense": 5, "field operated": 4},
+      "negative": {"physical metaphor": -4, "premium hero": -2}
+    },
+    "neumorphism": {
+      "positive": {"thermostat": 5, "smart home": 5, "compact utility": 4, "raised control": 4, "pressed control": 4},
+      "negative": {"dense table": -5, "critical": -4, "low contrast": -3}
+    },
+    "material-design": {
+      "positive": {"cross-platform": 5, "app shell": 5, "android": 4, "design system": 4, "critical": 4, "enterprise app": 3},
+      "negative": {"bold campaign": -2, "physical metaphor": -2}
+    },
+    "glassmorphism": {
+      "positive": {"translucent": 4, "blur": 4, "modal": 5, "overlay": 5, "hero card": 4, "navigation overlay": 5, "frosted": 5},
+      "negative": {"dense table": -5, "performance constrained": -4, "critical": -3}
+    },
+    "claymorphism": {
+      "positive": {"education": 5, "onboarding": 5, "gamification": 5, "playful": 4, "inflated": 4, "friendly": 3},
+      "negative": {"dense enterprise": -4, "legal": -4, "critical": -3}
+    },
+    "liquid-glass": {
+      "positive": {"dynamic translucent": 5, "platform chrome": 5, "contextual controls": 4, "reflection": 3, "liquid glass": 6, "dynamic glass": 6},
+      "negative": {"dense table": -5, "performance constrained": -5, "legacy browser": -4}
+    },
+    "aurora-ui": {
+      "positive": {"ai hero": 6, "premium hero": 5, "marketing hero": 5, "cinematic": 4, "ambient gradient": 5, "glow background": 5, "futuristic": 3},
+      "negative": {"dense table": -5, "long reading": -4, "critical form": -4}
+    },
+    "bento-ui": {
+      "positive": {"overview page": 5, "portfolio": 5, "feature section": 5, "modular grid": 6, "intentional spans": 4, "dashboard overview": 4},
+      "negative": {"linear form": -3, "long reading": -3}
+    },
+    "neobrutalism": {
+      "positive": {"dev tool": 5, "developer tool": 5, "bold campaign": 5, "portfolio": 3, "hard shadow": 5, "thick border": 5, "saturated": 3},
+      "negative": {"calm healthcare": -4, "subtle enterprise": -3}
+    }
+  },
+  "global_rules": [
+    {
+      "when_any": ["data dense", "dense table", "critical", "field operated", "performance constrained"],
+      "boost": {"flat-design": 4, "material-design": 3},
+      "penalize": {"glassmorphism": -3, "liquid-glass": -4, "aurora-ui": -3, "neumorphism": -3}
+    }
+  ]
+}
