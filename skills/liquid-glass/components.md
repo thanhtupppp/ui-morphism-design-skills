@@ -1,260 +1,120 @@
 # Liquid Glass — Component Anatomy & Recipes
 
-Liquid Glass is a **functional translucent material**. Components must remain understandable when blur, reflection, and distortion are removed.
+Liquid Glass is a functional translucent material. Components must remain understandable when blur, reflection, and distortion are removed.
 
-## 1. Surface anatomy
-A Liquid surface is built in this order:
+## Surface anatomy
 
-1. Stable layout and hit area.
-2. Base/tinted surface.
-3. Backdrop blur, only when supported.
-4. Rim/border/highlight.
-5. Depth/elevation.
-6. Optional reflection.
-7. Content and controls.
+Stable layout and hit area → base/tinted surface → optional blur → rim/highlight → depth → optional reflection/distortion → content and controls.
 
-The material effect is decoration plus spatial grouping; semantics stay in the controls.
+## Tokens
 
-## 2. Recognition test
-A beginner should be able to point out:
-- the parent Liquid surface;
-- where the backdrop is visible through it;
-- the rim that defines its edge;
-- which controls belong to the group;
-- which control is selected/focused/pressed;
-- what changes when the surface expands.
-
-## 3. Tokens
 ```css
 :root {
-  --liquid-bg: #f5f5f7;
-  --liquid-fill: rgb(255 255 255 / .62);
-  --liquid-fill-strong: rgb(255 255 255 / .76);
-  --liquid-fallback: #f5f5f7;
-  --liquid-ink: #111827;
-  --liquid-muted: #4b5563;
-  --liquid-rim: rgb(255 255 255 / .72);
-  --liquid-rim-strong: rgb(255 255 255 / .9);
-  --liquid-focus: #155e75;
-  --liquid-shadow: 0 8px 32px rgb(0 0 0 / .12);
-  --liquid-blur-sm: 12px;
-  --liquid-blur-md: 20px;
-  --liquid-blur-lg: 32px;
-  --liquid-radius-sm: 14px;
-  --liquid-radius-lg: 26px;
-  --liquid-radius-pill: 999px;
-  --liquid-target: 44px;
+  --um-liquid-glass-bg: #f5f5f7;
+  --um-liquid-glass-surface-1: rgb(255 255 255 / .62);
+  --um-liquid-glass-surface-2: rgb(255 255 255 / .76);
+  --um-liquid-glass-surface-fallback: #f5f5f7;
+  --um-liquid-glass-ink: #111827;
+  --um-liquid-glass-ink-muted: #4b5563;
+  --um-liquid-glass-border: rgb(255 255 255 / .72);
+  --um-liquid-glass-border-strong: rgb(255 255 255 / .9);
+  --um-liquid-glass-focus: #155e75;
+  --um-liquid-glass-shadow-1: 0 8px 32px rgb(0 0 0 / .12);
+  --um-liquid-glass-blur-sm: 12px;
+  --um-liquid-glass-blur-md: 20px;
+  --um-liquid-glass-blur-lg: 32px;
+  --um-liquid-glass-radius-sm: 14px;
+  --um-liquid-glass-radius-lg: 26px;
+  --um-liquid-glass-radius-pill: 999px;
+  --um-liquid-glass-target-min: 44px;
 }
 ```
 
-## 4. Toolbar
-A toolbar is one visual material containing multiple actions.
-
-Rules:
-- group related controls;
-- keep spacing compact but touch-safe;
-- selected action gets an explicit indicator;
-- overflow action remains discoverable;
-- compact state may be pill/capsule, expanded state may be rounded rectangle.
+## Toolbar
 
 ```css
 .liquid-toolbar {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  min-height: 52px;
-  padding: 6px;
-  color: var(--liquid-ink);
-  border: 1px solid var(--liquid-rim);
-  border-radius: var(--liquid-radius-pill);
-  background: var(--liquid-fallback);
-  box-shadow: var(--liquid-shadow);
+  display:flex;
+  gap:8px;
+  align-items:center;
+  min-height:52px;
+  padding:6px;
+  color:var(--um-liquid-glass-ink);
+  border:1px solid var(--um-liquid-glass-border);
+  border-radius:var(--um-liquid-glass-radius-pill);
+  background:var(--um-liquid-glass-surface-fallback);
+  box-shadow:var(--um-liquid-glass-shadow-1);
 }
 @supports (backdrop-filter: blur(1px)) {
   .liquid-toolbar {
-    background: var(--liquid-fill);
-    backdrop-filter: blur(var(--liquid-blur-md)) saturate(180%);
+    background:var(--um-liquid-glass-surface-1);
+    backdrop-filter:blur(var(--um-liquid-glass-blur-md)) saturate(180%);
   }
 }
 ```
 
-## 5. Buttons
-Buttons inside Liquid surfaces are usually transparent or lightly tinted.
-
-States:
-- default: transparent/light tint;
-- hover: subtle surface tint for pointer devices;
-- pressed: stronger tint + tiny compression;
-- selected: persistent indicator or filled inner pill;
-- focus: solid high-contrast ring;
-- disabled: readable but visually quieter;
-- loading: explicit spinner/progress.
+## Buttons
 
 ```css
 .liquid-button {
-  min-width: var(--liquid-target);
-  min-height: var(--liquid-target);
-  padding: 10px 14px;
-  border: 1px solid transparent;
-  border-radius: var(--liquid-radius-pill);
-  background: transparent;
-  color: var(--liquid-ink);
+  min-width:var(--um-liquid-glass-target-min);
+  min-height:var(--um-liquid-glass-target-min);
+  padding:10px 14px;
+  border:1px solid transparent;
+  border-radius:var(--um-liquid-glass-radius-pill);
+  background:transparent;
+  color:var(--um-liquid-glass-ink);
 }
-.liquid-button:hover { background: rgb(255 255 255 / .36); }
-.liquid-button:active { background: rgb(255 255 255 / .48); transform: scale(.98); }
-.liquid-button:focus-visible { outline: 3px solid var(--liquid-focus); outline-offset: 3px; }
-.liquid-button[aria-pressed="true"] { background: var(--liquid-fill-strong); border-color: var(--liquid-rim-strong); }
+.liquid-button:focus-visible { outline:3px solid var(--um-liquid-glass-focus); outline-offset:3px; }
+.liquid-button[aria-pressed="true"] { background:var(--um-liquid-glass-surface-2); border-color:var(--um-liquid-glass-border-strong); }
 ```
 
-## 6. Icon button
-Icon-only actions require an accessible name and a stable target. Never shrink the hit target merely to preserve a visual pill.
+Icon buttons require accessible names and stable targets. Selection, focus, error, loading and expanded state must remain explicit without blur/reflection.
 
-Recommended anatomy:
-`icon → accessible name → state indicator when needed`
+## Card / panel
 
-## 7. Navigation
-Liquid navigation works best as a floating functional layer.
+A Liquid card or panel uses a stable fallback surface, visible rim, and bounded blur. Keep text and controls on the foreground layer so distortion never affects readability or hit testing. Use opaque inner surfaces for long text, forms, and data-heavy content.
 
-Desktop:
-- horizontal toolbar or floating navigation;
-- active item uses indicator + label/weight.
+## Forms, navigation and data
 
-Mobile:
-- compact bottom bar or floating navigation;
-- avoid too many items;
-- preserve order and accessible labels.
+Use conventional high-contrast fields inside Liquid shells. Navigation remains usable if the material becomes opaque. Large lists and tables use an opaque inner surface; Liquid is reserved for bounded chrome or outer shells.
 
-Navigation must remain usable if the material becomes opaque.
+## Semantic state contract
 
-## 8. Contextual action group
-Use for selection-aware actions, media controls, text editing, or object manipulation.
+Default, hover, pressed, selected, focus, disabled, loading, error and expanded/collapsed states must each retain semantic meaning independently of material effects.
 
-Behavior:
-- appears near relevant content;
-- expands without changing action meaning;
-- dismisses predictably;
-- supports keyboard focus movement;
-- has an equivalent non-drag interaction path.
+## Fallback ladder
 
-## 9. Floating panel / sheet
-A Liquid panel may use rounded geometry and blur, but critical content should remain on a stable inner surface.
+```text
+blur + tint + rim + reflection/distortion
+→ blur + tint + rim
+→ tint + rim
+→ opaque/tinted surface + rim
+→ flat opaque surface + border
+```
 
-Use:
-`material shell → optional opaque content region → actions`
+The component remains functionally identical through every tier.
 
-Do not place large tables or long reading content directly on a heavily translucent backdrop.
+## Accessibility
 
-## 10. Dialog
-A dialog is a semantic modal first and Liquid material second.
+Preserve accessible names, state semantics, keyboard alternatives for drag/slider/rotary interactions, focus restoration for dialogs, target sizes, large text/localization and high-contrast behavior.
 
-Requirements:
-- modal semantics;
-- scrim;
-- focus trap/containment;
-- Escape/close behavior where supported;
-- focus restoration;
-- stable text contrast;
-- opaque fallback.
+## Responsive matrix
 
-## 11. Search / command palette
-Good use case because the surface is transient and bounded.
+| Layout | Treatment |
+|---|---|
+| Compact, below 768px | Remove distortion and reflection first; reduce blur area while preserving rims and targets. |
+| Medium, 768–1023px | Use Liquid on bounded toolbars and focal panels. |
+| Expanded, 1024px and above | Allow larger material regions without nesting backdrop sampling. |
 
-Recommended structure:
-`Liquid shell → search field → result list → keyboard shortcut/help`
+## Performance
 
-Keep the result list readable and use stable selected-row indicators.
+Bound blur to the smallest useful surface, avoid nested backdrop sampling and full-screen distortion, and remove distortion/blur before removing borders, labels or state indicators.
 
-## 12. Form fields
-Use conventional, high-contrast fields inside Liquid shells.
+## Anti-patterns
 
-A text field needs:
-`label → field → helper/error → state`
-
-A translucent field background is allowed only when the backdrop is controlled and contrast-tested. Otherwise use opaque fill.
-
-## 13. Slider / progress
-The track may use Liquid styling, but value must be explicit.
-
-For sliders:
-- thumb is visually distinct;
-- current value is available to assistive tech;
-- keyboard increment/decrement works;
-- drag is not the only interaction.
-
-## 14. Chips / segmented controls
-Chips can use compact Liquid capsules.
-
-Selected chip:
-`indicator/fill/border + optional material emphasis`
-
-Do not communicate selection solely by blur or reflection.
-
-## 15. Badge / status
-Liquid badge is suitable for non-critical decorative or contextual labels.
-
-Critical status uses semantic color + icon/text; avoid glow-only meaning.
-
-## 16. Lists
-Lists inside Liquid navigation are acceptable when the panel is bounded. Each row needs a stable selected/hover/focus cue.
-
-For large lists, reduce blur and use an opaque inner list surface.
-
-## 17. Tables / data grids
-Do not place the table itself on a heavily translucent, moving backdrop.
-
-Preferred:
-`Liquid outer shell → opaque table surface → semantic rows/cells`
-
-## 18. Expansion / morph state
-Liquid surfaces may morph between compact and expanded forms.
-
-Rules:
-- stable semantic identity;
-- preserve focus when possible;
-- announce expanded/collapsed state;
-- do not move a focused control to an unrelated location without reason;
-- retain usable target size throughout animation.
-
-## 19. State matrix
-| State | Main visual cue | Required semantic cue |
-|---|---|---|
-| Default | translucent material | normal control semantics |
-| Hover | tint/highlight | pointer-only enhancement |
-| Pressed | stronger tint/compression | pressed/active state |
-| Selected | persistent inner fill/indicator | selected/checked state |
-| Focus | solid high-contrast ring | keyboard focus |
-| Disabled | reduced decoration | disabled state |
-| Loading | explicit progress | busy/loading state |
-| Error | semantic border/icon/text | error state |
-| Expanded | morph/shape change | expanded/collapsed state |
-
-## 20. Fallback ladder
-If capabilities are reduced:
-
-**Liquid 4:** blur + tint + rim + reflection + optional distortion
-
-↓
-
-**Liquid 3:** blur + tint + rim + depth
-
-↓
-
-**Liquid 2:** tint + rim + depth
-
-↓
-
-**Liquid 1:** opaque/tinted surface + rim
-
-↓
-
-**Flat fallback:** opaque surface + border
-
-The component must remain functionally identical through the ladder.
-
-## 21. Anti-patterns
-- Using Liquid Glass as the whole page background.
-- Nested Liquid surfaces where each samples another.
-- Full-screen animated distortion.
-- Tiny icon buttons below the platform hit target.
+- Full-page animated distortion.
+- Nested Liquid surfaces sampling one another.
+- Tiny icon targets.
 - Long text directly over unpredictable imagery.
-- Using reflection/glow/distortion as selection or error semantics.
+- Reflection/glow/distortion as the only state cue.

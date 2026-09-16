@@ -4,7 +4,7 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 ## Current contract
 
-Version `1.9.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, a canonical token namespace/theme contract, semantic parity validation, accessibility parity validation, structured component parity validation, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+Version `1.9.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, semantic, accessibility, and structured component parity validation, React Native implementation seeds, ChatGPT Skill discovery metadata, release-grade package validation, deterministic routing evals, quality thresholds, and baseline regression gates. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
 
 ## Code-first, cross-platform usage
 
@@ -39,8 +39,6 @@ Use full style names rather than short aliases, keep style tokens separate from 
 ## Semantic parity
 
 `references/semantic-parity.md` defines cross-renderer invariants. `scripts/validate-semantic-parity.mjs` checks all ten styles for canonical CSS token definition/consumption, semantic interactive primitives, state coverage, responsive intent, target-size guidance, fallback behavior, accessibility parity references, and verification records. Renderer-specific visual treatment may differ; semantic anatomy and state meaning may not silently diverge.
-
-## Accessibility parity
 
 `references/accessibility-parity.md` defines cross-renderer accessibility invariants. `scripts/validate-accessibility-parity.mjs` checks focus visibility, forced-colors handling, reduced motion, accessible naming, native controls, target-size guidance, explicit state semantics, and fallback behavior across all ten styles.
 
@@ -83,7 +81,7 @@ Every style includes `example.native.tsx`. These seeds preserve semantic roles a
 
 HTML/CSS, React, Flutter, React Native, and other renderers through the adapter contract.
 
-## Validation
+## Validation and evals
 
 Run all repository validators locally:
 
@@ -96,7 +94,23 @@ node scripts/validate-component-parity.mjs
 node --test scripts/validate-component-parity.test.mjs
 ```
 
-GitHub Actions runs all validators on pushes and pull requests targeting `main`.
+Validate the ChatGPT Skill package and build its deterministic release artifacts:
+
+```bash
+python3 scripts/validate-skill-package.py .
+python3 scripts/package-skill.py --root . --output release/skill.zip --json
+python3 scripts/verify-release.py release
+```
+
+Run routing, threshold, baseline, and semantic-parity evals:
+
+```bash
+python3 scripts/run-evals.py --output eval-report.json
+```
+
+The eval report preserves the 1.2.0 schema and includes confusion-matrix metrics, per-style precision/recall/F1, threshold failures, and baseline regressions for CI diagnostics.
+
+GitHub Actions runs the style matrix, all validators, regression suites, release verification, and eval gates on pushes and pull requests targeting `main`.
 
 ## Supported styles
 

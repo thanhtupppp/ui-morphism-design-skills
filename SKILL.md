@@ -1,3 +1,8 @@
+---
+name: ui-morphism-design
+description: Select, compare, implement, adapt, review, and validate production-ready UI morphism systems across HTML/CSS, React, Flutter, React Native, and compatible renderers. Use for Skeuomorphism, Flat Design, Neumorphism, Material Design, Glassmorphism, Claymorphism, Liquid Glass, Aurora UI, Bento UI, and Neobrutalism, including semantic tokens, component states, accessibility, responsive behavior, platform capability negotiation, deterministic fallbacks, and cross-platform parity.
+---
+
 # UI Morphism Design Skill
 
 ## Code-first, cross-platform workflow
