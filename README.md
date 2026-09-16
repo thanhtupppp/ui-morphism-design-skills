@@ -6,7 +6,7 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 Version `1.9.0` supports eleven visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, semantic, accessibility, and structured component parity validation, React Native implementation seeds, ChatGPT Skill discovery metadata, release-grade package validation, deterministic routing evals, quality thresholds, and baseline regression gates. It adds **Swiss Editorial** for journals, research libraries, and typography-led portfolios, including an interactive React preview and Flutter and React Native seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
 
-## Try the interactive example
+## Try the interactive examples
 
 ![Swiss Editorial journal preview](assets/swiss-editorial-preview.png)
 
@@ -17,14 +17,14 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. The preview imports `skills/swiss-editorial/example.tsx` directly. Filters, search, inline reading, and save/unsave actions work locally; bookmarks reset when the page reloads. The journal and its stories are fictional sample content. No account, backend, remote fonts, or API keys are required.
+Open the local URL printed by Vite. The root preview opens **Aurora UI** and imports `skills/aurora-ui/example.tsx` directly. Its controls exercise the primary action, workflow selection, responsive layout, forced-colors fallback, and full/off effect modes. Use the Style selector to switch to Swiss Editorial, whose filters, search, inline reading, and save/unsave actions also work locally. Both examples require no account, backend, remote fonts, or API keys.
 
 ```bash
 npm run build
 npm run preview
 ```
 
-The production build is written to `dist/`. To reuse the style, start with its [skill](skills/swiss-editorial/SKILL.md), [component recipes](skills/swiss-editorial/components.md), and [platform mappings](skills/swiss-editorial/platforms.md). See the [verification record](skills/swiss-editorial/verification.md) for tested behavior and native limitations.
+The production build is written to `dist/`. For Aurora UI, start with its [skill](skills/aurora-ui/SKILL.md), [component recipes](skills/aurora-ui/components.md), [platform mappings](skills/aurora-ui/platforms.md), and [verification record](skills/aurora-ui/verification.md). For Swiss Editorial, use its [skill](skills/swiss-editorial/SKILL.md), [component recipes](skills/swiss-editorial/components.md), [platform mappings](skills/swiss-editorial/platforms.md), and [verification record](skills/swiss-editorial/verification.md).
 
 ## Code-first, cross-platform usage
 
