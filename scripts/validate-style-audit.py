@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Enforce style-level stabilization invariants for all ten UI styles."""
+"""Enforce style-level stabilization invariants for UI morphism styles."""
 from __future__ import annotations
 
 import argparse
@@ -43,18 +43,13 @@ PINNED_FRAMEWORK_RE = re.compile(
 
 
 def css_custom_properties(text: str) -> set[str]:
-    """Return actual CSS custom properties from declarations and var() references.
-
-    This intentionally ignores BEM modifiers such as `.card--featured` and
-    Markdown separators such as `---`, which are not custom properties.
-    """
     return set(PROPERTY_DECL_RE.findall(text)) | set(PROPERTY_VAR_RE.findall(text))
 
 
-def audit(root: Path) -> dict:
+def audit_style(root: Path, style: str) -> dict:
     root = root.resolve()
     findings: list[dict] = []
-    rows = 0
+    checked_files = 0
 
     def fail(code: str, path: Path, message: str) -> None:
         findings.append({
@@ -64,49 +59,65 @@ def audit(root: Path) -> dict:
             "message": message,
         })
 
-    for style in STYLES:
-        style_dir = root / "skills" / style
-        if not style_dir.is_dir():
-            fail("STYLE001", style_dir, f"missing style directory: {style}")
+    style_dir = root / "skills" / style
+    if not style_dir.is_dir():
+        fail("STYLE001", style_dir, f"missing style directory: {style}")
+        return {"style": style, "ok": False, "checked_files": 0, "errors": len(findings), "findings": findings}
+
+    for filename in REQUIRED_FILES:
+        path = style_dir / filename
+        checked_files += 1
+        if not path.is_file():
+            fail("STYLE002", path, f"missing required style file: {filename}")
             continue
 
-        for filename in REQUIRED_FILES:
-            path = style_dir / filename
-            rows += 1
-            if not path.is_file():
-                fail("STYLE002", path, f"missing required style file: {filename}")
-                continue
+        text = path.read_text(encoding="utf-8")
+        if SESSION_CITATION_RE.search(text):
+            fail("STYLE003", path, "non-portable session citation/reference detected")
+        if PINNED_FRAMEWORK_RE.search(text):
+            fail("STYLE004", path, "framework-version-pinned guidance detected; keep reusable guidance version-neutral")
 
-            text = path.read_text(encoding="utf-8")
-            if SESSION_CITATION_RE.search(text):
-                fail("STYLE003", path, "non-portable session citation/reference detected")
-            if PINNED_FRAMEWORK_RE.search(text):
-                fail("STYLE004", path, "framework-version-pinned guidance detected; keep reusable guidance version-neutral")
-
-            if filename == "components.md":
-                expected = f"--um-{style}-"
-                tokens = sorted(css_custom_properties(text))
-                for token in tokens:
-                    if any(token.startswith(prefix) for prefix in LEGACY_PREFIXES):
-                        fail("STYLE010", path, f"legacy token namespace detected: {token}")
-                    if not token.startswith(expected):
-                        fail("STYLE011", path, f"custom property '{token}' must use namespace '{expected}*'")
+        if filename == "components.md":
+            expected = f"--um-{style}-"
+            for token in sorted(css_custom_properties(text)):
+                if any(token.startswith(prefix) for prefix in LEGACY_PREFIXES):
+                    fail("STYLE010", path, f"legacy token namespace detected: {token}")
+                if not token.startswith(expected):
+                    fail("STYLE011", path, f"custom property '{token}' must use namespace '{expected}*'")
 
     return {
+        "style": style,
         "ok": not findings,
-        "styles": len(STYLES),
-        "required_files": rows,
-        "findings": findings,
+        "checked_files": checked_files,
         "errors": len(findings),
+        "findings": findings,
+    }
+
+
+def audit(root: Path, styles: list[str] | tuple[str, ...]) -> dict:
+    reports = [audit_style(root, style) for style in styles]
+    findings = [finding for report in reports for finding in report["findings"]]
+    return {
+        "ok": not findings,
+        "styles_checked": len(reports),
+        "required_files": sum(report["checked_files"] for report in reports),
+        "errors": len(findings),
+        "style_results": [
+            {"style": report["style"], "ok": report["ok"], "checked_files": report["checked_files"], "errors": report["errors"]}
+            for report in reports
+        ],
+        "findings": findings,
     }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate style stabilization invariants")
     parser.add_argument("root", nargs="?", default=".")
+    parser.add_argument("--style", action="append", choices=STYLES, help="Audit only this style; may be repeated")
     parser.add_argument("--output")
     args = parser.parse_args()
-    report = audit(Path(args.root))
+    styles = args.style or list(STYLES)
+    report = audit(Path(args.root), styles)
     payload = json.dumps(report, indent=2, sort_keys=True)
     if args.output:
         Path(args.output).write_text(payload + "\n", encoding="utf-8")
