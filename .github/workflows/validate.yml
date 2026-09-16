@@ -37,6 +37,13 @@ jobs:
         if: always()
         run: cat skill-validation.json || true
 
+      - name: Run trigger and semantic parity evals
+        run: python3 scripts/run-evals.py --output eval-report.json
+
+      - name: Print eval report summary
+        if: always()
+        run: python3 -c "import json; r=json.load(open('eval-report.json')); print(json.dumps(r['summary'], indent=2))" || true
+
       - name: Validate repository
         run: node scripts/validate-repo.mjs
 
