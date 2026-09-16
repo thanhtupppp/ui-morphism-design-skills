@@ -2,4 +2,15 @@ node_modules/
 dist/
 test-results/
 playwright-report/
+__pycache__/
+*.pyc
+eval-report.json
+eval-summary.md
+style-audit-validation.json
+skill-validation.json
+package-validation.json
+release-verification.json
+release/
+release-a/
+release-b/
 .DS_Store

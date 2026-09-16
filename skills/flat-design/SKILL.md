@@ -61,9 +61,9 @@ Use mobile-first CSS Grid/Flexbox on the web and adaptive layout primitives on n
 Use short, purposeful opacity/transform transitions for feedback. Critical state should be immediately understandable without waiting for animation. Under reduced motion, remove non-essential transitions and preserve state changes.
 
 ## Accessibility
-Focus must be visible and not rely on color alone. Status, selection, and errors should have more than one communication channel when practical. WCAG 2.2 includes requirements for focus not being obscured and target size; these constraints should be embedded in component recipes and tested per platform. citeturn724602search1
+Focus must be visible and not rely on color alone. Status, selection, and errors should have more than one communication channel when practical. Apply the repository accessibility contract for focus visibility, target geometry, text scaling, localization, reduced motion/effects, and high-contrast behavior, and verify those requirements per renderer.
 
-For Flutter, standard Material widgets can provide semantics and adaptive behavior, but the Flat Design tokens should still be controlled through themes rather than scattered per-widget styling. Flutter 3.47.2 documentation indicates Material 3 is the default and supports adaptive, accessible experiences; use `ThemeData`/`ThemeExtension` to map project tokens. citeturn724602search2turn724602search7
+For Flutter, prefer standard semantic widgets and theme-level token mapping rather than scattering one-off visual values across widgets. Use `ThemeData`/`ThemeExtension` or the host application's equivalent theme mechanism to map project tokens while preserving native semantics and adaptive behavior.
 
 ## Flutter mapping
 Recommended primitives:
@@ -79,7 +79,7 @@ Recommended primitives:
 - list → `ListView`/slivers
 - data → `DataTable`/`PaginatedDataTable` or project data-grid primitive
 
-Flutter's current Material implementation is Material 3 by default, so Flat Design should intentionally neutralize unnecessary elevation, shape, and color while preserving the standard behavioral semantics. citeturn724602search0turn724602search6
+When the host Flutter configuration uses Material components, Flat Design should intentionally neutralize unnecessary elevation, shape, and decorative color while preserving standard behavioral semantics. Do not pin the guidance to a particular framework release; validate the current host framework capabilities during implementation.
 
 ## Web mapping
 Use semantic HTML first: `button`, `a`, `input`, `select`, `textarea`, `nav`, `dialog`, headings, lists and tables. React should preserve the same semantics and only handle composition/state; the exact styling mechanism is determined by the host project.

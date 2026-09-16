@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "cases": [
+    {"id":"flat-dense-saas","intent":"Design a data dense SaaS CRUD dashboard with dense tables and a strict performance constrained budget.","expected_primary":"flat-design","allowed_supporting":["bento-ui"],"forbidden":["glassmorphism","liquid-glass","aurora-ui","neumorphism"]},
+    {"id":"material-cross-platform","intent":"Create a cross-platform enterprise app shell and design system for Android, React, Flutter and React Native.","expected_primary":"material-design","allowed_supporting":["flat-design"],"forbidden":[]},
+    {"id":"skeuo-mixer","intent":"Build a bounded physical metaphor for an audio mixer with instrument knobs and device panel controls.","expected_primary":"skeuomorphism","allowed_supporting":["flat-design"],"forbidden":["aurora-ui"]},
+    {"id":"neumo-thermostat","intent":"Design a compact smart home thermostat with raised control and pressed control states.","expected_primary":"neumorphism","allowed_supporting":["flat-design"],"forbidden":["glassmorphism"]},
+    {"id":"glass-modal","intent":"Create a frosted translucent modal and navigation overlay with blur over a stable backdrop.","expected_primary":"glassmorphism","allowed_supporting":["flat-design"],"forbidden":["neumorphism"]},
+    {"id":"clay-learning","intent":"Create a playful education onboarding and gamification experience with friendly inflated controls.","expected_primary":"claymorphism","allowed_supporting":["flat-design"],"forbidden":["neobrutalism"]},
+    {"id":"liquid-platform-chrome","intent":"Design dynamic translucent platform chrome with liquid glass reflection and contextual controls.","expected_primary":"liquid-glass","allowed_supporting":["flat-design"],"forbidden":["neumorphism"]},
+    {"id":"aurora-ai-hero","intent":"Create a premium AI hero with cinematic ambient gradient and glow background while content stays on a stable surface.","expected_primary":"aurora-ui","allowed_supporting":["glassmorphism","flat-design"],"forbidden":["neumorphism"]},
+    {"id":"bento-overview","intent":"Design a product overview page as a modular grid with intentional spans and feature sections.","expected_primary":"bento-ui","allowed_supporting":["flat-design","aurora-ui"],"forbidden":[]},
+    {"id":"brutalist-devtool","intent":"Create a developer tool with thick border, hard shadow, saturated fills and a deliberately bold visual system.","expected_primary":"neobrutalism","allowed_supporting":["flat-design"],"forbidden":["glassmorphism"]},
+    {"id":"critical-field-ui","intent":"Design a critical field operated interface with data dense status tables and a performance constrained device.","expected_primary":"flat-design","allowed_supporting":["material-design"],"forbidden":["glassmorphism","liquid-glass","aurora-ui","neumorphism"]},
+    {"id":"material-critical-app","intent":"Build a critical cross-platform app shell with native components, clear state layers and a shared design system.","expected_primary":"material-design","allowed_supporting":["flat-design"],"forbidden":["aurora-ui","claymorphism"]},
+    {"id":"swiss-editorial-journal","intent":"Design a Swiss editorial journal with a typography-led asymmetric grid, magazine index and long-form reading.","expected_primary":"swiss-editorial","allowed_supporting":["flat-design"],"forbidden":["glassmorphism","claymorphism"]},
+    {"id":"swiss-research-library","intent":"Create a research library using the international typographic style with a disciplined editorial journal hierarchy.","expected_primary":"swiss-editorial","allowed_supporting":["flat-design"],"forbidden":["aurora-ui","neumorphism"]}
+  ]
+}

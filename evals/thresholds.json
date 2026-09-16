@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "global": {
+    "routing_accuracy": 0.90,
+    "macro_precision": 0.85,
+    "macro_recall": 0.85,
+    "macro_f1": 0.85
+  },
+  "per_style": {
+    "flat-design": {"recall": 0.80},
+    "material-design": {"recall": 0.80},
+    "skeuomorphism": {"recall": 0.70},
+    "neumorphism": {"recall": 0.70},
+    "glassmorphism": {"recall": 0.80},
+    "claymorphism": {"recall": 0.70},
+    "liquid-glass": {"recall": 0.80},
+    "aurora-ui": {"recall": 0.80},
+    "bento-ui": {"recall": 0.80},
+    "neobrutalism": {"recall": 0.80},
+    "swiss-editorial": {"recall": 0.80}
+  }
+}

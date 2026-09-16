@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
 
-/// Aurora is a background/emphasis layer. The foreground remains semantic
-/// and readable when the effect is removed.
 class AuroraBackground extends StatelessWidget {
-  const AuroraBackground({
-    super.key,
-    required this.child,
-    this.effectsEnabled = true,
-  });
+  const AuroraBackground({super.key, required this.child, this.effectsEnabled = true});
 
   final Widget child;
   final bool effectsEnabled;
 
   @override
   Widget build(BuildContext context) {
+    final reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+    final showEffects = effectsEnabled && !reduceMotion;
+
     return Stack(
       fit: StackFit.expand,
       children: [
         const ColoredBox(color: Color(0xFF0D1021)),
-        if (effectsEnabled)
+        if (showEffects)
           const IgnorePointer(
             ignoring: true,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  center: Alignment(-0.7, -0.8),
-                  radius: 1.15,
-                  colors: [
-                    Color(0xFF6D5DFC),
-                    Color(0x330D1021),
-                    Color(0x000D1021),
-                  ],
-                  stops: [0.0, 0.48, 1.0],
+            child: ExcludeSemantics(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    center: Alignment(-0.7, -0.8),
+                    radius: 1.15,
+                    colors: [
+                      Color(0xFF6D5DFC),
+                      Color(0x3319C6B5),
+                      Color(0x00FF6B9A),
+                    ],
+                    stops: [0.0, 0.52, 1.0],
+                  ),
                 ),
               ),
             ),
@@ -43,7 +42,9 @@ class AuroraBackground extends StatelessWidget {
 }
 
 class AuroraHeroCard extends StatelessWidget {
-  const AuroraHeroCard({super.key});
+  const AuroraHeroCard({super.key, this.onExplore});
+
+  final VoidCallback? onExplore;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class AuroraHeroCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 FilledButton(
-                  onPressed: () {},
+                  onPressed: onExplore,
                   style: FilledButton.styleFrom(minimumSize: const Size(48, 48)),
                   child: const Text('Explore'),
                 ),
@@ -88,9 +89,10 @@ class AuroraHeroCard extends StatelessWidget {
 }
 
 class AuroraExample extends StatelessWidget {
-  const AuroraExample({super.key, this.effectsEnabled = true});
+  const AuroraExample({super.key, this.effectsEnabled = true, this.onExplore});
 
   final bool effectsEnabled;
+  final VoidCallback? onExplore;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +106,7 @@ class AuroraExample extends StatelessWidget {
               return Center(
                 child: Padding(
                   padding: EdgeInsets.all(horizontal),
-                  child: const AuroraHeroCard(),
+                  child: AuroraHeroCard(onExplore: onExplore),
                 ),
               );
             },

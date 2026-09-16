@@ -1,9 +1,75 @@
-/* Real starter implementation: Claymorphism */
-.clay-demo { padding: 24px; background: #f4f1fb; color: #24233a; }
-.clay-card { max-width: 560px; padding: 28px; border-radius: 32px; background: #cfd4ff; box-shadow: inset 0 10px 18px -6px rgb(255 255 255 / .62), inset 0 -10px 18px -6px rgb(52 42 91 / .32), 0 24px 44px -12px rgb(80 65 150 / .32); }
-.clay-button { min-height: 44px; padding: 10px 18px; border: 0; border-radius: 20px; background: #fff; color: #24233a; cursor: pointer; }
-.clay-button:focus-visible { outline: 3px solid #554d86; outline-offset: 4px; }
-.clay-button:disabled { cursor: not-allowed; opacity: .55; }
-@media (max-width: 767px) { .clay-demo { padding: 16px; } .clay-card { padding: 20px; border-radius: 24px; } .clay-button { width: 100%; } }
-@media (prefers-reduced-motion: reduce) { .clay-card, .clay-button { transition: none; } }
-@media (forced-colors: active) { .clay-demo { background: Canvas; color: CanvasText; } .clay-card { background: Canvas; color: CanvasText; border: 1px solid CanvasText; box-shadow: none; } .clay-button { background: ButtonFace; color: ButtonText; border: 1px solid ButtonText; box-shadow: none; } .clay-button:focus-visible { outline-color: Highlight; } }
+:root {
+  --um-claymorphism-bg: #f4f1fb;
+  --um-claymorphism-surface-1: #cfd4ff;
+  --um-claymorphism-surface-2: #ffffff;
+  --um-claymorphism-ink: #24233a;
+  --um-claymorphism-ink-muted: #58556f;
+  --um-claymorphism-border: #554d86;
+  --um-claymorphism-focus: #3b2f8f;
+  --um-claymorphism-radius-md: 20px;
+  --um-claymorphism-radius-lg: 32px;
+  --um-claymorphism-shadow-soft: 0 12px 24px -10px rgb(80 65 150 / .24);
+  --um-claymorphism-shadow-deep: 0 24px 44px -12px rgb(80 65 150 / .32);
+  --um-claymorphism-shadow-highlight: inset 0 10px 18px -6px rgb(255 255 255 / .62);
+  --um-claymorphism-shadow-shade: inset 0 -10px 18px -6px rgb(52 42 91 / .32);
+  --um-claymorphism-target-min: 44px;
+}
+
+.clay-demo {
+  padding: 24px;
+  background: var(--um-claymorphism-bg);
+  color: var(--um-claymorphism-ink);
+}
+
+.clay-card {
+  max-width: 560px;
+  padding: 28px;
+  border: 1px solid transparent;
+  border-radius: var(--um-claymorphism-radius-lg);
+  background: var(--um-claymorphism-surface-1);
+  color: var(--um-claymorphism-ink);
+  box-shadow:
+    var(--um-claymorphism-shadow-highlight),
+    var(--um-claymorphism-shadow-shade),
+    var(--um-claymorphism-shadow-deep);
+}
+
+.clay-card p { color: var(--um-claymorphism-ink-muted); }
+
+.clay-button {
+  min-height: var(--um-claymorphism-target-min);
+  padding: 10px 18px;
+  border: 1px solid var(--um-claymorphism-border);
+  border-radius: var(--um-claymorphism-radius-md);
+  background: var(--um-claymorphism-surface-2);
+  color: var(--um-claymorphism-ink);
+  box-shadow:
+    var(--um-claymorphism-shadow-soft),
+    var(--um-claymorphism-shadow-highlight),
+    var(--um-claymorphism-shadow-shade);
+  cursor: pointer;
+}
+
+.clay-button:hover { filter: brightness(1.02); }
+.clay-button:active { transform: translateY(1px); box-shadow: var(--um-claymorphism-shadow-highlight), var(--um-claymorphism-shadow-shade); }
+.clay-button:focus-visible { outline: 3px solid var(--um-claymorphism-focus); outline-offset: 4px; }
+.clay-button:disabled { cursor: not-allowed; opacity: .55; transform: none; }
+
+@media (max-width: 767px) {
+  .clay-demo { padding: 16px; }
+  .clay-card { padding: 20px; border-radius: 24px; }
+  .clay-button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clay-card, .clay-button { transition: none; }
+  .clay-button:active { transform: none; }
+}
+
+@media (forced-colors: active) {
+  .clay-demo { background: Canvas; color: CanvasText; }
+  .clay-card { background: Canvas; color: CanvasText; border-color: CanvasText; box-shadow: none; }
+  .clay-card p { color: CanvasText; }
+  .clay-button { background: ButtonFace; color: ButtonText; border-color: ButtonText; box-shadow: none; }
+  .clay-button:focus-visible { outline-color: Highlight; }
+}

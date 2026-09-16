@@ -20,6 +20,7 @@ This contract defines what a style example must demonstrate before it is treated
 ## Gate D — target size
 - Web interactive examples should expose a minimum target policy and prefer at least 44 CSS px where practical.
 - Flutter tappable controls should target at least 48x48 logical pixels.
+- React Native primary tappable controls should target at least 48x48 logical pixels.
 
 ## Gate E — material-effect budget
 - Blur, backdrop sampling, large filters, layered shadows, and animated gradients must be bounded to small surfaces.
@@ -38,6 +39,20 @@ A renderer may use different primitives while preserving this sequence.
 - Unsupported blur, shadow, gradient, or advanced motion must degrade to a simpler native surface without changing hierarchy or meaning.
 - Responsive behavior must use available-width primitives such as Flexbox, `useWindowDimensions`, `onLayout`, or the product's established breakpoint system.
 - The canonical mapping contract is `references/react-native-adapter.md`.
+
+## Gate H — accessibility parity
+- Keyboard focus must remain visible without relying only on `box-shadow`.
+- Forced-colors/high-contrast must preserve boundaries, focus, labels, and state meaning.
+- Form controls must expose an accessible name through a visible label or equivalent semantic naming mechanism.
+- Disabled, pressed, selected, loading, and error states must remain understandable when decorative effects are removed.
+- Translucent/atmospheric examples should honor reduced-transparency preferences or provide an opaque replacement when the effect is intentionally disabled.
+- The canonical accessibility contract is `references/accessibility-parity.md`.
+
+## Gate I — structured component parity
+- `references/component-parity.json` is the normalized source for the primary interactive component contract.
+- Every style must preserve the same semantic role, accessible-name requirement, baseline states, responsive intent, target-size policy, and deterministic fallback across all supported renderers.
+- Renderer-specific implementation details may differ, but they must provide concrete evidence for every normalized field.
+- `scripts/validate-component-parity.mjs` must pass before a style is considered cross-platform ready.
 
 ## Warning policy
 Validator warnings are quality-debt signals, not permission to weaken a contract. Resolve warnings by improving the example or documentation. Only promote a warning to a hard failure when the missing behavior is necessary for portability, accessibility, correctness, or repository integrity.
