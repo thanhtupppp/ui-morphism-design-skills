@@ -2,6 +2,7 @@
 """Regression tests for scripts/validate-skill-package.py."""
 import importlib.util
 import json
+import sys
 import tempfile
 import unittest
 import zipfile
@@ -10,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("skill_validator", ROOT / "scripts" / "validate-skill-package.py")
 validator_module = importlib.util.module_from_spec(SPEC)
+sys.modules[SPEC.name] = validator_module
 SPEC.loader.exec_module(validator_module)
 Validator = validator_module.Validator
 inspect_zip = validator_module.inspect_zip
