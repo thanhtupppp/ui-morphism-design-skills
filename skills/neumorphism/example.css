@@ -1,10 +1,10 @@
-/* Real starter implementation: Neumorphism */
-.neu-demo { padding: 24px; background: #e6e7ee; color: #272b35; }
-.neu-control { min-height: 44px; min-width: 44px; padding: 12px 18px; border: 1px solid transparent; border-radius: 14px; background: #e6e7ee; box-shadow: 8px 8px 16px #b8b9be, -8px -8px 16px #fff; cursor: pointer; }
+:root { --um-neumorphism-surface: #e6e7ee; --um-neumorphism-ink: #272b35; --um-neumorphism-focus: #697386; --um-neumorphism-target-min: 44px; --um-neumorphism-radius: 14px; --um-neumorphism-shadow-raised: 8px 8px 16px #b8b9be, -8px -8px 16px #fff; }
+.neu-demo { padding: 24px; background: var(--um-neumorphism-surface); color: var(--um-neumorphism-ink); }
+.neu-control { min-height: var(--um-neumorphism-target-min); min-width: var(--um-neumorphism-target-min); padding: 12px 18px; border: 1px solid transparent; border-radius: var(--um-neumorphism-radius); background: var(--um-neumorphism-surface); box-shadow: var(--um-neumorphism-shadow-raised); cursor: pointer; }
 .neu-control:hover { filter: brightness(1.02); }
 .neu-control[aria-pressed="true"] { box-shadow: inset 5px 5px 10px #b8b9be, inset -5px -5px 10px #fff; }
 .neu-control:disabled { cursor: not-allowed; opacity: .55; }
-.neu-control:focus-visible { outline: 3px solid #697386; outline-offset: 4px; }
+.neu-control:focus-visible { outline: 3px solid var(--um-neumorphism-focus); outline-offset: 4px; }
 @media (max-width: 767px) { .neu-demo { padding: 16px; } .neu-control { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .neu-control { transition: none; } }
 @media (forced-colors: active) { .neu-demo { background: Canvas; color: CanvasText; } .neu-control { background: Canvas; color: CanvasText; border: 1px solid CanvasText; box-shadow: none; } .neu-control:focus-visible { outline-color: Highlight; } }
