@@ -30,6 +30,9 @@ jobs:
       - name: Test Skill validator
         run: python3 -m unittest tests/test-skill-validator.py
 
+      - name: Test trigger eval router
+        run: python3 -m unittest tests/test-evals.py
+
       - name: Validate ChatGPT Skill package
         run: python3 scripts/validate-skill-package.py . --format json --output skill-validation.json
 
