@@ -41,6 +41,9 @@ jobs:
       - name: Test trigger eval router, thresholds, and baseline
         run: python3 -m unittest tests/test-evals.py
 
+      - name: Validate style stabilization invariants
+        run: python3 scripts/validate-style-audit.py . --output style-audit-validation.json
+
       - name: Validate ChatGPT Skill source tree
         run: python3 scripts/validate-skill-package.py . --format json --output skill-validation.json
 
@@ -62,9 +65,10 @@ jobs:
       - name: Verify release artifact graph
         run: python3 scripts/verify-release.py release-a --expected-revision "$GITHUB_SHA" --output release-verification.json
 
-      - name: Print Skill validation report
+      - name: Print validation reports
         if: always()
         run: |
+          cat style-audit-validation.json || true
           cat skill-validation.json || true
           cat package-validation.json || true
           cat release-verification.json || true
@@ -141,6 +145,7 @@ jobs:
             release-a/skill-package-manifest.json
             release-a/skill.sbom.cdx.json
             release-a/skill.provenance.json
+            style-audit-validation.json
             skill-validation.json
             package-validation.json
             release-verification.json
