@@ -33,12 +33,22 @@ LEGACY_PREFIXES = (
     "--aurora-", "--bento-", "--clay-", "--flat-", "--glass-",
     "--liquid-", "--md-", "--neo-", "--neu-", "--sk-",
 )
-CUSTOM_PROPERTY_RE = re.compile(r"--[a-zA-Z0-9_-]+")
+PROPERTY_DECL_RE = re.compile(r"(?m)^\s*(--[a-z][a-z0-9-]*)\s*:")
+PROPERTY_VAR_RE = re.compile(r"var\(\s*(--[a-z][a-z0-9-]*)\b")
 SESSION_CITATION_RE = re.compile(r"\ue200cite\ue202|cite|turn\d+(?:search|file|fetch|view)\d+")
 PINNED_FRAMEWORK_RE = re.compile(
     r"\b(?:Flutter|React|React Native|Node(?:\.js)?|Material)\s+v?\d+\.\d+(?:\.\d+)?\b",
     re.IGNORECASE,
 )
+
+
+def css_custom_properties(text: str) -> set[str]:
+    """Return actual CSS custom properties from declarations and var() references.
+
+    This intentionally ignores BEM modifiers such as `.card--featured` and
+    Markdown separators such as `---`, which are not custom properties.
+    """
+    return set(PROPERTY_DECL_RE.findall(text)) | set(PROPERTY_VAR_RE.findall(text))
 
 
 def audit(root: Path) -> dict:
@@ -47,21 +57,27 @@ def audit(root: Path) -> dict:
     rows = 0
 
     def fail(code: str, path: Path, message: str) -> None:
-        findings.append({"severity": "ERROR", "code": code, "path": path.relative_to(root).as_posix(), "message": message})
+        findings.append({
+            "severity": "ERROR",
+            "code": code,
+            "path": path.relative_to(root).as_posix(),
+            "message": message,
+        })
 
     for style in STYLES:
         style_dir = root / "skills" / style
         if not style_dir.is_dir():
             fail("STYLE001", style_dir, f"missing style directory: {style}")
             continue
+
         for filename in REQUIRED_FILES:
             path = style_dir / filename
             rows += 1
             if not path.is_file():
                 fail("STYLE002", path, f"missing required style file: {filename}")
                 continue
-            text = path.read_text(encoding="utf-8")
 
+            text = path.read_text(encoding="utf-8")
             if SESSION_CITATION_RE.search(text):
                 fail("STYLE003", path, "non-portable session citation/reference detected")
             if PINNED_FRAMEWORK_RE.search(text):
@@ -69,11 +85,10 @@ def audit(root: Path) -> dict:
 
             if filename == "components.md":
                 expected = f"--um-{style}-"
-                for legacy in LEGACY_PREFIXES:
-                    if legacy in text:
-                        fail("STYLE010", path, f"legacy token namespace detected: {legacy}")
-                tokens = sorted(set(CUSTOM_PROPERTY_RE.findall(text)))
+                tokens = sorted(css_custom_properties(text))
                 for token in tokens:
+                    if any(token.startswith(prefix) for prefix in LEGACY_PREFIXES):
+                        fail("STYLE010", path, f"legacy token namespace detected: {token}")
                     if not token.startswith(expected):
                         fail("STYLE011", path, f"custom property '{token}' must use namespace '{expected}*'")
 
