@@ -13,7 +13,51 @@ permissions:
   contents: read
 
 jobs:
+  style-audit:
+    name: style / ${{ matrix.style }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        style:
+          - aurora-ui
+          - bento-ui
+          - claymorphism
+          - flat-design
+          - glassmorphism
+          - liquid-glass
+          - material-design
+          - neobrutalism
+          - neumorphism
+          - skeuomorphism
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Audit ${{ matrix.style }}
+        run: python3 scripts/validate-style-audit.py . --style "${{ matrix.style }}" --output "style-audit-${{ matrix.style }}.json"
+
+      - name: Print ${{ matrix.style }} report
+        if: always()
+        run: cat "style-audit-${{ matrix.style }}.json" || true
+
+      - name: Upload ${{ matrix.style }} report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: style-audit-${{ matrix.style }}-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 14
+          path: style-audit-${{ matrix.style }}.json
+
   validate:
+    name: integration
+    needs: style-audit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -41,7 +85,7 @@ jobs:
       - name: Test trigger eval router, thresholds, and baseline
         run: python3 -m unittest tests/test-evals.py
 
-      - name: Validate style stabilization invariants
+      - name: Validate all style stabilization invariants
         run: python3 scripts/validate-style-audit.py . --output style-audit-validation.json
 
       - name: Validate ChatGPT Skill source tree
@@ -108,7 +152,6 @@ jobs:
           fi
 
       - name: Enforce eval result
-        if: always()
         shell: bash
         run: |
           test -f eval-report.json
