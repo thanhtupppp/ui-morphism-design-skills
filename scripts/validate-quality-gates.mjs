@@ -4,13 +4,14 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = process.cwd();
+const CONTRACT_VERSION = '1.9.0';
 const styles = ['skeuomorphism', 'flat-design', 'neumorphism', 'material-design', 'glassmorphism', 'claymorphism', 'liquid-glass', 'aurora-ui', 'bento-ui', 'neobrutalism'];
 const failures = [];
 const read = (path) => { try { return readFileSync(path, 'utf8'); } catch { return null; } };
 const fail = (message) => failures.push(message);
 const mustContain = (text, pattern, label) => { if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`); };
 
-console.log('UI Morphism Quality Gates v1.8.0');
+console.log(`UI Morphism Quality Gates v${CONTRACT_VERSION}`);
 
 const requiredContracts = [
   ['references/quality-gates.md', /Gate A[\s\S]*Gate H/i],
@@ -33,7 +34,7 @@ if (!skillJson) fail('skill.json: missing or unreadable.');
 else {
   try {
     const parsed = JSON.parse(skillJson);
-    if (parsed.version !== '1.8.0') fail(`skill.json: expected contract version 1.8.0, found ${parsed.version ?? 'missing'}.`);
+    if (parsed.version !== CONTRACT_VERSION) fail(`skill.json: expected contract version ${CONTRACT_VERSION}, found ${parsed.version ?? 'missing'}.`);
     for (const contract of requiredContracts.map(([path]) => path)) if (!parsed.contracts?.includes(contract)) fail(`skill.json: ${contract} is not declared in contracts.`);
   } catch (error) { fail(`skill.json: invalid JSON (${error.message}).`); }
 }
@@ -45,7 +46,6 @@ for (const style of styles) {
   const flutter = read(join(dir, 'example.flutter.dart'));
   const native = read(join(dir, 'example.native.tsx'));
   const prefix = `--um-${style}-`;
-
   mustContain(css, new RegExp(`${prefix}[a-z0-9-]+\\s*:`), `${style}/example.css token definition`);
   mustContain(css, new RegExp(`var\\(${prefix}`), `${style}/example.css token consumption`);
   mustContain(css, /:focus-visible/i, `${style}/example.css focus`);
