@@ -1,9 +1,91 @@
 /* Runnable starter: Aurora is an atmospheric background, not a content material. */
-:root { --um-aurora-ui-surface-background:#0b1020; --um-aurora-ui-surface-card:rgb(15 23 42 / .92); --um-aurora-ui-text-primary:#f8fafc; --um-aurora-ui-text-muted:#cbd5e1; --um-aurora-ui-focus-ring:#f8fafc; --um-aurora-ui-target-min:44px; }
-.aurora-demo{min-height:320px;padding:32px;color:var(--um-aurora-ui-text-primary);background:var(--um-aurora-ui-surface-background);overflow:hidden;position:relative;}
-.aurora-demo::before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 20% 20%,rgb(99 102 241 / .55),transparent 35%),radial-gradient(circle at 80% 30%,rgb(34 211 238 / .38),transparent 32%),radial-gradient(circle at 50% 90%,rgb(168 85 247 / .34),transparent 38%);filter:blur(28px);pointer-events:none;}
-.aurora-card{position:relative;z-index:1;max-width:560px;padding:24px;border:1px solid rgb(255 255 255 / .16);border-radius:20px;background:var(--um-aurora-ui-surface-card);}
-.aurora-card p{color:var(--um-aurora-ui-text-muted)} .aurora-button{min-width:var(--um-aurora-ui-target-min);min-height:var(--um-aurora-ui-target-min);padding:10px 16px;border:0;border-radius:12px;background:#fff;color:#111827;font:inherit;cursor:pointer;} .aurora-button:focus-visible{outline:3px solid var(--um-aurora-ui-focus-ring);outline-offset:3px;}
-@media (max-width:767px){.aurora-demo{padding:16px}.aurora-card{padding:16px}}
-@media (prefers-reduced-motion:reduce){.aurora-demo::before{filter:none}} @media (prefers-reduced-transparency:reduce){.aurora-card{background:#111827}}
-@media (forced-colors:active){.aurora-demo::before{display:none}.aurora-card{background:Canvas;color:CanvasText;border-color:CanvasText}.aurora-card p{color:CanvasText}.aurora-button{background:ButtonFace;color:ButtonText;border:1px solid ButtonText}}
+:root {
+  --um-aurora-ui-bg: #0d1021;
+  --um-aurora-ui-surface-1: rgb(255 255 255 / .94);
+  --um-aurora-ui-ink: #101426;
+  --um-aurora-ui-ink-muted: #526078;
+  --um-aurora-ui-focus: #f8d34f;
+  --um-aurora-ui-border: rgb(16 20 38 / .16);
+  --um-aurora-ui-aurora-a: #6d5dfc;
+  --um-aurora-ui-aurora-b: #19c6b5;
+  --um-aurora-ui-aurora-c: #ff6b9a;
+  --um-aurora-ui-blur-1: 64px;
+  --um-aurora-ui-radius-md: 16px;
+  --um-aurora-ui-radius-lg: 24px;
+  --um-aurora-ui-target-min: 44px;
+}
+
+.aurora-demo {
+  position: relative;
+  isolation: isolate;
+  min-height: 320px;
+  overflow: hidden;
+  padding: 32px;
+  background: var(--um-aurora-ui-bg);
+}
+
+.aurora-demo::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 20%, var(--um-aurora-ui-aurora-a), transparent 35%),
+    radial-gradient(circle at 80% 30%, var(--um-aurora-ui-aurora-b), transparent 32%),
+    radial-gradient(circle at 50% 90%, var(--um-aurora-ui-aurora-c), transparent 38%);
+  filter: blur(var(--um-aurora-ui-blur-1));
+  opacity: .72;
+}
+
+.aurora-card {
+  max-width: 560px;
+  padding: 24px;
+  border: 1px solid var(--um-aurora-ui-border);
+  border-radius: var(--um-aurora-ui-radius-lg);
+  background: var(--um-aurora-ui-surface-1);
+  color: var(--um-aurora-ui-ink);
+}
+
+.aurora-card p { color: var(--um-aurora-ui-ink-muted); }
+
+.aurora-button {
+  min-width: var(--um-aurora-ui-target-min);
+  min-height: var(--um-aurora-ui-target-min);
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: var(--um-aurora-ui-radius-md);
+  background: #4338ca;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.aurora-button:hover { filter: brightness(1.05); }
+.aurora-button:active { transform: translateY(1px); }
+.aurora-button:focus-visible { outline: 3px solid var(--um-aurora-ui-focus); outline-offset: 3px; }
+.aurora-button:disabled { opacity: .55; cursor: not-allowed; }
+
+.aurora-demo[data-effects="off"]::before { display: none; }
+
+@media (max-width: 767px) {
+  .aurora-demo { padding: 16px; }
+  .aurora-card { padding: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-demo::before { animation: none !important; }
+  .aurora-button:active { transform: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .aurora-card { background: #fff; }
+}
+
+@media (forced-colors: active) {
+  .aurora-demo::before { display: none; }
+  .aurora-card { background: Canvas; color: CanvasText; border-color: CanvasText; }
+  .aurora-card p { color: CanvasText; }
+  .aurora-button { background: ButtonFace; color: ButtonText; border-color: ButtonText; forced-color-adjust: auto; }
+}
