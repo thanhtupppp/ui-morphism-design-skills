@@ -12,6 +12,7 @@ import hashlib
 import json
 import os
 import stat
+import uuid
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -21,6 +22,9 @@ MANIFEST_NAME = "PACKAGE-MANIFEST.json"
 FORMAT_VERSION = 1
 SBOM_FILENAME = "skill.sbom.cdx.json"
 PROVENANCE_FILENAME = "skill.provenance.json"
+BUILD_TYPE = "https://github.com/thanhtupppp/ui-morphism-design-skills/deterministic-skill-package/v1"
+LOCAL_BUILDER_ID = "https://github.com/thanhtupppp/ui-morphism-design-skills/tree/main/scripts/skill_packager.py"
+GITHUB_BUILDER_ID = "https://github.com/actions/runner"
 
 EXCLUDED_DIRS = {
     ".git", ".github-cache", ".mypy_cache", ".pytest_cache", ".ruff_cache",
@@ -113,6 +117,8 @@ def load_skill_metadata(root: Path) -> dict:
 
 def build_sbom(root: Path, manifest: dict) -> dict:
     metadata = load_skill_metadata(root)
+    manifest_digest = sha256_bytes(canonical_json_bytes(manifest))
+    serial = uuid.uuid5(uuid.NAMESPACE_URL, f"ui-morphism-sbom:{manifest_digest}")
     components = []
     for entry in manifest["files"]:
         components.append({
@@ -125,7 +131,7 @@ def build_sbom(root: Path, manifest: dict) -> dict:
     return {
         "bomFormat": "CycloneDX",
         "specVersion": "1.6",
-        "serialNumber": f"urn:uuid:{sha256_bytes(canonical_json_bytes(manifest))[:32]}",
+        "serialNumber": f"urn:uuid:{serial}",
         "version": 1,
         "metadata": {
             "component": {
@@ -149,7 +155,7 @@ def build_provenance(root: Path, output: Path, archive_sha256: str, manifest_byt
         "predicateType": "https://slsa.dev/provenance/v1",
         "predicate": {
             "buildDefinition": {
-                "buildType": "https://github.com/thanhtupppp/ui-morphism-design-skills/deterministic-skill-package/v1",
+                "buildType": BUILD_TYPE,
                 "externalParameters": {
                     "package": metadata,
                     "source": {
@@ -161,13 +167,13 @@ def build_provenance(root: Path, output: Path, archive_sha256: str, manifest_byt
                 "resolvedDependencies": [],
             },
             "runDetails": {
-                "builder": {"id": source.get("builder_id", "ui-morphism-skill-packager/1.0.0")},
+                "builder": {"id": source.get("builder_id", LOCAL_BUILDER_ID)},
                 "metadata": {"invocationId": source.get("invocation_id", "")},
+                "byproducts": [
+                    {"name": "skill-package-manifest.json", "digest": {"sha256": sha256_bytes(manifest_bytes)}},
+                    {"name": SBOM_FILENAME, "digest": {"sha256": sha256_bytes(sbom_bytes)}},
+                ],
             },
-            "byproducts": [
-                {"name": "skill-package-manifest.json", "digest": {"sha256": sha256_bytes(manifest_bytes)}},
-                {"name": SBOM_FILENAME, "digest": {"sha256": sha256_bytes(sbom_bytes)}},
-            ],
         },
     }
 
@@ -193,7 +199,7 @@ def default_source_context() -> dict:
         "ref": os.getenv("GITHUB_REF", ""),
         "revision": os.getenv("GITHUB_SHA", ""),
         "invocation_id": os.getenv("GITHUB_RUN_ID", ""),
-        "builder_id": "github-actions" if os.getenv("GITHUB_ACTIONS") == "true" else "ui-morphism-skill-packager/1.0.0",
+        "builder_id": GITHUB_BUILDER_ID if os.getenv("GITHUB_ACTIONS") == "true" else LOCAL_BUILDER_ID,
     }
 
 
