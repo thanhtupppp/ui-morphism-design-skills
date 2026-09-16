@@ -1,4 +1,13 @@
+---
+name: ui-morphism-design
+description: Select and implement UI visual styles with component recipes and platform-specific examples. Use when choosing or applying a visual language to a frontend, including glass, material, flat, bento, and Swiss Editorial designs.
+---
+
 # UI Morphism Design Skill
+
+## Editorial interfaces
+
+For journals, research libraries, and typography-led portfolios, consider [Swiss Editorial](skills/swiss-editorial/SKILL.md). Its search, category filtering, reading, and bookmark example can be explored with the local preview described in `README.md`. Preserve the user's existing brand and requested scope when selecting a style.
 
 ## Code-first, cross-platform workflow
 

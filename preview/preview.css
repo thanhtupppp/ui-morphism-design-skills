@@ -1,0 +1,6 @@
+body { margin: 0; }
+.preview-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 4vw; background: #20201e; color: #fffdf8; font: 14px/1.5 Arial, sans-serif; }
+.preview-tools select { margin-inline-start: 8px; min-height: 48px; font: inherit; background: #fffdf8; color: #20201e; padding: 8px; border: 1px solid currentColor; }
+.preview-tools select:focus-visible { outline: 3px solid #a4bcff; outline-offset: 3px; }
+.preview-skip { position: absolute; inset-inline-start: 16px; top: -100px; padding: 16px; background: #fff; color: #20201e; z-index: 1; }
+.preview-skip:focus { top: 8px; }

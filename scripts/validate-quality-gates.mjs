@@ -15,6 +15,7 @@ const styles = [
   'aurora-ui',
   'bento-ui',
   'neobrutalism',
+  'swiss-editorial',
 ];
 
 const failures = [];
@@ -30,7 +31,7 @@ const mustContain = (text, pattern, label) => {
   if (!text || !pattern.test(text)) fail(`${label}: required quality-gate contract is missing.`);
 };
 
-console.log('UI Morphism Quality Gates v1.5.0');
+console.log('UI Morphism Quality Gates v1.7.0');
 
 const gatesPath = join(root, 'references/quality-gates.md');
 const gates = read(gatesPath);
@@ -118,8 +119,8 @@ if (!skillJson) {
 } else {
   try {
     const parsed = JSON.parse(skillJson);
-    if (parsed.version !== '1.6.0') {
-      fail(`skill.json: expected contract version 1.6.0, found ${parsed.version ?? 'missing'}.`);
+    if (parsed.version !== '1.7.0') {
+      fail(`skill.json: expected contract version 1.7.0, found ${parsed.version ?? 'missing'}.`);
     }
     if (!Array.isArray(parsed.platforms) || !parsed.platforms.includes('react-native')) {
       fail('skill.json: react-native is not declared as a supported platform.');
@@ -158,7 +159,7 @@ for (const style of styles) {
   if (!tsx) fail(`${style}/example.tsx: missing or unreadable.`);
   else {
     mustContain(tsx, /<button\b|<a\b|<input\b|<select\b|<textarea\b/i, `${style}/example.tsx`);
-    mustContain(tsx, /data-state|disabled|aria-disabled|aria-selected|aria-busy/i, `${style}/example.tsx`);
+    mustContain(tsx, /data-state|disabled|aria-disabled|aria-selected|aria-pressed|aria-expanded|aria-busy/i, `${style}/example.tsx`);
     mustContain(tsx, /responsive|grid|flex|width/i, `${style}/example.tsx`);
   }
 

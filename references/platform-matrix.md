@@ -14,6 +14,7 @@ Use this matrix during style selection and capability negotiation. `Native` mean
 | Aurora UI | Native gradients/filters | Same web capability | `CustomPaint`/gradients; keep static fallback | Layered gradients or simple static backdrop; avoid requiring shader support | Background atmosphere only |
 | Bento UI | CSS Grid/Flex | React layout primitives | `LayoutBuilder`/`Wrap`/`GridView` | Flexbox or maintained grid/layout library; deterministic grouping when spans are unavailable | Content-first modular layout |
 | Neobrutalism | Native borders/transforms | Same DOM/CSS recipe | Borders + offsets/physical translation | Borders + `transform` offsets; avoid overflow-prone decoration | High-contrast structural styling |
+| Swiss Editorial | Native grid, type, logical spacing, semantic controls | Same DOM/CSS recipe with local search/filter/save state | Theme typography + `LayoutBuilder`, `ListView`, native controls | `onLayout`, `ScrollView`, scalable `Text`, native controls | Readable opaque surfaces and a stable editorial reading order |
 
 ## Capability tier legend
 

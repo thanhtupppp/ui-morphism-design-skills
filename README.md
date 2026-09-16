@@ -4,7 +4,27 @@ This repository is a reusable frontend design skill for selecting and implementi
 
 ## Current contract
 
-Version `1.6.0` supports ten visual styles with semantic-first cross-platform implementation, auditable agent output, explicit platform capability negotiation, a canonical token namespace/theme contract, and React Native implementation seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+Version `1.7.0` supports eleven visual styles, adding **Swiss Editorial** for journals, research libraries, and typography-led portfolios. It includes an interactive React preview with search, category filters, article disclosure, local bookmarks, and system/light/dark themes, plus Flutter and React Native seeds. `SKILL.md` is the source of truth; `skill.json` declares the supported styles, platforms, workflow, and contract references.
+
+## Try the interactive example
+
+![Swiss Editorial journal preview](assets/swiss-editorial-preview.png)
+
+Use Node.js 22.12+ or 24+ and npm. From the repository root:
+
+```bash
+npm ci
+npm run dev
+```
+
+Open the local URL printed by Vite. The preview imports `skills/swiss-editorial/example.tsx` directly. Filters, search, inline reading, and save/unsave actions work locally; bookmarks reset when the page reloads. The journal and its stories are fictional sample content. No account, backend, remote fonts, or API keys are required.
+
+```bash
+npm run build
+npm run preview
+```
+
+The production build is written to `dist/`. To reuse the style, start with its [skill](skills/swiss-editorial/SKILL.md), [component recipes](skills/swiss-editorial/components.md), and [platform mappings](skills/swiss-editorial/platforms.md). See the [verification record](skills/swiss-editorial/verification.md) for tested behavior and native limitations.
 
 ## Code-first, cross-platform usage
 
@@ -74,11 +94,19 @@ node scripts/validate-repo.mjs
 node scripts/validate-quality-gates.mjs
 ```
 
-GitHub Actions runs both validators on pushes and pull requests targeting `main`.
+The dependency-free validators check documentation and source contracts. They do not establish runtime correctness. The interactive example also has TypeScript/build checks and browser behavior/accessibility tests:
+
+```bash
+npm run build
+npx playwright install chromium
+npm test
+```
+
+GitHub Actions runs both validators, builds the preview, and runs the browser suite on pushes and pull requests targeting `main`. Browser tests cover the new Swiss Editorial example; the ten older styles retain their existing static validation coverage.
 
 ## Supported styles
 
-Skeuomorphism, Flat Design, Neumorphism, Material Design, Glassmorphism, Claymorphism, Liquid Glass, Aurora UI, Bento UI, and Neobrutalism.
+Skeuomorphism, Flat Design, Neumorphism, Material Design, Glassmorphism, Claymorphism, Liquid Glass, Aurora UI, Bento UI, Neobrutalism, and Swiss Editorial.
 
 ## Design principle
 

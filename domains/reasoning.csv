@@ -11,4 +11,5 @@ priority,condition,then,why
 80,product_type=landing and mood=premium,consider glassmorphism plus aurora-ui,visual layering supports marketing context
 80,product_type=smart-control,consider neumorphism plus material interaction rules,physical metaphor with explicit digital feedback
 75,platform=ios-or-apple-ecosystem,consider liquid-glass with fallback,platform material should remain contextual and functional
+75,product_type=editorial or content=long-form,consider swiss-editorial,type hierarchy and a stable reading grid support narrative content
 70,no_match=true,use flat-design plus material interaction rules,safe general fallback

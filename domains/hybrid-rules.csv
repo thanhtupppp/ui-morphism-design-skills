@@ -14,3 +14,5 @@ liquid-glass,functional-material,spatial-depth,works,Use one material layer and 
 aurora-ui,ambient-background,bento-ui,works,Keep grid/card surfaces readable and static.
 bento-ui,layout,neobrutalism,works,Use rigid grid structure to contain loud card styling.
 neobrutalism,hard-graphic,glassmorphism,avoid,Refraction and hard offset geometry communicate conflicting material physics.
+swiss-editorial,reading-grid,flat-design,works,Use Flat controls for search and forms while keeping the editorial reading order.
+swiss-editorial,reading-grid,bento-ui,careful,Keep modular spans limited to the index and preserve article source order.

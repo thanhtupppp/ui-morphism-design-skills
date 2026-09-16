@@ -12,3 +12,4 @@
 | Aurora UI | Premium AI and marketing surfaces | Visual noise | Background/accent only |
 | Bento UI | Product pages and dashboards | Card fragmentation | Layout system, not material |
 | Neobrutalism | Bold brands and dev tools | Harsh hierarchy | Deliberate contrast |
+| Swiss Editorial | Journals, research libraries, cultural portfolios | Oversized type and broken reading order | Typography and content first |
