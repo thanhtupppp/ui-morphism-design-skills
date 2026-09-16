@@ -35,6 +35,9 @@ jobs:
       - name: Test deterministic packager and release metadata
         run: python3 -m unittest tests/test-packager.py
 
+      - name: Test release artifact verifier
+        run: python3 -m unittest tests/test-release-verifier.py
+
       - name: Test trigger eval router, thresholds, and baseline
         run: python3 -m unittest tests/test-evals.py
 
@@ -57,39 +60,14 @@ jobs:
         run: python3 scripts/validate-skill-package.py release-a/skill.zip --format json --output package-validation.json
 
       - name: Verify release artifact graph
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          import hashlib
-          import json
-          from pathlib import Path
-
-          root = Path("release-a")
-          archive = root / "skill.zip"
-          manifest = root / "skill-package-manifest.json"
-          checksum = root / "skill.zip.sha256"
-          sbom = root / "skill.sbom.cdx.json"
-          provenance = root / "skill.provenance.json"
-          for path in (archive, manifest, checksum, sbom, provenance):
-              assert path.is_file(), path
-
-          digest = hashlib.sha256(archive.read_bytes()).hexdigest()
-          assert checksum.read_text(encoding="utf-8") == f"{digest}  skill.zip\n"
-          statement = json.loads(provenance.read_text(encoding="utf-8"))
-          assert statement["subject"][0]["digest"]["sha256"] == digest
-          byproducts = {item["name"]: item["digest"]["sha256"] for item in statement["predicate"]["byproducts"]}
-          assert byproducts["skill-package-manifest.json"] == hashlib.sha256(manifest.read_bytes()).hexdigest()
-          assert byproducts["skill.sbom.cdx.json"] == hashlib.sha256(sbom.read_bytes()).hexdigest()
-          bom = json.loads(sbom.read_text(encoding="utf-8"))
-          assert bom["bomFormat"] == "CycloneDX" and bom["specVersion"] == "1.6"
-          print(json.dumps({"archive_sha256": digest, "sbom_components": len(bom["components"]), "provenance_revision": statement["predicate"]["buildDefinition"]["externalParameters"]["source"]["revision"]}, indent=2))
-          PY
+        run: python3 scripts/verify-release.py release-a --expected-revision "$GITHUB_SHA" --output release-verification.json
 
       - name: Print Skill validation report
         if: always()
         run: |
           cat skill-validation.json || true
           cat package-validation.json || true
+          cat release-verification.json || true
           cat release-a/skill.zip.sha256 || true
 
       - name: Run trigger, thresholds, baseline, and semantic parity evals
@@ -148,3 +126,23 @@ jobs:
 
       - name: Validate accessibility parity
         run: node scripts/validate-accessibility-parity.mjs
+
+      - name: Publish verified release bundle
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-morphism-skill-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
+          path: |
+            release-a/skill.zip
+            release-a/skill.zip.sha256
+            release-a/skill-package-manifest.json
+            release-a/skill.sbom.cdx.json
+            release-a/skill.provenance.json
+            skill-validation.json
+            package-validation.json
+            release-verification.json
+            eval-report.json
+            eval-summary.md
