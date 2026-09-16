@@ -32,7 +32,7 @@ jobs:
       - name: Test Skill validator
         run: python3 -m unittest tests/test-skill-validator.py
 
-      - name: Test deterministic packager
+      - name: Test deterministic packager and release metadata
         run: python3 -m unittest tests/test-packager.py
 
       - name: Test trigger eval router, thresholds, and baseline
@@ -41,25 +41,56 @@ jobs:
       - name: Validate ChatGPT Skill source tree
         run: python3 scripts/validate-skill-package.py . --format json --output skill-validation.json
 
-      - name: Build deterministic skill.zip twice
+      - name: Build deterministic release artifact twice
         shell: bash
         run: |
-          mkdir -p package-a package-b
-          python3 scripts/package-skill.py --root . --output package-a/skill.zip --json
-          python3 scripts/package-skill.py --root . --output package-b/skill.zip --json
-          cmp package-a/skill.zip package-b/skill.zip
-          cmp package-a/skill-package-manifest.json package-b/skill-package-manifest.json
-          test "$(sha256sum package-a/skill.zip | cut -d ' ' -f1)" = "$(sha256sum package-b/skill.zip | cut -d ' ' -f1)"
+          mkdir -p release-a release-b
+          python3 scripts/package-skill.py --root . --output release-a/skill.zip --json
+          python3 scripts/package-skill.py --root . --output release-b/skill.zip --json
+          cmp release-a/skill.zip release-b/skill.zip
+          cmp release-a/skill-package-manifest.json release-b/skill-package-manifest.json
+          cmp release-a/skill.sbom.cdx.json release-b/skill.sbom.cdx.json
+          cmp release-a/skill.provenance.json release-b/skill.provenance.json
+          test "$(sha256sum release-a/skill.zip | cut -d' ' -f1)" = "$(sha256sum release-b/skill.zip | cut -d' ' -f1)"
 
       - name: Validate built skill.zip
-        run: python3 scripts/validate-skill-package.py package-a/skill.zip --format json --output package-validation.json
+        run: python3 scripts/validate-skill-package.py release-a/skill.zip --format json --output package-validation.json
 
-      - name: Print package checksum
-        run: cat package-a/skill.zip.sha256
+      - name: Verify release artifact graph
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path("release-a")
+          archive = root / "skill.zip"
+          manifest = root / "skill-package-manifest.json"
+          checksum = root / "skill.zip.sha256"
+          sbom = root / "skill.sbom.cdx.json"
+          provenance = root / "skill.provenance.json"
+          for path in (archive, manifest, checksum, sbom, provenance):
+              assert path.is_file(), path
+
+          digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+          assert checksum.read_text(encoding="utf-8") == f"{digest}  skill.zip\n"
+          statement = json.loads(provenance.read_text(encoding="utf-8"))
+          assert statement["subject"][0]["digest"]["sha256"] == digest
+          byproducts = {item["name"]: item["digest"]["sha256"] for item in statement["predicate"]["byproducts"]}
+          assert byproducts["skill-package-manifest.json"] == hashlib.sha256(manifest.read_bytes()).hexdigest()
+          assert byproducts["skill.sbom.cdx.json"] == hashlib.sha256(sbom.read_bytes()).hexdigest()
+          bom = json.loads(sbom.read_text(encoding="utf-8"))
+          assert bom["bomFormat"] == "CycloneDX" and bom["specVersion"] == "1.6"
+          print(json.dumps({"archive_sha256": digest, "sbom_components": len(bom["components"]), "provenance_revision": statement["predicate"]["buildDefinition"]["externalParameters"]["source"]["revision"]}, indent=2))
+          PY
 
       - name: Print Skill validation report
         if: always()
-        run: cat skill-validation.json || true
+        run: |
+          cat skill-validation.json || true
+          cat package-validation.json || true
+          cat release-a/skill.zip.sha256 || true
 
       - name: Run trigger, thresholds, baseline, and semantic parity evals
         id: evals
