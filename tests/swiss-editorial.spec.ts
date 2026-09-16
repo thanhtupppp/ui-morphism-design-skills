@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test.beforeEach(async ({ page }) => { await page.goto('/'); });
+test.beforeEach(async ({ page }) => { await page.goto('/?style=swiss-editorial'); });
 
 test('search and category compose; empty-state reset restores all stories', async ({ page }) => {
   await expect(page.getByRole('article')).toHaveCount(3);
