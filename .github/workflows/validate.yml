@@ -30,7 +30,7 @@ jobs:
       - name: Test Skill validator
         run: python3 -m unittest tests/test-skill-validator.py
 
-      - name: Test trigger eval router
+      - name: Test trigger eval router and thresholds
         run: python3 -m unittest tests/test-evals.py
 
       - name: Validate ChatGPT Skill package
@@ -40,12 +40,12 @@ jobs:
         if: always()
         run: cat skill-validation.json || true
 
-      - name: Run trigger and semantic parity evals
-        run: python3 scripts/run-evals.py --output eval-report.json
+      - name: Run trigger, thresholds, and semantic parity evals
+        run: python3 scripts/run-evals.py --thresholds evals/thresholds.json --output eval-report.json
 
       - name: Print eval report summary
         if: always()
-        run: python3 -c "import json; r=json.load(open('eval-report.json')); print(json.dumps(r['summary'], indent=2))" || true
+        run: python3 -c "import json; r=json.load(open('eval-report.json')); print(json.dumps({'summary': r['summary'], 'threshold_failures': r.get('thresholds', {}).get('failures', [])}, indent=2))" || true
 
       - name: Validate repository
         run: node scripts/validate-repo.mjs
