@@ -5,6 +5,7 @@ import json
 import sys
 import tempfile
 import unittest
+import uuid
 import zipfile
 from pathlib import Path
 
@@ -17,7 +18,7 @@ SOURCE = {
     "ref": "refs/heads/test",
     "revision": "0123456789abcdef",
     "invocation_id": "test-run-1",
-    "builder_id": "test-builder",
+    "builder_id": "https://example.test/builders/test",
 }
 
 
@@ -77,13 +78,15 @@ class PackagerTests(unittest.TestCase):
             self.assertEqual(actual, result["sha256"])
             self.assertEqual(f"{actual}  skill.zip\n", Path(result["checksum_path"]).read_text(encoding="utf-8"))
 
-    def test_sbom_is_cyclonedx_and_covers_manifest_files(self):
+    def test_sbom_is_cyclonedx_with_valid_uuid_and_covers_manifest_files(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td) / "source"; root.mkdir(); make_source(root)
             result = packager.build_package(root, Path(td) / "skill.zip", SOURCE)
             sbom = json.loads(Path(result["sbom_path"]).read_text(encoding="utf-8"))
             self.assertEqual("CycloneDX", sbom["bomFormat"])
             self.assertEqual("1.6", sbom["specVersion"])
+            self.assertTrue(sbom["serialNumber"].startswith("urn:uuid:"))
+            uuid.UUID(sbom["serialNumber"].removeprefix("urn:uuid:"))
             self.assertEqual("test-skill", sbom["metadata"]["component"]["name"])
             self.assertEqual("1.9.0", sbom["metadata"]["component"]["version"])
             expected = {entry["path"]: entry["sha256"] for entry in result["manifest"]["files"]}
@@ -101,9 +104,12 @@ class PackagerTests(unittest.TestCase):
             source = provenance["predicate"]["buildDefinition"]["externalParameters"]["source"]
             self.assertEqual(SOURCE["repository"], source["repository"])
             self.assertEqual(SOURCE["revision"], source["revision"])
-            byproducts = {item["name"]: item["digest"]["sha256"] for item in provenance["predicate"]["byproducts"]}
+            run_details = provenance["predicate"]["runDetails"]
+            self.assertEqual(SOURCE["builder_id"], run_details["builder"]["id"])
+            byproducts = {item["name"]: item["digest"]["sha256"] for item in run_details["byproducts"]}
             self.assertEqual(packager.sha256_file(Path(result["manifest_path"])), byproducts["skill-package-manifest.json"])
             self.assertEqual(packager.sha256_file(Path(result["sbom_path"])), byproducts[packager.SBOM_FILENAME])
+            self.assertNotIn("byproducts", provenance["predicate"])
 
     def test_release_artifact_set_is_complete_and_consistent(self):
         with tempfile.TemporaryDirectory() as td:
