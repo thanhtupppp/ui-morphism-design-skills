@@ -174,6 +174,12 @@ jobs:
       - name: Validate accessibility parity
         run: node scripts/validate-accessibility-parity.mjs
 
+      - name: Validate component parity
+        run: node scripts/validate-component-parity.mjs
+
+      - name: Test component parity validation
+        run: node --test scripts/validate-component-parity.test.mjs
+
       - name: Publish verified release bundle
         if: success()
         uses: actions/upload-artifact@v4

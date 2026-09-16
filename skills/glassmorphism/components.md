@@ -104,9 +104,17 @@ Use one shared glass shell for navigation/toolbars. Modal surfaces require a sta
 
 Focus, selected, disabled, loading and validation states survive removal of blur/transparency.
 
+The default state uses a stable boundary and readable content before any blur or transparency is applied.
+
 ## Responsive and accessibility
 
 Reduce blur/transparency before reducing control size. Test worst-case backdrops, keyboard/focus, accessible names, large text/localization, forced colors/high contrast and reduced transparency/effects.
+
+| Layout | Treatment |
+|---|---|
+| Compact, below 768px | Reduce blur area and transparency; keep controls and content opaque enough to read. |
+| Medium, 768–1023px | Use one glass level for chrome and one for focal cards. |
+| Expanded, 1024px and above | Allow wider bounded panels while avoiding nested backdrop sampling. |
 
 ## Fallback ladder
 

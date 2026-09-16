@@ -53,6 +53,18 @@ Neumorphism makes controls rise from or sink into one continuous surface. Shadow
 
 Selected controls require a persistent check/icon/label/border cue in addition to pressed depth. Inputs retain labels and text/icon validation feedback.
 
+## State matrix
+
+| State | Required cue | Depth treatment |
+|---|---|---|
+| Default | Stable border and readable label | Raised surface |
+| Hover | Clear affordance without relying on shadow | Slight contrast change |
+| Active / pressed | Pressed semantics where applicable | Inset surface |
+| Selected | Check, icon, label, or persistent border | Optional inset surface |
+| Focus-visible | High-contrast outline | Depth unchanged |
+| Disabled | Disabled semantics and readable reduced emphasis | Reduced shadow |
+| Loading | Busy semantics plus progress text, spinner, or skeleton | Static surface |
+
 ## Components and semantics
 
 Checkboxes, radios, switches, sliders and rotary controls use native/semantic behavior first. Drag or rotation always has a keyboard/button or accessible slider alternative. Cards use fewer shadow layers than controls; dense tables use Flat/Material surfaces.
@@ -60,6 +72,14 @@ Checkboxes, radios, switches, sliders and rotary controls use native/semantic be
 ## Accessibility and fallback
 
 Focus uses an explicit outline. Error, selection, disabled and loading states never depend on shadow alone. Forced-colors, large text, localization, RTL and reduced motion remain usable.
+
+## Responsive matrix
+
+| Layout | Treatment |
+|---|---|
+| Compact, below 768px | Reduce shadow spread and radius before changing control size or spacing. |
+| Medium, 768–1023px | Use raised depth on controls and a flatter treatment for supporting cards. |
+| Expanded, 1024px and above | Keep depth hierarchy bounded; do not repeat large shadows across dense grids. |
 
 Fallback:
 

@@ -1,6 +1,7 @@
 import './example.css';
 
 export function AuroraHero({ effects = 'full', onStart }: { effects?: 'full' | 'off'; onStart?: () => void }) {
+  // Responsive layout stays in CSS so content order and button semantics remain stable at every width.
   return (
     <section className="aurora-demo" data-effects={effects} aria-labelledby="aurora-title">
       <article className="aurora-card">

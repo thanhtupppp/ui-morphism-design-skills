@@ -40,6 +40,18 @@ Core rule: semantic element → size/spacing → strong border → flat fill →
 
 Press feedback may reduce offset or translate the visual shell, but hit bounds and semantics stay stable.
 
+## State matrix
+
+| State | Required cue | Visual treatment |
+|---|---|---|
+| Default | Stable label and strong boundary | Flat accent fill and hard offset |
+| Hover | Clear contrast or underline change | Optional offset change |
+| Active / pressed | Pressed semantics where applicable | Reduced offset or short translation |
+| Selected | Check, icon, label, or persistent inner mark | Persistent accent treatment |
+| Focus-visible | Outline distinct from the component border | No rotation |
+| Disabled | Disabled semantics and readable reduced emphasis | Muted fill and no motion |
+| Loading | Busy semantics plus progress text, spinner, or skeleton | Static shell |
+
 ## Components
 
 Cards use strong boundaries and limited offsets. Inputs retain conventional label/helper/error anatomy. Selection controls use marks/thumb position/icons in addition to saturated fills. Active navigation uses persistent indicators. Dialogs keep semantic modal behavior. Dense tables reduce border/shadow intensity rather than turning every cell into a card.
@@ -47,6 +59,14 @@ Cards use strong boundaries and limited offsets. Inputs retain conventional labe
 ## Accessibility
 
 Focus must be visually distinct from the ordinary heavy border. Color is not the only state channel. Large text/localization may expand controls. Decorative rotation never changes text/control interpretation or focus order.
+
+## Responsive matrix
+
+| Layout | Treatment |
+|---|---|
+| Compact, below 768px | Reduce offsets and decorative rotation; stack content and preserve target size. |
+| Medium, 768–1023px | Use strong borders with moderate offsets on focal cards and controls. |
+| Expanded, 1024px and above | Keep repeated grid items visually disciplined rather than increasing every offset. |
 
 ## Fallback and performance
 

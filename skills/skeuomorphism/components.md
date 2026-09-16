@@ -51,6 +51,22 @@ Skeuomorphism transfers useful physical affordances into digital controls. Reali
 }
 ```
 
+## Card / panel recipe
+
+Use one physical shell for a card or panel, with a consistent light direction and a clear border that survives when texture and shadow are removed. Keep long reading areas and dense data flat inside that shell; reserve bevels and material detail for headers, controls, or one focal object.
+
+## State matrix
+
+| State | Required cue | Optional physical treatment |
+|---|---|---|
+| Default | Stable label, boundary, and value | Raised face |
+| Hover | Pointer-independent affordance remains clear | Slight highlight change |
+| Active / pressed | Semantic pressed state where applicable | Depressed face |
+| Selected | Check, icon, label, or persistent border | Recessed track |
+| Focus-visible | Separate high-contrast outline | None required |
+| Disabled | Native disabled semantics and readable reduced emphasis | Flattened depth |
+| Loading | Busy semantics plus progress text, spinner, or skeleton | Subtle motion only |
+
 ## Physical controls and semantic parity
 
 Switches, sliders and knobs may visually depress, slide or rotate, but expose explicit state/value semantics. Pointer/touch drag is never the only interaction path; provide keyboard increment/decrement, buttons or an accessible range-control equivalent. Tables and long reading surfaces stay mostly flat inside a physical shell.
@@ -58,6 +74,14 @@ Switches, sliders and knobs may visually depress, slide or rotate, but expose ex
 ## Accessibility
 
 Use a separate focus outline, persistent labels/values, explicit selected/disabled/loading/error states, stable target sizes and non-color status cues. Forced colors and removal of gradients/shadows/textures must retain boundaries and operability.
+
+## Responsive matrix
+
+| Layout | Treatment |
+|---|---|
+| Compact, below 768px | Reduce texture and shadow layers; stack content without shrinking targets. |
+| Medium, 768–1023px | Use restrained material detail on focal controls and panels. |
+| Expanded, 1024px and above | Add physical detail only where it strengthens hierarchy or affordance. |
 
 ## Fallback
 

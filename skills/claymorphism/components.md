@@ -59,6 +59,8 @@ Claymorphism uses opaque, inflated, soft, highly rounded surfaces. Decorative vo
 
 Loading, selected and error states require explicit text/icon/state semantics in addition to decorative depth or color. Pressed feedback may compress depth, but shadow alone is never the state contract.
 
+The default state uses a stable label, border, and opaque surface; clay depth only reinforces that baseline.
+
 ## Components
 
 Cards use flexible height and bounded depth. Inputs preserve `label → control → helper/error → state`. Navigation has a persistent active indicator. Dialogs retain title/content/actions, focus management and predictable dismissal. Dense tables/lists use flatter supporting surfaces.

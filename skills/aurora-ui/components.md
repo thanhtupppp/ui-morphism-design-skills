@@ -184,3 +184,9 @@ Every step preserves structure, semantic meaning, state, focus, target geometry,
 ## 10. Responsive and performance rules
 
 On narrow or constrained devices, reduce the number/area/opacity/blur of decorative fields before changing text size, spacing, controls, or content order. Bound blur to decorative layers, pause non-essential animation when hidden, and avoid per-card animated effects.
+
+| Layout | Treatment |
+|---|---|
+| Compact, below 768px | Use one or two static fields with reduced blur area and opacity. |
+| Medium, 768–1023px | Keep up to three bounded fields behind stable content surfaces. |
+| Expanded, 1024px and above | Increase field coverage only when contrast and performance remain stable. |

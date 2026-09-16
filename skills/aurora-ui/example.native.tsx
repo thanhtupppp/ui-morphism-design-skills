@@ -39,3 +39,4 @@ const styles = StyleSheet.create({
 });
 
 // Fallback: set effectsEnabled=false; content, state, target size, and interaction remain unchanged.
+// Verification: decorative layers are excluded from accessibility, Pressable exposes disabled/pressed state, the compact layout preserves a 48px target, and effects can be removed without semantic loss.

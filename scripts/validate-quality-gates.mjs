@@ -14,17 +14,19 @@ const mustContain = (text, pattern, label) => { if (!text || !pattern.test(text)
 console.log(`UI Morphism Quality Gates v${CONTRACT_VERSION}`);
 
 const requiredContracts = [
-  ['references/quality-gates.md', /Gate A[\s\S]*Gate H/i],
+  ['references/quality-gates.md', /Gate A[\s\S]*Gate I/i],
   ['references/token-convention.md', /--um-<style>-<group>\[-<variant>\]/i],
   ['references/semantic-parity.md', /semantic anatomy[\s\S]*state meaning[\s\S]*responsive intent/i],
   ['references/accessibility-parity.md', /Accessibility behavior is part of cross-platform parity[\s\S]*state semantics/i],
+  ['references/component-parity.json', /"component"\s*:\s*"primary-action"[\s\S]*"role"\s*:\s*"button"/i],
+  ['references/component-parity.md', /normalized semantics[\s\S]*State normalization/i],
   ['references/react-native-adapter.md', /semantic-first mapping/i],
   ['references/component-code-contract.md', /Decision record[\s\S]*Verification record/i],
 ];
 for (const [relative, pattern] of requiredContracts) mustContain(read(join(root, relative)), pattern, relative);
 
 const skill = read(join(root, 'SKILL.md'));
-for (const pattern of [/quality-gates\.md/i, /semantic-parity\.md/i, /accessibility-parity\.md/i, /token-convention\.md/i, /react-native-adapter\.md/i, /accessibility meaning must not depend on color/i]) mustContain(skill, pattern, 'SKILL.md');
+for (const pattern of [/quality-gates\.md/i, /semantic-parity\.md/i, /accessibility-parity\.md/i, /component-parity\.json/i, /component-parity\.md/i, /token-convention\.md/i, /react-native-adapter\.md/i, /accessibility meaning must not depend on color/i]) mustContain(skill, pattern, 'SKILL.md');
 
 const matrix = read(join(root, 'references/platform-matrix.md'));
 for (const pattern of [/HTML\/CSS.*React.*Flutter.*React Native/i, /Required.*Preferred.*Optional/i, /full effect.*reduced effect.*opaque\/static effect.*simpler native surface/i]) mustContain(matrix, pattern, 'platform-matrix.md');
@@ -36,15 +38,16 @@ else {
     const parsed = JSON.parse(skillJson);
     if (parsed.version !== CONTRACT_VERSION) fail(`skill.json: expected contract version ${CONTRACT_VERSION}, found ${parsed.version ?? 'missing'}.`);
     for (const contract of requiredContracts.map(([path]) => path)) if (!parsed.contracts?.includes(contract)) fail(`skill.json: ${contract} is not declared in contracts.`);
+    if (!parsed.workflow?.includes('validate-component-parity')) fail('skill.json: validate-component-parity workflow step is missing.');
   } catch (error) { fail(`skill.json: invalid JSON (${error.message}).`); }
 }
 
 for (const style of styles) {
   const dir = join(root, 'skills', style);
-  const css = read(join(dir, 'example.css'));
-  const react = read(join(dir, 'example.tsx'));
-  const flutter = read(join(dir, 'example.flutter.dart'));
-  const native = read(join(dir, 'example.native.tsx'));
+  const css = read(join(dir, 'example.css')) || '';
+  const react = read(join(dir, 'example.tsx')) || '';
+  const flutter = read(join(dir, 'example.flutter.dart')) || '';
+  const native = read(join(dir, 'example.native.tsx')) || '';
   const prefix = `--um-${style}-`;
   mustContain(css, new RegExp(`${prefix}[a-z0-9-]+\\s*:`), `${style}/example.css token definition`);
   mustContain(css, new RegExp(`var\\(${prefix}`), `${style}/example.css token consumption`);

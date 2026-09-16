@@ -71,6 +71,10 @@ Stable layout and hit area → base/tinted surface → optional blur → rim/hig
 
 Icon buttons require accessible names and stable targets. Selection, focus, error, loading and expanded state must remain explicit without blur/reflection.
 
+## Card / panel
+
+A Liquid card or panel uses a stable fallback surface, visible rim, and bounded blur. Keep text and controls on the foreground layer so distortion never affects readability or hit testing. Use opaque inner surfaces for long text, forms, and data-heavy content.
+
 ## Forms, navigation and data
 
 Use conventional high-contrast fields inside Liquid shells. Navigation remains usable if the material becomes opaque. Large lists and tables use an opaque inner surface; Liquid is reserved for bounded chrome or outer shells.
@@ -94,6 +98,14 @@ The component remains functionally identical through every tier.
 ## Accessibility
 
 Preserve accessible names, state semantics, keyboard alternatives for drag/slider/rotary interactions, focus restoration for dialogs, target sizes, large text/localization and high-contrast behavior.
+
+## Responsive matrix
+
+| Layout | Treatment |
+|---|---|
+| Compact, below 768px | Remove distortion and reflection first; reduce blur area while preserving rims and targets. |
+| Medium, 768–1023px | Use Liquid on bounded toolbars and focal panels. |
+| Expanded, 1024px and above | Allow larger material regions without nesting backdrop sampling. |
 
 ## Performance
 
