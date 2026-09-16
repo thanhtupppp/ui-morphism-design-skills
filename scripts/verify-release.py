@@ -5,7 +5,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
+import uuid
 import zipfile
 from pathlib import Path
 
@@ -16,6 +18,7 @@ REQUIRED = (
     "skill.sbom.cdx.json",
     "skill.provenance.json",
 )
+SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 def sha256_file(path: Path) -> str:
@@ -49,45 +52,66 @@ def verify_release(root: Path, expected_revision: str | None = None) -> dict:
     except json.JSONDecodeError as exc:
         return {"ok": False, "errors": errors + [f"invalid JSON sidecar: {exc}"]}
 
-    with zipfile.ZipFile(archive) as zf:
-        names = set(zf.namelist())
-        if "PACKAGE-MANIFEST.json" not in names:
-            errors.append("skill.zip is missing PACKAGE-MANIFEST.json")
-        else:
-            embedded = json.loads(zf.read("PACKAGE-MANIFEST.json"))
-            if embedded != manifest:
-                errors.append("embedded PACKAGE-MANIFEST.json differs from sidecar manifest")
-        for entry in manifest.get("files", []):
-            name = entry.get("path", "")
-            if name not in names:
-                errors.append(f"manifest entry missing from archive: {name}")
-                continue
-            data = zf.read(name)
-            if len(data) != entry.get("size"):
-                errors.append(f"manifest size mismatch: {name}")
-            if hashlib.sha256(data).hexdigest() != entry.get("sha256"):
-                errors.append(f"manifest digest mismatch: {name}")
+    try:
+        with zipfile.ZipFile(archive) as zf:
+            names = set(zf.namelist())
+            if "PACKAGE-MANIFEST.json" not in names:
+                errors.append("skill.zip is missing PACKAGE-MANIFEST.json")
+            else:
+                embedded = json.loads(zf.read("PACKAGE-MANIFEST.json"))
+                if embedded != manifest:
+                    errors.append("embedded PACKAGE-MANIFEST.json differs from sidecar manifest")
+            for entry in manifest.get("files", []):
+                name = entry.get("path", "")
+                if name not in names:
+                    errors.append(f"manifest entry missing from archive: {name}")
+                    continue
+                data = zf.read(name)
+                if len(data) != entry.get("size"):
+                    errors.append(f"manifest size mismatch: {name}")
+                if hashlib.sha256(data).hexdigest() != entry.get("sha256"):
+                    errors.append(f"manifest digest mismatch: {name}")
+    except (zipfile.BadZipFile, json.JSONDecodeError) as exc:
+        errors.append(f"invalid packaged archive or embedded manifest: {exc}")
 
     if sbom.get("bomFormat") != "CycloneDX" or sbom.get("specVersion") != "1.6":
         errors.append("SBOM must be CycloneDX 1.6")
+    serial = sbom.get("serialNumber", "")
+    if not serial.startswith("urn:uuid:"):
+        errors.append("SBOM serialNumber must be an RFC 4122 urn:uuid")
+    else:
+        try:
+            uuid.UUID(serial.removeprefix("urn:uuid:"))
+        except ValueError:
+            errors.append("SBOM serialNumber contains an invalid UUID")
     sbom_files = {
         component.get("name"): next((h.get("content") for h in component.get("hashes", []) if h.get("alg") == "SHA-256"), None)
         for component in sbom.get("components", [])
         if component.get("type") == "file"
     }
     for entry in manifest.get("files", []):
+        if not SHA256_RE.fullmatch(str(entry.get("sha256", ""))):
+            errors.append(f"manifest has invalid SHA-256: {entry.get('path', '<unknown>')}")
         if sbom_files.get(entry["path"]) != entry["sha256"]:
             errors.append(f"SBOM digest mismatch: {entry['path']}")
 
+    if provenance.get("_type") != "https://in-toto.io/Statement/v1":
+        errors.append("provenance must use in-toto Statement v1")
+    if provenance.get("predicateType") != "https://slsa.dev/provenance/v1":
+        errors.append("provenance must use SLSA provenance v1")
     subjects = provenance.get("subject", [])
     subject_digest = subjects[0].get("digest", {}).get("sha256") if subjects else None
     if subject_digest != archive_digest:
         errors.append("provenance subject digest does not match skill.zip")
 
     predicate = provenance.get("predicate", {})
+    run_details = predicate.get("runDetails", {})
+    builder_id = run_details.get("builder", {}).get("id", "")
+    if not builder_id:
+        errors.append("provenance runDetails.builder.id is required")
     byproducts = {
         item.get("name"): item.get("digest", {}).get("sha256")
-        for item in predicate.get("byproducts", [])
+        for item in run_details.get("byproducts", [])
     }
     manifest_digest = sha256_file(paths["skill-package-manifest.json"])
     sbom_digest = sha256_file(paths["skill.sbom.cdx.json"])
