@@ -48,7 +48,7 @@ Use full style names rather than short aliases, keep style tokens separate from 
 
 `references/component-parity.json` is the normalized machine-readable contract for the primary interactive component. It defines the baseline role, accessible-name requirement, default/pressed/disabled states, responsive intent, target-size policy, and deterministic fallback requirement, plus renderer-specific evidence signals.
 
-`references/component-parity.md` documents the normalization model, and `scripts/validate-component-parity.mjs` enforces it across all ten styles × four renderers. This prevents parity validation from depending only on broad keyword presence.
+`references/component-parity.md` documents the normalization model, and `scripts/validate-component-parity.mjs` validates its schema and checks source evidence across all ten styles × four renderers. Missing renderers and malformed evidence rules fail validation. Source checks remain heuristic and do not replace runtime interaction or accessibility testing.
 
 ## Platform capability negotiation
 
@@ -93,6 +93,7 @@ node scripts/validate-quality-gates.mjs
 node scripts/validate-semantic-parity.mjs
 node scripts/validate-accessibility-parity.mjs
 node scripts/validate-component-parity.mjs
+node --test scripts/validate-component-parity.test.mjs
 ```
 
 GitHub Actions runs all validators on pushes and pull requests targeting `main`.
