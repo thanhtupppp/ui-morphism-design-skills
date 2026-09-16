@@ -10,16 +10,18 @@ Bento tokens describe **composition**, not surface physics.
   --um-bento-ui-page-padding: 24px;
   --um-bento-ui-card-padding: 24px;
   --um-bento-ui-radius: 24px;
+  --um-bento-ui-bg: #f7f8fa;
   --um-bento-ui-surface-1: #ffffff;
   --um-bento-ui-surface-2: #f8fafc;
   --um-bento-ui-border: #e2e8f0;
   --um-bento-ui-ink: #18202a;
   --um-bento-ui-ink-muted: #64748b;
   --um-bento-ui-focus: #1d4ed8;
+  --um-bento-ui-target-min: 44px;
 }
 ```
 
-Treat grid gap, outer padding, card padding, and radius as a coordinated family. Do not independently choose a different gap/radius for every tile.
+Treat grid gap, outer padding, card padding, radius, and target size as a coordinated family. Do not independently choose a different gap/radius for every tile.
 
 ## 2. Canonical grid
 
@@ -29,6 +31,7 @@ Treat grid gap, outer padding, card padding, and radius as a coordinated family.
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--um-bento-ui-gap);
   padding: var(--um-bento-ui-page-padding);
+  background: var(--um-bento-ui-bg);
 }
 
 .um-bento-card {
@@ -141,7 +144,8 @@ Bento itself does not invent a button style. Use the host design system, but pre
 
 ```css
 .um-bento-card .um-bento-action {
-  min-height: 44px;
+  min-width: var(--um-bento-ui-target-min);
+  min-height: var(--um-bento-ui-target-min);
   border-radius: 10px;
 }
 
@@ -182,7 +186,7 @@ The chart itself needs its own semantics, labels, loading state, empty state, an
 ## 10. Loading, empty, and error states
 
 ### Loading
-Keep the tile footprint stable when possible. Use a local skeleton/progress treatment so neighboring tiles do not unexpectedly reflow.
+Keep the tile footprint stable when practical without imposing a fixed text-bearing height. Use a local skeleton/progress treatment so neighboring tiles do not unexpectedly reflow.
 
 ### Empty
 Explain what is absent and what the user can do next.
