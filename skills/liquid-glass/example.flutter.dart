@@ -52,3 +52,6 @@ class LiquidGlassToolbar extends StatelessWidget {
     );
   }
 }
+
+// Verification: native IconButton semantics, LayoutBuilder responsive behavior, and 48px targets.
+// Fallback: set effectsEnabled=false to retain the opaque surface, labels, order, and interaction state.
