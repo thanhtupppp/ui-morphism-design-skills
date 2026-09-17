@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "lastUpdated": "2026-09-17",
   "description": "UI Morphism Design Skills - Collection of UI design system skills for AI agents",
   "skills": [
@@ -9,7 +9,10 @@
       "version": "1.0.0",
       "status": "active",
       "description": "Gradient-based ethereal UI style with flowing colors",
-      "tags": ["gradient", "ethereal", "modern", "colorful"]
+      "tags": ["gradient", "ethereal", "modern", "colorful"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
     },
     {
       "id": "bento-ui",
@@ -17,7 +20,10 @@
       "version": "1.0.0",
       "status": "active",
       "description": "Grid-based modular UI inspired by Japanese bento boxes",
-      "tags": ["grid", "modular", "japanese", "clean"]
+      "tags": ["grid", "modular", "japanese", "clean"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
     },
     {
       "id": "claymorphism",
@@ -25,7 +31,10 @@
       "version": "1.0.0",
       "status": "active",
       "description": "3D clay-like UI with soft shadows and rounded corners",
-      "tags": ["3d", "clay", "soft", "rounded", "neumorphism-variant"]
+      "tags": ["3d", "clay", "soft", "rounded", "neumorphism-variant"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
     },
     {
       "id": "flat-design",
@@ -33,7 +42,10 @@
       "version": "1.0.0",
       "status": "active",
       "description": "Minimalist 2D design with bold colors and simple shapes",
-      "tags": ["minimal", "2d", "bold", "simple"]
+      "tags": ["minimal", "2d", "bold", "simple"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
     },
     {
       "id": "glassmorphism",
@@ -52,7 +64,10 @@
       "version": "1.0.0",
       "status": "active",
       "description": "Fluid glass-like UI with organic shapes and gradients",
-      "tags": ["liquid", "glass", "organic", "gradient"]
+      "tags": ["liquid", "glass", "organic", "gradient"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
     },
     {
       "id": "material-design",
@@ -63,7 +78,9 @@
       "tags": ["google", "material", "comprehensive", "m2", "m3"],
       "hasElevation": true,
       "hasVersioning": true,
-      "hasQualityGate": true
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
     },
     {
       "id": "neobrutalism",
@@ -71,7 +88,10 @@
       "version": "1.0.0",
       "status": "active",
       "description": "Bold, raw, anti-design aesthetic with high contrast",
-      "tags": ["brutalism", "bold", "raw", "contrast"]
+      "tags": ["brutalism", "bold", "raw", "contrast"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
     },
     {
       "id": "neumorphism",
@@ -90,7 +110,10 @@
       "version": "1.0.0",
       "status": "active",
       "description": "Realistic textures mimicking physical objects",
-      "tags": ["realistic", "texture", "physical", "detailed"]
+      "tags": ["realistic", "texture", "physical", "detailed"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
     },
     {
       "id": "swiss-editorial",
@@ -98,7 +121,10 @@
       "version": "1.0.0",
       "status": "active",
       "description": "Clean typography-driven editorial design",
-      "tags": ["typography", "editorial", "swiss", "clean", "grid"]
+      "tags": ["typography", "editorial", "swiss", "clean", "grid"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
     }
   ],
   "structure": {
@@ -127,5 +153,14 @@
     "platforms": "2+ (web, mobile, Flutter)",
     "accessibility": "Required section",
     "evaluationCriteria": "Required for agent validation"
+  },
+  "coverageStats": {
+    "totalSkills": 11,
+    "withQualityGate": 11,
+    "withAgentPrompt": 11,
+    "withAccessibility": 11,
+    "withElevation": 1,
+    "withVersioning": 1,
+    "coveragePercent": 100
   }
 }
