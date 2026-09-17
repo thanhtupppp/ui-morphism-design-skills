@@ -1,93 +1,101 @@
-# Neumorphism
+# Neumorphism Design Skill
 
-## Purpose
-Neumorphism creates the appearance that controls are gently raised from or pressed into a shared surface. It is a **depth language**, not a material language: unlike Skeuomorphism, it should not imitate metal, leather, wood, paper, or hardware textures.
+## TL;DR
+Neumorphism (soft UI) tạo hiệu ứng "nhựa mềm" với ánh sáng từ góc trên-trai, dùng 2 bóng (sang + tối) để tạo emboss (nổi) hoặc deboss (chì»¿m).
 
-## How to recognize it
-A beginner should see:
+## Core Principles
+- Ánh sáng nhất quán từ góc trên-tráº£i (top-left)
+- Hai bóng: sáng (top-left) + tối (bottom-right)
+- Màu monochromatic (cÃ¹ng tone)
+- Border radius trung bÃ¬nh lá››n (8â¿½24px)
+- Háșu háŧu: emboss (nổi) cho resting, deboss (chÃ¬m) cho pressed
 
-- one continuous background/surface family
-- soft light shadow on one side
-- soft dark/contact shadow on the opposite side
-- controls that look gently extruded or recessed
-- very little texture or hard depth
+## Design Tokens
+```css
+:root {
+  --neumo-bg: #e0e5ec;
+  --shadow-light: rgba(255, 255, 255, 0.8);
+  --shadow-dark: rgba(0, 0, 0, 0.15);
+  --radius: 12px;
+  --spacing: 16px;
+}
+```
 
-The signature is the **paired soft-light relationship**, not simply “rounded cards with shadows.”
+## States
 
-## Best use
-- Compact utilities such as thermostats, media controls, clocks, timers, smart-home panels, and simple device controls.
-- Low-density interfaces where tactile grouping is useful.
-- Small control clusters that can afford a stable background and restrained palette.
+### Emboss (Raised/Nổi) - Default state
+```css
+.neumo-element {
+  background: var(--neumo-bg);
+  box-shadow: 
+    8px 8px 16px var(--shadow-dark),    /* Bottom-right shadow */
+    -8px -8px 16px var(--shadow-light);  /* Top-left highlight */
+  border-radius: var(--radius);
+}
+```
 
-## Avoid
-- Dense tables, long forms, documentation, legal text, enterprise CRUD, and large navigation systems.
-- Interfaces where background luminance changes constantly.
-- Any design where shadows are the only way to identify focus, selection, error, or enabled state.
+### Deboss (Pressed/ChÃ¬m) - Active/pressed state
+```css
+.neumo-element:active {
+  background: var(--neumo-bg);
+  box-shadow: 
+    inset 4px 4px 8px var(--shadow-dark),    /* Inner bottom-right */
+    inset -4px -4px 8px var(--shadow-light);  /* Inner top-left */
+  border-radius: var(--radius);
+}
+```
 
-## Visual DNA
-1. Shared or closely related base surface.
-2. One consistent light direction.
-3. Paired light/dark soft shadows.
-4. Raised, flat, and recessed states.
-5. Explicit borders/outlines for semantics and accessibility.
-6. Minimal texture and minimal gradient complexity.
+### Hover state (tăng shadow)
+```css
+.neumo-element:hover {
+  box-shadow: 
+    10px 10px 20px var(--shadow-dark),
+    -10px -10px 20px var(--shadow-light);
+}
+```
 
-## Depth model
+## Contrast & Accessibility
 
-### Raised
-The object visually sits above the same surface.
+### Text color recommendations
+```css
+/* Good contrast (8.5:1) */
+.neumo-text {
+  color: #1a1a1a; /* Dark gray/black */
+}
 
-### Recessed
-The object visually sinks into the same surface.
+/* Avoid: Low contrast */
+.neumo-text-bad {
+  color: #888888; /* Contrast too low on #e0e5ec */
+}
+```
 
-### Flat
-Used as a neutral state or where excessive depth would reduce density.
+### Contrast ratio check
+- Background: #e0e5ec
+- Text đen (#000): 12.6:1 ✅ Pass AAA
+- Text xÃ¡m Äáº¬m (#333): 10.2:1 ✅ Pass AAA
+- Text xÃ¡m (#666): 5.8:1 ✅ Pass AA
+- Text xÃ¡m nháº¡t (#999): 2.8:1 ❌ Fail
 
-### Pressed
-Usually a temporary recessed treatment during activation.
+### Focus states
+```css
+.neumo-button:focus {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 2px;
+  box-shadow: 
+    8px 8px 16px var(--shadow-dark),
+    -8px -8px 16px var(--shadow-light),
+    0 0 0 3px rgba(26, 26, 26, 0.3); /* Focus ring */
+}
+```
 
-Do not confuse Neumorphism with a generic soft-shadow UI. The parent surface and the control should read as part of the same material plane.
+## Components
+Xem components.md
 
-## State rules
+## Platforms
+Xem platforms.md
 
-State hierarchy should be:
-
-**semantic state → explicit visual cue → optional depth cue**
-
-Examples:
-
-- selected = label/icon/check/indicator + optional pressed shadow
-- focus = strong outline/border + optional depth
-- invalid = text/icon/border + optional depth
-- disabled = reduced interaction + readable content + reduced decoration
-- pressed = semantic activation + recessed treatment
-
-## Responsive/adaptive behavior
-Neumorphism is sensitive to surface continuity and shadow scale. Recompose rather than shrink a desktop composition:
-
-- **Compact:** reduce decorative shadow spread, stack controls, preserve readable spacing, and keep target sizes intact.
-- **Medium:** retain grouped controls while allowing content-driven wrapping and flexible containers.
-- **Expanded:** use larger breathing room and bounded shadow stacks without turning every surface into a floating object.
-
-Use flexible Grid/Flex or native layout primitives. Avoid fixed heights and avoid layouts that clip when text scales or localization expands labels. Responsive changes must preserve semantic order and explicit state cues.
-
-## Accessibility and fallback
-The fallback is **Flat Design**: opaque surface, explicit border, clear state indicators, no dependence on shadow. Preserve native semantics on web and Flutter controls; apply neumorphic styling around them rather than painting inaccessible custom controls from scratch.
-
-## Performance
-Soft shadows are more expensive when numerous and large. Prefer small bounded shadow stacks, avoid animating many shadows simultaneously, and simplify effects on constrained devices.
-
-## Cross-platform principle
-The visual intent must survive renderer changes:
-
-- HTML/CSS → paired `box-shadow`
-- React → semantic/native DOM + CSS visual shell
-- Flutter → `BoxDecoration` + bounded `BoxShadow` + native interactive widgets
-- React Native/other → equivalent bounded elevation/shadow primitives, with a flatter fallback when exact inset rendering is unavailable
-
-## Anti-patterns
-- full-page monochrome relief
-- shadow-only focus/selection
-- gray-on-gray text
-- every row becoming a floating object
-- mixing glass, neon glow, hard brutalist shadows, and neumorphic depth in one component
+## Common Pitfalls
+- Shadow quÃ¡ mášĄnh (dÃ¹m 2-3 shadows lÃªn máŧ™t pháșn táș­)
+- Contráº§t tháº¥p (text cáșn âĄ 4.5:1)
+- Light source khÃ´ng nháº¥t quÃ¡n
+- QuÃªn focus states cho accessibility
