@@ -1,77 +1,177 @@
-# Material Design
+# Material Design Skill
 
-## Definition
-Material Design is a **design system for components and interaction**, not a color palette or collection of rounded cards. Its visual language comes from semantic color roles, typography, shape, surfaces, elevation, state layers, adaptive layouts, and purposeful motion working together.
+## TL;DR
+Material Design (M2 & M3) là hệ thống thiết kế của Google với elevation (z-axis), typography scale, và color system. M3 (Material You) có dynamic color và elevation đơn giản hơn.
 
-## Beginner recognition test
-A Material interface should let a new user recognize familiar patterns immediately: filled/outlined/tonal/text buttons, labeled text fields, cards, chips, menus, dialogs, snackbars, navigation bars/rails/drawers, tabs, lists, checkboxes, radios, switches, sliders, and progress indicators. Behavior is part of the style.
+## Core Principles
+- Elevation system (z-axis depth)
+- Typography scale (13 styles M2, 15 styles M3)
+- Color system (primary, secondary, tertiary, surface, error)
+- Motion principles (easing, duration)
+- Responsive grid layouts
 
-## Core principles
-1. **Semantics before styling.** Start with the correct control and accessible name.
-2. **Roles before literals.** Colors and typography are named roles, not scattered hex values.
-3. **Components before decoration.** Anatomy and states are consistent across screens.
-4. **Elevation explains spatial relationship.** It does not replace borders, focus, or semantic state.
-5. **State is explicit.** Default, hover, focus, pressed, selected, disabled and task-specific states are designed intentionally.
-6. **Adaptive rather than shrunken.** Recompose navigation and content when space changes.
-7. **Motion explains change.** Use local, purposeful motion; support reduced motion.
-8. **Platform-aware rendering.** Web and Flutter preserve the same intent while using native capabilities.
+## Design Tokens
 
-## Visual system
-### Color
-Use primary, secondary, tertiary, error, surface, background, on-* content roles, plus outline/outline-variant roles. Build light/dark themes by swapping role values rather than rewriting component logic.
+### M2 (Material Design 2)
+```css
+:root {
+  /* Colors */
+  --md2-primary: #6200EE;
+  --md2-primary-variant: #3700B3;
+  --md2-secondary: #03DAC6;
+  --md2-error: #B00020;
+  --md2-surface: #FFFFFF;
+  --md2-background: #FFFFFF;
+  
+  /* Elevation */
+  --md2-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --md2-elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  --md2-elevation-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  
+  /* Motion */
+  --md2-easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --md2-easing-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --md2-easing-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+  --md2-duration-short: 150ms;
+  --md2-duration-medium: 300ms;
+  --md2-duration-long: 500ms;
+}
+```
 
-### Typography
-Use a deliberate hierarchy for display, headline, title, body, label, and supporting text. Typography carries information hierarchy even when elevation is removed.
+### M3 (Material Design 3 / Material You)
+```css
+:root {
+  /* Colors - Tonal palette */
+  --md3-primary: #6750A4;
+  --md3-on-primary: #FFFFFF;
+  --md3-primary-container: #EADDFF;
+  --md3-on-primary-container: #21005D;
+  --md3-secondary: #625B71;
+  --md3-secondary-container: #E8DEF8;
+  --md3-tertiary: #7D5260;
+  --md3-surface: #FEF7FF;
+  --md3-surface-variant: #E7E0EC;
+  
+  /* Elevation - Simplified (0-5) */
+  --md3-elevation-1: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+  --md3-elevation-2: 0 1px 2px rgba(0,0,0,0.3), 0 2px 6px 2px rgba(0,0,0,0.15);
+  --md3-elevation-3: 0 1px 3px rgba(0,0,0,0.3), 0 4px 8px 3px rgba(0,0,0,0.15);
+  
+  /* Shape */
+  --md3-shape-corner-small: 8px;
+  --md3-shape-corner-medium: 12px;
+  --md3-shape-corner-large: 16px;
+  --md3-shape-corner-extra-large: 28px;
+}
+```
 
-### Shape
-Use a named shape scale from small corners on fields to larger corners on containers/dialogs. Pills are appropriate for selected component families, not every component.
+## Typography
 
-### Elevation and surfaces
-Use a small named elevation ladder. Elevation should communicate that a surface is above another surface or is an active floating layer. Do not create arbitrary shadows for each element.
+### M2 Typography Scale (13 styles)
+```css
+/* Display */
+h1 { font: 96/116% Roboto, sans-serif; font-weight: 300; }
+h2 { font: 60/72% Roboto, sans-serif; font-weight: 300; }
+h3 { font: 48/56% Roboto, sans-serif; font-weight: 400; }
+h4 { font: 34/42% Roboto, sans-serif; font-weight: 400; }
+h5 { font: 24/32% Roboto, sans-serif; font-weight: 400; }
+h6 { font: 20/28% Roboto, sans-serif; font-weight: 500; }
 
-### State layers
-Hover, focus, pressed, dragged and selected states may use bounded overlays or color changes. These layers must not reduce text/icon readability.
+/* Body */
+.subtitle1 { font: 16/28% Roboto, sans-serif; font-weight: 400; }
+.subtitle2 { font: 14/24% Roboto, sans-serif; font-weight: 500; }
+.body1 { font: 16/28% Roboto, sans-serif; font-weight: 400; }
+.body2 { font: 14/24% Roboto, sans-serif; font-weight: 400; }
 
-## Component rules
-Core families must have anatomy + states + responsive behavior + accessibility behavior documented in `components.md`:
+/* Other */
+.button { font: 14/14% Roboto, sans-serif; font-weight: 500; text-transform: uppercase; }
+.caption { font: 12/20% Roboto, sans-serif; font-weight: 400; }
+.overline { font: 10/16% Roboto, sans-serif; font-weight: 500; text-transform: uppercase; }
+```
 
-- Buttons: filled, outlined, tonal, text, icon, FAB.
-- Fields: text, search, multiline, validation/helper states.
-- Selection: checkbox, radio, switch, segmented control, chips.
-- Containers: card, list, surface, dialog, sheet.
-- Navigation: bar, rail, drawer, tabs.
-- Feedback: snackbar, banner, alert, progress, loading, skeleton.
-- Data: list, table, data grid, pagination, filters, empty/error states.
-- Menus: menu, submenu, popup/context actions.
+### M3 Typography Scale (15 styles)
+```css
+/* Display */
+.display-large { font: 57/64% Roboto, sans-serif; font-weight: 400; }
+.display-medium { font: 45/52% Roboto, sans-serif; font-weight: 400; }
+.display-small { font: 36/44% Roboto, sans-serif; font-weight: 400; }
 
-## Interaction state contract
-Every interactive component defines at minimum:
+/* Headline */
+.headline-large { font: 32/40% Roboto, sans-serif; font-weight: 400; }
+.headline-medium { font: 28/36% Roboto, sans-serif; font-weight: 400; }
+.headline-small { font: 24/32% Roboto, sans-serif; font-weight: 400; }
 
-`default → hover(pointer only) → focus-visible → pressed → selected/checked → disabled`
+/* Title */
+.title-large { font: 22/28% Roboto, sans-serif; font-weight: 400; }
+.title-medium { font: 16/24% Roboto, sans-serif; font-weight: 500; }
+.title-small { font: 14/20% Roboto, sans-serif; font-weight: 500; }
 
-and adds `loading`, `error`, `success`, `dragged`, `expanded`, or `read-only` when applicable.
+/* Body */
+.body-large { font: 16/24% Roboto, sans-serif; font-weight: 400; }
+.body-medium { font: 14/20% Roboto, sans-serif; font-weight: 400; }
+.body-small { font: 12/16% Roboto, sans-serif; font-weight: 400; }
 
-Critical information must never exist only in hover, elevation, or color.
+/* Label */
+.label-large { font: 14/20% Roboto, sans-serif; font-weight: 500; }
+.label-medium { font: 12/16% Roboto, sans-serif; font-weight: 500; }
+.label-small { font: 11/16% Roboto, sans-serif; font-weight: 500; }
+```
 
-## Adaptive behavior
-Use compact/medium/expanded layouts and task-driven breakpoints. Examples include navigation bar↔rail↔drawer, single-column↔multi-column, side panel↔sheet, and inline actions↔overflow menu. Preserve semantic and task order when layout changes.
+## Motion & Easing
 
-## Fallback behavior
-Material must remain usable when advanced elevation, state-layer, shadow, motion, or renderer-specific capabilities are unavailable. The fallback is a simpler opaque surface with explicit outline/border, semantic color roles, readable typography, and native controls. Loss of elevation must not remove focus, selection, error, or enabled-state meaning. On constrained or unsupported renderers, prefer flat surfaces and deterministic borders over emulating unsupported effects.
+### Easing Curves
+```css
+/* Standard (default for most animations) */
+--md-easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
 
-## Accessibility
-Material implementations must test contrast, focus visibility, target size, keyboard traversal, screen-reader names, dialog focus management, text scaling, localization, RTL, reduced motion, forced-colors/high-contrast equivalents where relevant, and error association.
+/* Decelerate (entering screen) */
+--md-easing-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
 
-## Performance
-Prefer framework primitives and semantic native controls. Bound elevation, blur, and animation costs. Avoid a page full of simultaneously animated or heavily elevated elements.
+/* Accelerate (exiting screen) */
+--md-easing-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
 
-## Cross-platform policy
-Do not demand pixel-identical rendering across HTML/CSS, React, Flutter, or React Native. Demand **semantic equivalence and recognizable material behavior**. Renderer-specific differences are acceptable when roles, hierarchy, states, interaction, accessibility, and responsive intent remain equivalent.
+/* Sharp (quick movements) */
+--md-easing-sharp: cubic-bezier(0.4, 0.0, 0.6, 1);
+```
 
-## Anti-patterns
-- “Purple rounded UI” presented as Material without component behavior.
-- Elevation on every surface.
-- Custom-painted controls that discard native semantics.
-- Hover-only information on mobile-capable products.
-- Fixed desktop coordinates that collapse at compact widths.
-- State-layer opacity that makes labels unreadable.
+### Duration
+```css
+/* Short: 150ms - small elements, micro-interactions */
+--md-duration-short: 150ms;
+
+/* Medium: 300ms - default for most animations */
+--md-duration-medium: 300ms;
+
+/* Long: 500ms - large elements, page transitions */
+--md-duration-long: 500ms;
+```
+
+### Usage Examples
+```css
+/* Button hover */
+.md-button {
+  transition: background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Card enter animation */
+.md-card {
+  animation: card-enter 300ms cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+/* FAB press */
+.md-fab:active {
+  transition: transform 150ms cubic-bezier(0.4, 0.0, 1, 1);
+}
+```
+
+## Components
+Xem components.md
+
+## Platforms
+Xem platforms.md
+
+## Common Pitfalls
+- Mixing M2 and M3 tokens in same component
+- Using wrong elevation level for context
+- Ignoring motion/easing standards
+- Not testing dark mode compatibility
