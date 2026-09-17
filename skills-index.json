@@ -1,0 +1,131 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-09-17",
+  "description": "UI Morphism Design Skills - Collection of UI design system skills for AI agents",
+  "skills": [
+    {
+      "id": "aurora-ui",
+      "name": "Aurora UI",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Gradient-based ethereal UI style with flowing colors",
+      "tags": ["gradient", "ethereal", "modern", "colorful"]
+    },
+    {
+      "id": "bento-ui",
+      "name": "Bento UI",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Grid-based modular UI inspired by Japanese bento boxes",
+      "tags": ["grid", "modular", "japanese", "clean"]
+    },
+    {
+      "id": "claymorphism",
+      "name": "Claymorphism",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "3D clay-like UI with soft shadows and rounded corners",
+      "tags": ["3d", "clay", "soft", "rounded", "neumorphism-variant"]
+    },
+    {
+      "id": "flat-design",
+      "name": "Flat Design",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Minimalist 2D design with bold colors and simple shapes",
+      "tags": ["minimal", "2d", "bold", "simple"]
+    },
+    {
+      "id": "glassmorphism",
+      "name": "Glassmorphism",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Translucent glass-like UI with blur effects and subtle borders",
+      "tags": ["glass", "blur", "translucent", "modern"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
+    },
+    {
+      "id": "liquid-glass",
+      "name": "Liquid Glass",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Fluid glass-like UI with organic shapes and gradients",
+      "tags": ["liquid", "glass", "organic", "gradient"]
+    },
+    {
+      "id": "material-design",
+      "name": "Material Design",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Google's Material Design system (M2 & M3)",
+      "tags": ["google", "material", "comprehensive", "m2", "m3"],
+      "hasElevation": true,
+      "hasVersioning": true,
+      "hasQualityGate": true
+    },
+    {
+      "id": "neobrutalism",
+      "name": "Neobrutalism",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Bold, raw, anti-design aesthetic with high contrast",
+      "tags": ["brutalism", "bold", "raw", "contrast"]
+    },
+    {
+      "id": "neumorphism",
+      "name": "Neumorphism",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Soft extruded plastic look with light/shadow play",
+      "tags": ["soft", "plastic", "shadow", "emboss", "deboss"],
+      "hasQualityGate": true,
+      "hasAgentPrompt": true,
+      "hasAccessibility": true
+    },
+    {
+      "id": "skeuomorphism",
+      "name": "Skeuomorphism",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Realistic textures mimicking physical objects",
+      "tags": ["realistic", "texture", "physical", "detailed"]
+    },
+    {
+      "id": "swiss-editorial",
+      "name": "Swiss Editorial",
+      "version": "1.0.0",
+      "status": "active",
+      "description": "Clean typography-driven editorial design",
+      "tags": ["typography", "editorial", "swiss", "clean", "grid"]
+    }
+  ],
+  "structure": {
+    "requiredFiles": [
+      "SKILL.md",
+      "components.md",
+      "platforms.md",
+      "example.css",
+      "example.tsx"
+    ],
+    "optionalFiles": [
+      "example.flutter.dart",
+      "example.native.tsx",
+      "quality-gate.md",
+      "agent-prompt.md",
+      "accessibility.md",
+      "elevation.md",
+      "versioning.md",
+      "pitfalls.md"
+    ]
+  },
+  "qualityStandards": {
+    "corePrinciples": "< 300 words",
+    "designTokens": "Required (color, spacing, radius, etc.)",
+    "components": "5+ with code examples",
+    "platforms": "2+ (web, mobile, Flutter)",
+    "accessibility": "Required section",
+    "evaluationCriteria": "Required for agent validation"
+  }
+}
